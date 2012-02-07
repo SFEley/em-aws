@@ -6,18 +6,13 @@ require "em-aws/query"
 module EventMachine
   module AWS
     
-    # Global configuration (trickles down to all submodules)
+    # Default values
+    @region = 'us-east-1'
+    @ssl = true
+    
+    # Global configuration (trickles down to all query classes)
     class << self
-    	attr_accessor :aws_access_key_id, :aws_secret_access_key
-    	attr_writer   :region, :ssl
-    	
-    	def region
-    	  @region ||= 'us-east-1'
-  	  end
-  	  
-  	  def ssl
-  	    @ssl ||= true
-	    end
+    	attr_accessor :aws_access_key_id, :aws_secret_access_key, :region, :ssl
     end
 
     # Don't load any services we don't need

@@ -10,6 +10,7 @@ describe EventMachine::AWS::SNS do
   it_behaves_like "an AWS Query"
 
   it "can create a topic" do
+    pending
     done = false
     subject.create_topic(name: @test_topic) do |response|
       response['TopicArn'].should =~ /^arn:aws:sns:.*#{@test_topic}$/
