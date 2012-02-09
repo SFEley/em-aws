@@ -18,6 +18,10 @@ describe EventMachine::AWS do
   it "defaults to SSL being true" do
     EventMachine::AWS.ssl.should == true
   end
+  
+  it "retries 10 times by default" do
+    EventMachine::AWS.retries.should == 10
+  end
 
 end
 

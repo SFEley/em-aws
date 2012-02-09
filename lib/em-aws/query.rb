@@ -1,9 +1,9 @@
-require 'fiber'
 require 'em-http'
 require 'em-aws/inflections'
 require 'em-aws/query/signature_v2'
-require 'em-aws/query/response'
-require 'em-aws/query/response_parser'
+require 'em-aws/query/request'
+require 'em-aws/query/success_response'
+require 'em-aws/query/error_response'
 
 module EventMachine
   module AWS
@@ -51,7 +51,6 @@ module EventMachine
       end
 
       def call(action, params = {}, &block)
-        
         query = {
           'Action' => camelcase(action), 
           'Version' => self.class::API_VERSION,
@@ -60,29 +59,31 @@ module EventMachine
         query.merge! camelkeys(params)
         query.merge! @signer.signature(query) if @signer
 
-        send_request(query, &block)
+        request = Request.new(self, query)
+        send_request(request, &block)
       end
       
       protected
       
-      def send_request(params, &block)
+      def send_request(request, &block)
         if method == :get
-          request = EventMachine::HttpRequest.new(endpoint).get query: params
+          http_request = EventMachine::HttpRequest.new(endpoint).get query: request.params
         else
-          request = EventMachine::HttpRequest.new(endpoint).send method, body: params
+          http_request = EventMachine::HttpRequest.new(endpoint).send method, body: request.params
         end
-        request.errback do |raw_response|
+
+        http_request.errback do |raw_response|
           puts raw_response.response_header
           puts raw_response.response
         end
         
         if block
-          request.callback do |raw_response|
+          http_request.callback do |raw_response|
             # raw_response is the object returned by EM::HttpClient.
-            block.call Response.new(raw_response)
+            block.call SuccessResponse.new(raw_response)
           end
         end
-        request
+        http_request
       end
       
     end
