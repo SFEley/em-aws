@@ -4,7 +4,7 @@ require 'base64'
 
 module EventMachine
   module AWS
-    class Query
+    module Query
       
       # Encapsulates the logic to add authentication attributes to AWS requests.
       class SignatureV2

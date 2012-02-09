@@ -7,8 +7,8 @@ shared_examples "an AWS Response" do
     subject.status.should == 200
   end
   
-  it "retains the raw XML" do
-    subject.xml.should == DummyHttpResponse.new.response
+  it "retains the raw result" do
+    subject.body.should == DummyHttpResponse.new.response
   end
   
 end

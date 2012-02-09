@@ -151,7 +151,7 @@ shared_examples "an AWS Query" do
           @response = resp
         end
       end
-      @response.should be_an(EM::AWS::Query::Response)
+      @response.should be_an(EM::AWS::Response)
       @response.answer_one.should == 'foo'
     end
     

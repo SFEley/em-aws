@@ -1,55 +1,27 @@
 require 'em-http'
 require 'em-aws/inflections'
+require 'em-aws/request'
 require 'em-aws/query/signature_v2'
-require 'em-aws/query/request'
-require 'em-aws/query/success_response'
-require 'em-aws/query/error_response'
+require 'em-aws/query/query_result'
+require 'em-aws/query/query_error'
 
 module EventMachine
   module AWS
     
-    # Wraps an instance of EM::HttpRequest and applies logic to sign requests, perform retries, and
-    # extract parameters from the response.
-    class Query
+    # Plugs in the proper signing functions and call functionality for the Amazon Query Protocol.
+    # Almost every Amazon service (with the exception of S3) uses this protocol.
+    module Query
       API_VERSION = nil   # Subclasses should override this
-      SIGNER_CLASS = SignatureV2
-      
       include Inflections
       
-      attr_reader :aws_access_key_id,
-                  :aws_secret_access_key,
-                  :region,
-                  :ssl,
-                  :method,
-                  :options
+      attr_reader :method
       
       def initialize(options = {})
+        super
         @method = options.delete(:method) || :post
-        @region = options.delete(:region) || EventMachine::AWS.region
-        if options.has_key?(:ssl)
-          @ssl = options.delete(:ssl)
-        else
-          @ssl = EventMachine::AWS.ssl
-        end
-        @endpoint = options.delete(:endpoint)
-        @options = options
-        @connection = EM::HttpRequest.new(endpoint)
-        
-        # Make an authenticator class only if credentials are given
-        @aws_access_key_id = options.delete(:aws_access_key_id) || EventMachine::AWS.aws_access_key_id
-        @aws_secret_access_key = options.delete(:aws_secret_access_key) || EventMachine::AWS.aws_secret_access_key
-        @signer = self.class::SIGNER_CLASS.new(aws_access_key_id, aws_secret_access_key, method, endpoint) if aws_access_key_id && aws_secret_access_key
-
+        @signer = SignatureV2.new(aws_access_key_id, aws_secret_access_key, method, endpoint) if aws_access_key_id && aws_secret_access_key
       end
       
-      def service
-        self.class.name[/.*::(?<class>.+)/, :class].downcase
-      end
-      
-      def endpoint
-        @endpoint ||= "#{ssl ? 'https' : 'http'}://#{service}.#{region}.amazonaws.com/"
-      end
-
       def call(action, params = {}, &block)
         query = {
           'Action' => camelcase(action), 
@@ -59,31 +31,14 @@ module EventMachine
         query.merge! camelkeys(params)
         query.merge! @signer.signature(query) if @signer
 
-        request = Request.new(self, query)
+        request = Request.new(self, method, query)
         send_request(request, &block)
       end
       
-      protected
-      
-      def send_request(request, &block)
-        if method == :get
-          http_request = EventMachine::HttpRequest.new(endpoint).get query: request.params
-        else
-          http_request = EventMachine::HttpRequest.new(endpoint).send method, body: request.params
-        end
-
-        http_request.errback do |raw_response|
-          puts raw_response.response_header
-          puts raw_response.response
-        end
-        
-        if block
-          http_request.callback do |raw_response|
-            # raw_response is the object returned by EM::HttpClient.
-            block.call SuccessResponse.new(raw_response)
-          end
-        end
-        http_request
+      # Returns an instance of Query::SuccessResponse with the XML from the
+      # results parsed into regular attributes.
+      def success_response(raw_response)
+        Query::SuccessResponse.new raw_response
       end
       
     end

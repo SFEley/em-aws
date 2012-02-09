@@ -1,6 +1,6 @@
 require "eventmachine"
 require "em-aws/version"
-require "em-aws/query"
+require "em-aws/service"
 
 
 module EventMachine
