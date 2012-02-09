@@ -38,7 +38,7 @@ module EventMachine
       # Returns an instance of Query::SuccessResponse with the XML from the
       # results parsed into regular attributes.
       def success_response(raw_response)
-        Query::SuccessResponse.new raw_response
+        QueryResult.new raw_response
       end
       
     end
