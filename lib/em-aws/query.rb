@@ -1,5 +1,9 @@
+require 'fiber'
 require 'em-http'
-require 'em-aws/protocol/signature_v2'
+require 'em-aws/inflections'
+require 'em-aws/query/signature_v2'
+require 'em-aws/query/response'
+require 'em-aws/query/response_parser'
 
 module EventMachine
   module AWS
@@ -8,11 +12,12 @@ module EventMachine
     # extract parameters from the response.
     class Query
       API_VERSION = nil   # Subclasses should override this
-      SIGNER_CLASS = AWS::SignatureV2
+      SIGNER_CLASS = SignatureV2
+      
+      include Inflections
       
       attr_reader :aws_access_key_id,
                   :aws_secret_access_key,
-                  :connection,
                   :region,
                   :ssl,
                   :method,
@@ -46,6 +51,7 @@ module EventMachine
       end
 
       def call(action, params = {}, &block)
+        
         query = {
           'Action' => camelcase(action), 
           'Version' => self.class::API_VERSION,
@@ -53,32 +59,30 @@ module EventMachine
           }
         query.merge! camelkeys(params)
         query.merge! @signer.signature(query) if @signer
-        if method == :get
-          connection.get query: query
-        else
-          connection.send method, body: query
-        end
+
+        send_request(query, &block)
       end
       
       protected
       
-      def snakecase(name)
-        # Adapted from ActiveSupport's #underscore method
-        name.to_s.gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').gsub(/([a-z\d])([A-Z])/,'\1_\2').downcase
-      end
-      
-      def camelcase(name)
-        # Adapted from ActiveSupport's #camelize method
-        name.to_s.gsub(/(?:^|_)(.)/) { $1.upcase }
-      end
-      
-      # Camelize key names for Amazon conventions 
-      def camelkeys(hash)
-        out = {}
-        hash.each do |k, v|
-          out[camelcase(k)] = v
+      def send_request(params, &block)
+        if method == :get
+          request = EventMachine::HttpRequest.new(endpoint).get query: params
+        else
+          request = EventMachine::HttpRequest.new(endpoint).send method, body: params
         end
-        out
+        request.errback do |raw_response|
+          puts raw_response.response_header
+          puts raw_response.response
+        end
+        
+        if block
+          request.callback do |raw_response|
+            # raw_response is the object returned by EM::HttpClient.
+            block.call Response.new(raw_response)
+          end
+        end
+        request
       end
       
     end

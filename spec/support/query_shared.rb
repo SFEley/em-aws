@@ -137,6 +137,24 @@ shared_examples "an AWS Query" do
         'AWSAccessKeyId' => 'FAKE_KEY'
       }))
     end
-      
   end
+  
+  context "handling responses", :mock do
+    before(:each) do
+      stub_request(:post, subject.endpoint).to_return(status: 200, body: '<DummyActionResponse xmlns="http://example.org/2012-02-07/"><DummyActionResult><AnswerOne>foo</AnswerOne><AnswerTwo>17</AnswerTwo></DummyActionResult><ResponseMetadata><RequestId>a8dec82-89298b-83cef-9123-389aa</RequestId></ResponseMetadata></DummyActionResponse>')
+      @response = nil
+    end
+    
+    it "takes a block for a callback" do
+      event do
+        subject.call :dummy_action do |resp|
+          @response = resp
+        end
+      end
+      @response.should be_an(EM::AWS::Query::Response)
+      @response.answer_one.should == 'foo'
+    end
+    
+  end
+
 end

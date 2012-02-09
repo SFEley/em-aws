@@ -2,8 +2,8 @@
 
 require_relative '../../spec_helper'
 
-describe EventMachine::AWS::SignatureV2 do
-  subject {EventMachine::AWS::SignatureV2.new 'FAKE_KEY', 'FAKE_SECRET', :post, "http://dummy.us-east-1.amazonwebservices.com/some_path/"}
+describe EventMachine::AWS::Query::SignatureV2 do
+  subject {EventMachine::AWS::Query::SignatureV2.new 'FAKE_KEY', 'FAKE_SECRET', :post, "http://dummy.us-east-1.amazonwebservices.com/some_path/"}
   
   before(:each) do
     @params = {
