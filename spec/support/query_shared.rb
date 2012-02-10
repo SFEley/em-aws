@@ -137,6 +137,21 @@ shared_examples "an AWS Query" do
         'AWSAccessKeyId' => 'FAKE_KEY'
       }))
     end
+    
+    it "supports dynamic method calls" do
+      event {subject.dummy_action this_thing: "is dynamic!"}
+      WebMock.should have_requested(:post, subject.endpoint).with(body: hash_including({
+        'ThisThing' => 'is dynamic!', 
+        'Action' => 'DummyAction'}))
+    end
+    
+    it "is synchronous if EM isn't running" do
+      subject.dummy_action now_this: "is synchronous!"
+      WebMock.should have_requested(:post, subject.endpoint).with(body: hash_including({
+        'NowThis' => 'is synchronous!', 
+        'Action' => 'DummyAction'}))
+    end
+      
   end
   
   context "handling responses", :mock do
@@ -153,6 +168,19 @@ shared_examples "an AWS Query" do
       end
       @response.should be_an(EM::AWS::Response)
       @response.answer_one.should == 'foo'
+    end
+    
+    it "returns the request when called within EventMachine" do
+      litmus = nil
+      event {litmus = subject.dummy_action}
+      litmus.should be_an(EM::AWS::Request)
+      litmus.response.answer_one.should == 'foo'
+    end
+    
+    it "returns the response when called synchronously" do
+      litmus = subject.dummy_action zoo: 'zar'
+      litmus.should be_an(EM::AWS::Response)
+      litmus['AnswerTwo'].should == 17
     end
     
   end

@@ -19,6 +19,8 @@ module EventMachine
     # Don't load any services we don't need
     autoload :SNS, 'em-aws/sns'
     autoload :SQS, 'em-aws/sqs'
+    
+    class Error < StandardError; end
 
   end
 end

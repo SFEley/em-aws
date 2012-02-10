@@ -18,6 +18,7 @@ module EventMachine
         @attempts = 0
         
         self.callback {|r| @response = r}
+        self.errback {|r| @response = r}
       end
       
       def [](key)
@@ -32,5 +33,6 @@ module EventMachine
         response && response.success?
       end
     end
+    
   end
 end

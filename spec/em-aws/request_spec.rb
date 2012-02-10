@@ -45,9 +45,33 @@ describe EventMachine::AWS::Request do
     it "knows its response" do
       subject.response.should == @response
     end
+    
+    it "invokes any callback routines" do
+      litmus = nil
+      event {subject.callback {|r| litmus = r}}
+      litmus.dummy_value.should == 'Garbonzo!'
+    end
   end
   
   context "on failed response" do
+    before(:each) do
+      @response = EventMachine::AWS::Query::QueryFailure.new DummyHttpError.new
+      event {subject.fail @response}
+    end
+    
+    it {should be_finished}
+    
+    it {should_not be_success}
+    
+    it "knows its response" do
+      subject.response.should == @response
+    end
+    
+    it "invokes any errback routines" do
+      litmus = nil
+      event {subject.errback {|r| litmus = r}}
+      litmus.code.should == 'DummyFailure'
+    end
     
   end
 end

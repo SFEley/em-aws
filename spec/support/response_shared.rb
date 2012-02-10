@@ -4,11 +4,11 @@ shared_examples "an AWS Response" do
   end
   
   it "knows its status" do
-    subject.status.should == 200
+    subject.status.should == @response.response_header.status
   end
   
   it "retains the raw result" do
-    subject.body.should == DummyHttpResponse.new.response
+    subject.body.should == @response.response
   end
   
 end

@@ -55,13 +55,14 @@ module EventMachine
           puts raw_response.response
         end
         
-        if block
-          http_request.callback do |raw_response|
-            # raw_response is the object returned by EM::HttpClient.
-            block.call success_response(raw_response)
+        http_request.callback do |raw_response|
+          if raw_response.response_header.status == 200
+            request.succeed success_response(raw_response)
+          else
+            request.fail failure_response(raw_response)
           end
         end
-        http_request
+        request
       end
       
     end

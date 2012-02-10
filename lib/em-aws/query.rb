@@ -3,7 +3,7 @@ require 'em-aws/inflections'
 require 'em-aws/request'
 require 'em-aws/query/signature_v2'
 require 'em-aws/query/query_result'
-require 'em-aws/query/query_error'
+require 'em-aws/query/query_failure'
 
 module EventMachine
   module AWS
@@ -32,15 +32,34 @@ module EventMachine
         query.merge! @signer.signature(query) if @signer
 
         request = Request.new(self, method, query)
-        send_request(request, &block)
+        request.callback(&block) if block
+        
+        send_request(request)
       end
       
-      # Returns an instance of Query::SuccessResponse with the XML from the
+      # Returns an instance of QueryResult with the XML from the
       # results parsed into regular attributes.
       def success_response(raw_response)
         QueryResult.new raw_response
       end
       
+      # Returns an instance of QueryFailure with the relevant error information from Amazon.
+      def failure_response(raw_response)
+        QueryFailure.new raw_response
+      end
+      
+      def method_missing(name, *args, &block)
+        if EventMachine.reactor_running?
+          call name, *args, &block
+        else
+          request = nil
+          EventMachine.run do
+            request = call name, *args, &block
+            EventMachine.stop
+          end
+          request.response
+        end
+      end
     end
   end
 end

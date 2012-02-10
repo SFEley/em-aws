@@ -7,7 +7,7 @@ class DummyHttpResponse
   end
   def response
     <<-ENDRESPONSE
-<DummyActionResponse xmlns="http://dummy.amazonaws.com/doc/2010-03-31/">
+<DummyActionResponse xmlns="http://dummy.amazonaws.com/doc/NO-VERSION/">
   <DummyActionResult>
     <DummyValue>Garbonzo!</DummyValue>
     <Topics>

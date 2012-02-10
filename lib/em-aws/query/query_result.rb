@@ -1,46 +1,18 @@
-require 'em-aws/inflections'
+require 'nokogiri'
 require 'em-aws/response'
-require 'em-aws/query/result_parser'
+require 'em-aws/query/query_response'
 
 module EventMachine
   module AWS
     module Query
-  
-      class QueryResult < SuccessResponse
-        include Inflections
-      
-        attr_reader :result, :metadata
-    
-        def initialize(http_response)
-          super
-          @result, @metadata = {}, {}
-          parse @body unless @body.empty?
-        end
         
-        # Returns the specified key from the inner 'SomeActionResults' data.
-        def [](val)
-          @result[val] || @result[symbolize(val)]
-        end
-    
+      class QueryResult < SuccessResponse
+        include QueryResponse
+        
         def action
           metadata[:action]
         end
-    
-        def request_id
-          metadata[:request_id]
-        end
-    
-        def method_missing(name, *args, &block)
-          @result[name] or super
-        end
-    
-        protected
-    
-        def parse(xml)
-          parser = Nokogiri::XML::SAX::Parser.new ResultParser.new(@result, @metadata)
-          parser.parse xml
-        end
-    
+
       end
     end
   end
