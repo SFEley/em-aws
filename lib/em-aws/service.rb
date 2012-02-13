@@ -51,8 +51,7 @@ module EventMachine
         end
 
         http_request.errback do |raw_response|
-          puts raw_response.response_header
-          puts raw_response.response
+          request.fail FailureResponse.new(raw_response)
         end
         
         http_request.callback do |raw_response|

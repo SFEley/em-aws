@@ -1,6 +1,11 @@
 require_relative 'spec_helper'
 
 describe EventMachine::AWS do
+  before(:each) do
+    @original_access_key = EventMachine::AWS.aws_access_key_id
+    @original_secret_key = EventMachine::AWS.aws_secret_access_key
+  end
+  
   it "lets you specify a global Access Key" do
     EventMachine::AWS.aws_access_key_id = 'BlahBlah'
     EventMachine::AWS.aws_access_key_id.should == 'BlahBlah'
@@ -23,5 +28,10 @@ describe EventMachine::AWS do
     EventMachine::AWS.retries.should == 10
   end
 
+  after(:each) do
+    EventMachine::AWS.aws_access_key_id = @original_access_key
+    EventMachine::AWS.aws_secret_access_key = @original_secret_key
+  end
+    
 end
 

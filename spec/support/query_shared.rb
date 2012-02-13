@@ -102,21 +102,25 @@ shared_examples "an AWS Query" do
     end      
     
     it "doesn't sign if no access key was given" do
+      @original_access_key = EM::AWS.aws_access_key_id
       EM::AWS.aws_access_key_id = nil
       this = subject.class.new
       event {this.call :dummy_action}
       WebMock.should_not have_requested(:post, @url).with(body: hash_including({
         'SignatureVersion' => '2'
       }))
+      EM::AWS.aws_access_key_id = @original_access_key
     end
 
     it "doesn't sign if no secret key was given" do
+      @original_secret_key = EM::AWS.aws_secret_access_key
       EM::AWS.aws_secret_access_key = nil
       this = subject.class.new
       event {this.call :dummy_action}
       WebMock.should_not have_requested(:post, @url).with(body: hash_including({
         'SignatureVersion' => '2'
       }))
+      EM::AWS.aws_secret_access_key = @original_secret_key
     end
       
     it "signs the request if an access key is available" do
@@ -183,6 +187,10 @@ shared_examples "an AWS Query" do
       litmus['AnswerTwo'].should == 17
     end
     
+    it "raises an exception when called synchronously" do
+      stub_request(:post, subject.endpoint).to_return(status: 400, body: DummyHttpError.new.response)
+      ->{subject.dummy_action floo: 'flar'}.should raise_error(EM::AWS::Query::QueryError, /DummyFailure/)
+    end
   end
 
 end

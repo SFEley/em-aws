@@ -11,7 +11,7 @@ module EventMachine
         include QueryResponse
         
         def [](val)
-          super or raise exception, exception.message
+          super or exception!
         end
         
         def error
@@ -22,8 +22,12 @@ module EventMachine
           QueryError.new(status, @result[:code], @result[:message])
         end
         
+        def exception!
+          raise exception, exception.message
+        end
+        
         def method_missing(name, *args, &block)
-          @result[name] or raise exception, exception.message
+          @result[name] or exception!
         end
           
       end

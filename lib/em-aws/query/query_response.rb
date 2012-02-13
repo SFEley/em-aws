@@ -29,7 +29,11 @@ module EventMachine
         end
     
         def method_missing(name, *args, &block)
-          @result[name] or super
+          if @result.has_key? name   # Make sure nil values are returned correctly
+            @result[name] 
+          else
+            super
+          end
         end
     
         protected

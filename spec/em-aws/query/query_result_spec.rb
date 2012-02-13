@@ -47,5 +47,9 @@ describe EventMachine::AWS::Query::QueryResult do
     subject.attributes['SomeNum'].should == 22.500
   end
   
+  it "returns an empty value on dynamic method calls instead of failing" do
+    subject.empty_value.should == nil
+  end
+  
   
 end

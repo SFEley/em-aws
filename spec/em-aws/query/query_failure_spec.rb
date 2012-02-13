@@ -10,7 +10,6 @@ describe EventMachine::AWS::Query::QueryFailure do
   it_behaves_like "an AWS Response"
   
   it "knows its request ID" do
-    puts subject.metadata
     subject.request_id.should == 'f75889c3-520e-11e1-9f63-79e70d4e1f28'
   end
   
@@ -24,6 +23,14 @@ describe EventMachine::AWS::Query::QueryFailure do
   
   it "knows its error message" do
     subject.message.should == 'This is a test failure.'
+  end
+  
+  it "has an exception that can be raised" do
+    subject.exception.should be_an(EventMachine::AWS::Query::QueryError)
+  end
+  
+  it "can raise itself!" do
+    ->{subject.exception!}.should raise_error(EventMachine::AWS::Query::QueryError, /DummyFailure/)
   end
   
   it "throws an exception when attempting to access any attributes" do

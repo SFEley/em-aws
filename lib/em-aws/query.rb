@@ -52,12 +52,13 @@ module EventMachine
         if EventMachine.reactor_running?
           call name, *args, &block
         else
-          request = nil
+          response = nil
           EventMachine.run do
             request = call name, *args, &block
-            EventMachine.stop
+            request.callback {|r| response = r; EventMachine.stop}
+            request.errback {|r| r.exception!}
           end
-          request.response
+          response
         end
       end
     end

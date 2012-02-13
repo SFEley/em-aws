@@ -5,7 +5,7 @@
 
 require "bundler/setup"
 require "em-aws"
-require "webmock/rspec"
+require "webmock/rspec" unless ENV['AWS_TEST_MODE'] == 'live'
 
 Dir[File.join File.dirname(__FILE__), 'support', '**', '*.rb'].each {|f| require f}
 
@@ -14,10 +14,24 @@ RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.run_all_when_everything_filtered = true
   # config.filter_run :focus
-  
-  config.before(:each) do
-    EventMachine::AWS.aws_access_key_id = 'FAKE_KEY'
-    EventMachine::AWS.aws_secret_access_key = 'FAKE_SECRET'
+
+
+  # Run in 'mock' or 'live' mode based on the AWS_TEST_MODE variable. (Defaults to 'mock.')
+  # If in live mode, the credentials must also be set in the environment.
+  if ENV['AWS_TEST_MODE'] == 'live'
+    config.filter_run_excluding mock: true
+    config.before(:all) do
+      EventMachine::AWS.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
+      EventMachine::AWS.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
+    end
+  else
+    config.filter_run_excluding live: true
+    WebMock.disable_net_connect!
+    config.before(:each) do
+      EventMachine::AWS.aws_access_key_id = 'FAKE_KEY'
+      EventMachine::AWS.aws_secret_access_key = 'FAKE_SECRET'
+    end
   end
+  
   config.include EventMachineHelper
 end

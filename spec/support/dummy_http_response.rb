@@ -10,6 +10,7 @@ class DummyHttpResponse
 <DummyActionResponse xmlns="http://dummy.amazonaws.com/doc/NO-VERSION/">
   <DummyActionResult>
     <DummyValue>Garbonzo!</DummyValue>
+    <EmptyValue/>
     <Topics>
       <member>
         <TopicArn>arn:aws:sns:us-east-1:429167422711:EM-AWS-Test-Topic</TopicArn>
