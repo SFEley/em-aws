@@ -22,9 +22,6 @@ module EventMachine
           QueryError.new(status, @result[:code], @result[:message])
         end
         
-        def exception!
-          raise exception, exception.message
-        end
         
         def method_missing(name, *args, &block)
           @result[name] or exception!

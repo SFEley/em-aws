@@ -49,6 +49,11 @@ module EventMachine
       def exception
         AWS::Error.new "Request failure: #{@error}"
       end
+      
+      def exception!
+        raise exception, exception.message
+      end
+      
     end
   end
 end
