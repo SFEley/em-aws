@@ -83,19 +83,38 @@ All request blocks are passed a **Response** object.  If the query succeeded (i.
 
 If the query failed (usually with a status in the 400s), the `errback` blocks are called.  The response is a subclass of **FailureResponse** and contains the error `:code` and `:message` returned by Amazon.  Attempting to reference other attributes raises an exception with the same information. 
                             
-## Miscellany ##
+## General Notes ##
+
+The following behavior is true for all AWS services:
 
 * **EM::AWS** uses HTTP POST by default for all Query Protocol calls. It is possible to override this by passing `method: :get` on service object initialization, but this will limit the amount of data that can be passed.
 * SSL is enabled by default. You can disable it globally with `EM::AWS.ssl = false` or locally by passing `ssl: false` on service object initialization.
 * XML response values that include lists of `<member>` elements will be flattened into arrays.
 * XML response values that include `<key>` and `<value>` pairs will be flattened into Ruby hashes.
-* Some services (e.g. SQS) allow you to set multiple attributes in a single call.  Passing a hash as the value of a query parameter will automatically expand to the appropriate `Attribute.1.Name`, `Attribute.1.Value`, etc. parameters.
-* Do not taunt Happy Fun Ball.
 * Network errors and Amazon HTTP 500 errors are automatically retried; the number of attempts can be set with the `EM::AWS.retries` attribute. (The default is 10.) 
 * The retry delay follows a Fibonacci sequence: the first two retries are 1 second apart, then 2 seconds, then 3, then 5, etc.  A full cycle of 10 retries thus takes 143 seconds. If the error is not resolved by that time, it will be returned as a **FailureResponse**.
 * If any query receives a `Throttling` response from Amazon, it will also be retried, and subsequent calls to the same service will be subject to a 1 second delay.  The delay will expire if two minutes pass without a throttling error.
 
+## SQS ##
 
+The Simple Queue Service behaves differently from most other Amazon services, in that most calls must be made to a _queue URL_ rather than a root path.  This must be supplied on initialization of the **EM::AWS::SQS** object.  If you already know the URL of the queue you want to work with, you can simply pass it with the `:url` parameter:
+
+    queue = EM::AWS::SQS.new url: 'https://sqs.us-east-1.amazonaws.com/1234567890/My-Interesting-Queue'
+    
+If you know a queue's name but not its URL, you can use the `.get` class method to call 'GetQueueUrl' and create the proper SQS object:
+
+    queue = EM::AWS::SQS.get 'My-Interesting-Queue'
+    
+You can also create a queue that doesn't exist yet using the `.create` class method, passing any optional attributes as a hash:
+
+    queue = EM::AWS::SQS.create 'My-Interesting-Queue', 
+        visibility_timeout: 120,
+        maximum_message_size: 8192
+
+(If a queue with that name already exists, the `.create` class method has the same net effect as `.get`, except that Amazon will return an error if you pass any attributes that are different from the ones already set.)
+
+
+      
 
     
     

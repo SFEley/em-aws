@@ -17,6 +17,7 @@ module EventMachine
                   :aws_secret_access_key,
                   :region,
                   :ssl,
+                  :path,
                   :options
       
       def initialize(options = {})
@@ -29,7 +30,7 @@ module EventMachine
         else
           @ssl = EventMachine::AWS.ssl
         end
-        @endpoint = options.delete(:endpoint)
+        @url = options.delete(:url)
         @options = options
       end
       
@@ -37,17 +38,17 @@ module EventMachine
         self.class.name[/.*::(?<class>.+)/, :class].downcase
       end
       
-      def endpoint
-        @endpoint ||= "#{ssl ? 'https' : 'http'}://#{service}.#{region}.amazonaws.com/"
+      def url
+        @url ||= "#{ssl ? 'https' : 'http'}://#{service}.#{region}.amazonaws.com/#{path}"
       end
       
-      protected
+      private
       
       def send_request(request, &block)
         if request.method == :get
-          http_request = EventMachine::HttpRequest.new(endpoint).get query: request.params
+          http_request = EventMachine::HttpRequest.new(self.url).get query: request.params
         else
-          http_request = EventMachine::HttpRequest.new(endpoint).send request.method, body: request.params
+          http_request = EventMachine::HttpRequest.new(self.url).send request.method, body: request.params
         end
 
         http_request.errback do |raw_response|

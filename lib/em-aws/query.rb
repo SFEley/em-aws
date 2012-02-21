@@ -19,7 +19,7 @@ module EventMachine
       def initialize(options = {})
         super
         @method = options.delete(:method) || :post
-        @signer = SignatureV2.new(aws_access_key_id, aws_secret_access_key, method, endpoint) if aws_access_key_id && aws_secret_access_key
+        @signer = SignatureV2.new(aws_access_key_id, aws_secret_access_key, method, url) if aws_access_key_id && aws_secret_access_key
       end
       
       def call(action, params = {}, &block)

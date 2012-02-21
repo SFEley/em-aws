@@ -19,6 +19,9 @@ class DummyHttpResponse
         <TopicArn>arn:aws:sns:us-east-1:429167422711:bigthink_alarms</TopicArn>
       </member>
     </Topics>
+    <PluralThing>17</PluralThing>
+    <PluralThing>hello</PluralThing>
+    <PluralThing>9.2</PluralThing>
     <Attributes>
       <entry>
         <key>Foo</key>

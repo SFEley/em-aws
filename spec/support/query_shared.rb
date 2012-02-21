@@ -5,7 +5,7 @@ shared_examples "an AWS Query" do
     end
   
     it "knows its endpoint" do
-      subject.endpoint.should =~ /^https:.*amazonaws\.com\/$/
+      subject.url.should =~ /^https:.*amazonaws\.com\//
     end
   
     it "defaults to the global region" do
@@ -26,15 +26,12 @@ shared_examples "an AWS Query" do
   
     it "computes the endpoint from the provided region and SSL settings" do
       this = new_subject(ssl: false, region: 'eu-west-1')
-      this.endpoint.should =~ /^http:/
-      if subject.endpoint =~ /us-east-1/
-        this.endpoint.should =~ /eu-west-1/
-      end
+      this.url.should =~ /^http:.*eu-west-1/
     end
   
     it "can override the endpoint" do
-      this = new_subject(endpoint: 'http://blahblah.org')
-      this.endpoint.should == 'http://blahblah.org'
+      this = new_subject(url: 'http://blahblah.org')
+      this.url.should == 'http://blahblah.org'
     end  
     
     it "defaults to the global AWS credentials" do
@@ -61,7 +58,7 @@ shared_examples "an AWS Query" do
   
   context "making requests", :mock do
     before(:each) do
-      @url = %r[#{subject.endpoint}.*]
+      @url = %r[#{subject.url}.*]
       @time = Time.at(1310243403)  # About 4:30 PM EDT on July 9, 2011
       Time.stub!(:now).and_return(@time)
       stub_request(:post, @url)
@@ -89,14 +86,14 @@ shared_examples "an AWS Query" do
       
     it "also passes any parameters" do
       event {subject.call :DummyAction, ThisThing: 'is cool!'}
-      WebMock.should have_requested(:post, subject.endpoint).with(body: hash_including({
+      WebMock.should have_requested(:post, subject.url).with(body: hash_including({
         'ThisThing' => 'is cool!', 
         'Action' => 'DummyAction'}))
     end
     
     it "fixes the capitalization on Ruby-style actions and symbols" do
       event {subject.call :dummy_action, this_thing: 'is cool!'}
-      WebMock.should have_requested(:post, subject.endpoint).with(body: hash_including({
+      WebMock.should have_requested(:post, subject.url).with(body: hash_including({
         'ThisThing' => 'is cool!', 
         'Action' => 'DummyAction'}))
     end      
@@ -125,7 +122,7 @@ shared_examples "an AWS Query" do
       
     it "signs the request if an access key is available" do
       event {subject.call(:dummy_action)}
-      WebMock.should have_requested(:post, subject.endpoint).with(body: hash_including({
+      WebMock.should have_requested(:post, subject.url).with(body: hash_including({
         'SignatureVersion' => '2',
         'SignatureMethod' => 'HmacSHA256',
         'AWSAccessKeyId' => 'FAKE_KEY'}))
@@ -135,7 +132,7 @@ shared_examples "an AWS Query" do
       stub_request :get, @url
       this = subject.class.new method: :get
       event {this.call :dummy_action, some_param: 'foo'}
-      WebMock.should have_requested(:get, subject.endpoint).with(query: hash_including({
+      WebMock.should have_requested(:get, subject.url).with(query: hash_including({
         'Action' => 'DummyAction',
         'SomeParam' => 'foo',
         'AWSAccessKeyId' => 'FAKE_KEY'
@@ -144,14 +141,14 @@ shared_examples "an AWS Query" do
     
     it "supports dynamic method calls" do
       event {subject.dummy_action this_thing: "is dynamic!"}
-      WebMock.should have_requested(:post, subject.endpoint).with(body: hash_including({
+      WebMock.should have_requested(:post, subject.url).with(body: hash_including({
         'ThisThing' => 'is dynamic!', 
         'Action' => 'DummyAction'}))
     end
     
     it "is synchronous if EM isn't running" do
       subject.dummy_action now_this: "is synchronous!"
-      WebMock.should have_requested(:post, subject.endpoint).with(body: hash_including({
+      WebMock.should have_requested(:post, subject.url).with(body: hash_including({
         'NowThis' => 'is synchronous!', 
         'Action' => 'DummyAction'}))
     end
@@ -160,7 +157,7 @@ shared_examples "an AWS Query" do
   
   context "handling responses", :mock do
     before(:each) do
-      stub_request(:post, subject.endpoint).to_return(status: 200, body: '<DummyActionResponse xmlns="http://example.org/2012-02-07/"><DummyActionResult><AnswerOne>foo</AnswerOne><AnswerTwo>17</AnswerTwo></DummyActionResult><ResponseMetadata><RequestId>a8dec82-89298b-83cef-9123-389aa</RequestId></ResponseMetadata></DummyActionResponse>')
+      stub_request(:post, subject.url).to_return(status: 200, body: '<DummyActionResponse xmlns="http://example.org/2012-02-07/"><DummyActionResult><AnswerOne>foo</AnswerOne><AnswerTwo>17</AnswerTwo></DummyActionResult><ResponseMetadata><RequestId>a8dec82-89298b-83cef-9123-389aa</RequestId></ResponseMetadata></DummyActionResponse>')
       @response = nil
     end
     
@@ -188,7 +185,7 @@ shared_examples "an AWS Query" do
     end
     
     it "raises an exception when called synchronously" do
-      stub_request(:post, subject.endpoint).to_return(status: 400, body: DummyHttpError.new.response)
+      stub_request(:post, subject.url).to_return(status: 400, body: DummyHttpError.new.response)
       ->{subject.dummy_action floo: 'flar'}.should raise_error(EM::AWS::Query::QueryError, /DummyFailure/)
     end
   end

@@ -68,7 +68,11 @@ module EventMachine
             @stack.last[value[:key]] = value[:value]
           when Symbol
             if @stack.last.is_a?(Hash)
-              @stack.last[element] = value
+              if @stack.last.has_key?(element)
+                @stack.last[element] = Array(@stack.last[element]) << value
+              else
+                @stack.last[element] = value
+              end
             else 
               raise "I don't know how to add #{element} to #{@stack}"
             end

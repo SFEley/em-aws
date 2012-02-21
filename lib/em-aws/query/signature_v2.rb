@@ -10,11 +10,11 @@ module EventMachine
       class SignatureV2
         attr_reader :access_key, :secret_key, :method, :host, :path
       
-        def initialize(access_key, secret_key, method, endpoint)
+        def initialize(access_key, secret_key, method, url)
           @access_key = access_key
           @secret_key = secret_key
           @method = method
-          if endpoint =~ %r!^(https?://)?([^/]+)(/[^?]*)!
+          if url =~ %r!^(https?://)?([^/]+)(/[^?]*)!
             @host, @path = $2, $3
           end
         end

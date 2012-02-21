@@ -26,6 +26,10 @@ describe EventMachine::AWS::Query::QueryResult do
     subject.topics.first.should == {topic_arn: 'arn:aws:sns:us-east-1:429167422711:EM-AWS-Test-Topic'}
   end
   
+  it "treats multiple elements with the same name as an array" do
+    subject.plural_thing.should == [17, 'hello', 9.2]
+  end
+  
   it "handles key/value entry pairs" do
     subject[:attributes].should have(3).keys
     subject.attributes['Foo'].should == 'Bar'
