@@ -1,10 +1,12 @@
 require "eventmachine"
 require "em-aws/version"
 require "em-aws/service"
+require "em-aws/logger"
 
 
 module EventMachine
   module AWS
+    extend Logger
     
     # Default values
     @region = 'us-east-1'

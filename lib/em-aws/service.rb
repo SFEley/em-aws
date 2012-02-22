@@ -62,20 +62,23 @@ module EventMachine
       
       def send_request(request)
         request.attempts += 1
-        http_request = EventMachine::HttpRequest.new(self.url)
+        http_client = EventMachine::HttpRequest.new(self.url)
 
         if request.method == :get
-          http_request.get query: request.params
+          http_request = http_client.get query: request.params
         else
-          http_request.send request.method, body: request.params
+          http_request = http_client.send request.method, body: request.params
         end
 
         http_request.errback do |raw_response|
           # Send again until retry limit is exceeded
           if request.attempts <= EM::AWS.retries
+            AWS.logger.warn("HTTP client error; retry #{request.attempts} of #{EM::AWS.retries}")
             EM.add_timer(next_delay(request.attempts)) {send_request request}
           else
-            request.fail FailureResponse.new(raw_response)
+            f = FailureResponse.new(raw_response)
+            AWS.logger.error("HTTP client error; gave up after #{EM::AWS.retries} retries: #{f.error}")
+            request.fail f
           end
         end
         
@@ -85,12 +88,17 @@ module EventMachine
             request.succeed success_response(raw_response)
           when 500, 502, 503, 504
             if request.attempts <= EM::AWS.retries
+              AWS.logger.warn("Amazon #{raw_response.response_header.status} error; retry #{request.attempts} of #{EM::AWS.retries}")
               EM.add_timer(next_delay(request.attempts)) {send_request request}
             else
-              request.fail failure_response(raw_response)
+              f = failure_response(raw_response)
+              AWS.logger.error("Amazon #{raw_response.response_header.status} error; gave up after #{EM::AWS.retries} retries: #{f.error}")
+              request.fail f
             end
           else
-            request.fail failure_response(raw_response)
+            f = failure_response(raw_response)
+            AWS.logger.error("Amazon #{raw_response.response_header.status} error: #{f.error}")
+            request.fail f
           end
         end
 

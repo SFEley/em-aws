@@ -11,11 +11,12 @@ module EventMachine
       include Deferrable
       include Inflections
       
-      attr_reader :service, :method, :params, :response
+      attr_reader :service, :method, :params, :response, :start_time
       attr_accessor :attempts
       
       def initialize(service, method, params)
         @service, @method, @params = service, method, params
+        @start_time = Time.now
         @attempts = 0
         
         self.callback {|r| @response = r}

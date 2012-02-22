@@ -42,7 +42,7 @@ describe EventMachine::AWS::SQS do
     
     it "can set attributes on the queue" do
       subject.set_queue_attributes attribute: {maximum_message_size: 1024}
-      sleep 10
+      sleep 20
       response = subject.get_queue_attributes attribute_name: ['MaximumMessageSize']
       response.maximum_message_size.should == 1024
     end

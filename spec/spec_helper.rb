@@ -16,6 +16,7 @@ RSpec.configure do |config|
   config.filter_run_excluding slow: true unless ENV['AWS_SLOW_TESTS'] == 'true'
   # config.filter_run :focus
 
+  # EM::AWS.loglevel = ::Logger::DEBUG
 
   # Run in 'mock' or 'live' mode based on the AWS_TEST_MODE variable. (Defaults to 'mock.')
   # If in live mode, the credentials must also be set in the environment.

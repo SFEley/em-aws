@@ -32,9 +32,27 @@ module EventMachine
           }
         query.merge! queryize_params(params)
         query.merge! @signer.signature(query) if @signer
-
+        
         request = Request.new(self, method, query)
+        request_id = "#{self.class.name}##{action} (#{request.object_id})"
+        AWS.logger.info "Calling #{request_id}"
+        AWS.logger.debug "#{request_id} params: #{query}"
+        
         request.callback(&block) if block
+        
+        if AWS.logger.info?
+          request.callback do |r|
+            duration = Time.now - request.start_time
+            AWS.logger.info "Completed #{request_id} in #{duration} seconds"
+            AWS.logger.debug "#{request_id} result: #{r.result}"
+          end
+          
+          request.errback do |r|
+            duration = Time.now - request.start_time
+            AWS.logger.info "Failed #{request_id} in #{duration} seconds"
+            AWS.logger.debug "#{request_id} result: #{r.result}"
+          end
+        end
         
         handle_request(request)
         
