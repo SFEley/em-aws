@@ -44,13 +44,30 @@ module EventMachine
       
       private
       
+      # Fake synchronous behavior if EM isn't running
+      def handle_request(request)
+        if EventMachine.reactor_running?
+          send_request(request)
+        else
+          response = nil
+          EventMachine.run do
+            send_request(request)
+            request.callback {|r| response = r}
+            request.callback {|r| EventMachine.stop}
+            request.errback {|r| r.exception!}
+          end
+          response
+        end
+      end
+      
       def send_request(request)
         request.attempts += 1
+        http_request = EventMachine::HttpRequest.new(self.url)
 
         if request.method == :get
-          http_request = EventMachine::HttpRequest.new(self.url).get query: request.params
+          http_request.get query: request.params
         else
-          http_request = EventMachine::HttpRequest.new(self.url).send request.method, body: request.params
+          http_request.send request.method, body: request.params
         end
 
         http_request.errback do |raw_response|

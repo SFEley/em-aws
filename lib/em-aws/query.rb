@@ -36,7 +36,8 @@ module EventMachine
         request = Request.new(self, method, query)
         request.callback(&block) if block
         
-        send_request(request)
+        handle_request(request)
+        
       end
       
       # Returns an instance of QueryResult with the XML from the
@@ -51,17 +52,7 @@ module EventMachine
       end
       
       def method_missing(name, *args, &block)
-        if EventMachine.reactor_running?
-          call name, *args, &block
-        else
-          response = nil
-          EventMachine.run do
-            request = call name, *args, &block
-            request.callback {|r| response = r; EventMachine.stop}
-            request.errback {|r| r.exception!}
-          end
-          response
-        end
+        call name, *args, &block
       end
             
     end
