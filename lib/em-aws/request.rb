@@ -11,7 +11,8 @@ module EventMachine
       include Deferrable
       include Inflections
       
-      attr_reader :service, :method, :params, :attempts, :response
+      attr_reader :service, :method, :params, :response
+      attr_accessor :attempts
       
       def initialize(service, method, params)
         @service, @method, @params = service, method, params
