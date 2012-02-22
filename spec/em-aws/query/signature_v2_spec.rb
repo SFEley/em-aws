@@ -18,7 +18,7 @@ describe EventMachine::AWS::Query::SignatureV2 do
     subject.signable_params(@params).should == 'POST
 dummy.us-east-1.amazonwebservices.com
 /some_path/
-BEEBLE=brox&Bank=11.5&Viel=Spa%C3%9F&Zoo=Animal+lives+here'
+BEEBLE=brox&Bank=11.5&Viel=Spa%C3%9F&Zoo=Animal%20lives%20here'
   end
   
   it "signs what it's given with the secret key" do
@@ -30,7 +30,7 @@ BEEBLE=brox&Bank=11.5&Viel=Spa%C3%9F&Zoo=Animal+lives+here'
       AWSAccessKeyId: 'FAKE_KEY',
       SignatureMethod: 'HmacSHA256',
       SignatureVersion: 2,
-      Signature: 'hWshnlmzWyvHhZ3b5Jg+mwHnkDWd/StmXod/Xc8+9B0='
+      Signature: 'KU8R9P5GaHakOVOP0dfBeiNeQ7GvU7E6BiEjXpDEHX4='
     }
   end
   

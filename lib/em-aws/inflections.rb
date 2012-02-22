@@ -18,15 +18,7 @@ module EventMachine
         # Adapted from ActiveSupport's #camelize method
         name.to_s.gsub(/(?:^|_)(.)/) { $1.upcase }
       end
-
-      # Camelize key names for Amazon conventions 
-      def camelkeys(hash)
-        out = {}
-        hash.each do |k, v|
-          out[camelcase(k)] = v
-        end
-        out
-      end
+        
     end
     
   end

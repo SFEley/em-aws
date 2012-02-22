@@ -15,7 +15,7 @@ describe EventMachine::AWS::SQS do
 
   context "operations", :live do
     before(:all) do
-      @queue = EM::AWS::SQS.create @queue_name
+      @queue = EM::AWS::SQS.create @queue_name, visibility_timeout: 67
       sleep 60
     end
     
@@ -35,11 +35,27 @@ describe EventMachine::AWS::SQS do
       queue.url.should == subject.url
     end
     
+    it "can set attributes on queue creation" do
+      response = subject.get_queue_attributes attribute_name: ['All']
+      response.visibility_timeout.should == 67
+    end
+    
     it "can set attributes on the queue" do
       subject.set_queue_attributes attribute: {maximum_message_size: 1024}
       sleep 10
-      response = subject.get_queue_attributes attribute_name: [:maximum_message_size]
-      response.attribute[:maximum_message_size].should == 1024
+      response = subject.get_queue_attributes attribute_name: ['MaximumMessageSize']
+      response.maximum_message_size.should == 1024
+    end
+    
+    it "can publish and process a message to the queue" do
+      message = "Now is the time for all good men
+      to come to the aid of their party!"
+      subject.send_message message_body: message
+      sleep 10
+      response = subject.receive_message
+      response.message[:body].should == message
+      delete_response = subject.delete_message receipt_handle: response.message[:receipt_handle]
+      delete_response.should be_success
     end
       
     

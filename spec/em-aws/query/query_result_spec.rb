@@ -32,7 +32,7 @@ describe EventMachine::AWS::Query::QueryResult do
   
   it "handles key/value entry pairs" do
     subject[:attributes].should have(3).keys
-    subject.attributes['Foo'].should == 'Bar'
+    subject.attributes[:foo].should == 'Bar'
   end
   
   it "knows its action" do
@@ -44,11 +44,11 @@ describe EventMachine::AWS::Query::QueryResult do
   end
   
   it "converts to integers appropriately" do
-    subject.attributes['SomeTimestamp'].should == 1328734660
+    subject.attributes[:some_timestamp].should == 1328734660
   end
   
   it "converts to floats appropriately" do
-    subject.attributes['SomeNum'].should == 22.500
+    subject.attributes[:some_num].should == 22.500
   end
   
   it "returns an empty value on dynamic method calls instead of failing" do

@@ -28,9 +28,9 @@ module EventMachine
       # Creates a queue by name and returns an SQS object pointing to it.  This operation
       # is idempotent (i.e. will return the same object) if the queue name already exists,
       # so long as no attributes are different.
-      def self.create(name)
+      def self.create(name, attributes={})
         url, creator = nil, self.new
-        creator.create_queue(queue_name: name) {|r| url = r.queue_url}
+        creator.create_queue(queue_name: name, attributes: attributes) {|r| url = r.queue_url}
         if url
           self.new url: url
         else

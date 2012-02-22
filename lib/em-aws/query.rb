@@ -4,6 +4,7 @@ require 'em-aws/request'
 require 'em-aws/query/signature_v2'
 require 'em-aws/query/query_result'
 require 'em-aws/query/query_failure'
+require 'em-aws/query/query_params'
 
 module EventMachine
   module AWS
@@ -13,6 +14,7 @@ module EventMachine
     module Query
       API_VERSION = nil   # Subclasses should override this
       include Inflections
+      include QueryParams
       
       attr_reader :method
       
@@ -28,7 +30,7 @@ module EventMachine
           'Version' => self.class::API_VERSION,
           'Timestamp' => Time.now.utc.strftime('%Y-%m-%dT%H:%M:%SZ')
           }
-        query.merge! camelkeys(params)
+        query.merge! queryize_params(params)
         query.merge! @signer.signature(query) if @signer
 
         request = Request.new(self, method, query)
@@ -61,6 +63,7 @@ module EventMachine
           response
         end
       end
+            
     end
   end
 end

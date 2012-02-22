@@ -65,7 +65,9 @@ module EventMachine
           when :member    # Add to the array
             @stack.last << value
           when :entry     # Add 'key'/'value' elements to the hash
-            @stack.last[value[:key]] = value[:value]
+            @stack.last[symbolize(value[:key])] = value[:value]
+          when :attribute
+            @stack.last[symbolize(value[:name])] = value[:value]
           when Symbol
             if @stack.last.is_a?(Hash)
               if @stack.last.has_key?(element)

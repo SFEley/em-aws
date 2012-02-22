@@ -58,7 +58,7 @@ module EventMachine
         end
 
         def form_escape(val)
-          URI.encode_www_form_component(val.to_s)
+          URI.encode_www_form_component(val.to_s).gsub('+','%20')
         end
       end
       

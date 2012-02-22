@@ -53,7 +53,6 @@ shared_examples "an AWS Query" do
       this = new_subject(method: :get)
       this.method.should == :get
     end
-      
   end
   
   context "making requests", :mock do
@@ -151,6 +150,16 @@ shared_examples "an AWS Query" do
       WebMock.should have_requested(:post, subject.url).with(body: hash_including({
         'NowThis' => 'is synchronous!', 
         'Action' => 'DummyAction'}))
+    end
+    
+    it "splits hashes into Attribute.n.Name and Attribute.n.Value pairs" do
+      subject.dummy_action attribute: {foo: 'bar', some_number: 12.3}
+      WebMock.should have_requested(:post, subject.url).with(body: hash_including({
+        'Attribute.1.Name' => 'Foo',
+        'Attribute.2.Name' => 'SomeNumber',
+        'Attribute.1.Value' => 'bar',
+        'Attribute.2.Value' => '12.3'
+      }))
     end
       
   end
