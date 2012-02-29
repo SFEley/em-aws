@@ -3,33 +3,18 @@ require "logger"
 module EventMachine
   module AWS
     module Logger
-      attr_writer :logger
-      
-      # Resets the logger with the given IO object.
-      def logfile=(dev)
-        @logfile = dev
-        @logger = nil
-      end
-      
-      # The IO object used for logging. Defaults to STDERR.
-      def logfile
-        @logfile ||= STDERR
-      end
-      
-      # Minimum severity level for logging. Defaults to WARN.
-      def loglevel
-        @loglevel ||= ::Logger::WARN
-      end
-      
-      # Set the logging severity level.
-      def loglevel=(level)
-        @loglevel = logger.level = level
-      end
       
       # An instance of the standard Ruby Logger or some compatible object.
       # Defaults to logging warnings & above to STDERR.  You can supply
       # your own object, but if you do, the 'logfile' and 'loglevel' attributes
       # will no longer apply.
+      attr_writer :logger
+      
+      # An instance of the standard Ruby Logger or some compatible object.
+      # Defaults to logging warnings & above to STDERR.  You can supply
+      # your own object, but if you do, the 'logfile' and 'loglevel' attributes
+      # will no longer apply.
+      # @attribute [r]
       def logger
         @logger ||= begin
           l = ::Logger.new logfile
@@ -38,6 +23,34 @@ module EventMachine
           l
         end
       end
+      
+      # The filename or IO object used for logging. Defaults to STDERR. Changing it will 
+      # create a new logger.
+      # @attribute [w] logfile 
+      def logfile=(dev)
+        @logfile = dev
+        @logger = nil
+      end
+      
+      # The filename or IO object used for logging. Defaults to STDERR. Changing it will 
+      # create a new logger.
+      # @attribute [r] logfile
+      def logfile
+        @logfile ||= STDERR
+      end
+      
+      # Minimum severity level for logging. Defaults to WARN.
+      # @attribute [r] loglevel
+      def loglevel
+        @loglevel ||= ::Logger::WARN
+      end
+      
+      # Minimum severity level for logging. Defaults to WARN.
+      # @attribute [w] loglevel
+      def loglevel=(level)
+        @loglevel = logger.level = level
+      end
+      
       
     end
   end

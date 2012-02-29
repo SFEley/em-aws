@@ -5,39 +5,53 @@ require 'em-aws/request'
 module EventMachine
   module AWS
     
-    # Wraps an instance of EM::HttpRequest and applies logic to sign requests, perform retries, and
-    # extract parameters from the response. This is an abstract base class; subclasses must declare
-    # their service names, API versions, and mix in the proper protocol modules (Query or REST).
+    # Wraps an HTTP connection to Amazon and applies logic to sign requests, perform retries, and
+    # extract parameters from the response. This is an abstract base class; subclasses must mix in
+    # the necessary behavior for authentication, transforming parameters and responses, etc.
+    # @see Query
     class Service
-      API_VERSION = nil   # Subclasses should override this
-      
       include Inflections
       
+      # Defaults to values from {AWS} module attributes
       attr_reader :aws_access_key_id,
                   :aws_secret_access_key,
                   :region,
-                  :ssl,
-                  :path,
-                  :options
+                  :ssl
       
+      # Used in some AWS services to point to the resource. (Most services use the '/' root path.)
+      attr_reader :path
+      
+      # Create a new instance for any change in credentials or endpoint. Options can be set only on
+      # initialization.
+      # @param [Hash] options All are optional; will default to {AWS} module settings if not provided
+      # @option options [String]  :aws_access_key_id Authentication credentials
+      # @option options [String]  :aws_secret_access_key Authentication credentials
+      # @option options [String]  :region Used to construct the endpoint URL; defaults to **'us-east-1'**
+      # @option options [Boolean] :ssl Used to construct the endpoint URL; defaults to **true** (https)
+      # @option options [String]  :path Used to construct the endpoint URL; defaults to **'/'** (root path)
+      # @option options [String]  :url 
       def initialize(options = {})
-        @aws_access_key_id = options.delete(:aws_access_key_id) || EventMachine::AWS.aws_access_key_id
-        @aws_secret_access_key = options.delete(:aws_secret_access_key) || EventMachine::AWS.aws_secret_access_key
+        @aws_access_key_id = options[:aws_access_key_id] || EventMachine::AWS.aws_access_key_id
+        @aws_secret_access_key = options[:aws_secret_access_key] || EventMachine::AWS.aws_secret_access_key
 
-        @region = options.delete(:region) || EventMachine::AWS.region
+        @region = options[:region] || EventMachine::AWS.region
         if options.has_key?(:ssl)
-          @ssl = options.delete(:ssl)
+          @ssl = options[:ssl]
         else
           @ssl = EventMachine::AWS.ssl
         end
-        @url = options.delete(:url)
-        @options = options
+        @path = options[:path]
+        @url = options[:url]
       end
       
+      # Derived by default from the class name
+      # @attribute [r]
       def service
         self.class.name[/.*::(?<class>.+)/, :class].downcase
       end
       
+      # Constructed by default from the _ssl_, _service_, _region_ and _path_ values
+      # @attribute [r]
       def url
         @url ||= "#{ssl ? 'https' : 'http'}://#{service}.#{region}.amazonaws.com/#{path}"
       end

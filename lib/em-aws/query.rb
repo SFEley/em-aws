@@ -18,6 +18,7 @@ module EventMachine
       
       attr_reader :method
       
+      # {include:Service#initialize}
       def initialize(options = {})
         super
         @method = options.delete(:method) || :post

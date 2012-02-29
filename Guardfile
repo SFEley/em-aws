@@ -8,3 +8,10 @@ guard 'rspec', version: 2, cli: '-c -f doc' do
   watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
 end
 
+
+guard 'yard' do
+  watch(%r{app/.+\.rb})
+  watch(%r{lib/.+\.rb})
+  watch(%r{ext/.+\.c})
+  watch('README.markdown')
+end

@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.7.5
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html" title="Index">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><div id='filecontents'><h1>EventMachine::AWS</h1>
+
+<p><strong>EM::AWS</strong> is a thin Ruby wrapper for making calls to Amazon Web Services.  It transparently signs requests, automatically retries on server errors, and unwraps XML responses into simple attributes. Unlike most other AWS libraries, it <em>does not</em> provide an object model for any of Amazon&#39;s services. It simply makes API calls and exposes the responses. Other gems or applications can build on this generic foundation to construct whatever higher-level model is appropriate for their needs.</p>
+
+<p>It also differs from other EventMachine libraries by offering a fully synchronous mode that <em>does not require</em> EventMachine to be running. (The method call simply starts and stops EM behind the scenes.) This mode is less efficient but makes it easier to use <strong>EM::AWS</strong> in non-evented frameworks such as Rails.</p>
+
+<p>At this stage in its development, <strong>EM::AWS</strong> supports the Amazon Query Protocol. This is the GET- or POST-based API framework used for virtually every Amazon service <em>except S3.</em>  Support for S3&#39;s idiosyncratic REST API will likely come in a future release.</p>
+
+<h2>Getting Started</h2>
+
+<p>The <strong>em-aws</strong> gem is dependent on the <strong>eventmachine</strong>, <strong>em-http-request</strong>, and <strong>nokogiri</strong> gems.  It was built and tested with Ruby 1.9, but should work with Rubinius and JRuby in 1.9 compatibility mode.  <em>It will not work in Ruby 1.8.</em></p>
+
+<p>Once you&#39;ve added it to your Gemfile (or run <code>gem install em-aws</code>) you can supply the usual authentication credentials somewhere in your application&#39;s initialization:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>em-aws</span><span class='tstring_end'>'</span></span>
+
+<span class='const'>EM</span><span class='op'>::</span><span class='const'>AWS</span><span class='period'>.</span><span class='id identifier rubyid_aws_access_key_id'>aws_access_key_id</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>YOUR_ACCESS_KEY</span><span class='tstring_end'>'</span></span>
+<span class='const'>EM</span><span class='op'>::</span><span class='const'>AWS</span><span class='period'>.</span><span class='id identifier rubyid_aws_secret_access_key'>aws_secret_access_key</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>YOUR_SECRET_KEY</span><span class='tstring_end'>'</span></span>
+
+<span class='comment'># These global defaults can also be tweaked:
+</span><span class='comment'># EM::AWS.region = 'us-east-1'
+</span><span class='comment'># EM::AWS.ssl = true
+</span><span class='comment'># EM::AWS.retries = 10
+</span></code></pre>
+
+<p>If you don&#39;t want to supply your credentials globally, or need to use multiple identities in the same application, you can pass any of the above as options when constructing individual service objects:</p>
+
+<pre class="code ruby"><code><span class='comment'># Easiest way to hook to Simple Notification Service:
+</span><span class='id identifier rubyid_sns'>sns</span> <span class='op'>=</span> <span class='const'>EM</span><span class='op'>::</span><span class='const'>AWS</span><span class='op'>::</span><span class='const'>SNS</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+
+<span class='comment'># The tricked-out version:
+</span><span class='id identifier rubyid_sns2'>sns2</span> <span class='op'>=</span> <span class='const'>EM</span><span class='op'>::</span><span class='const'>AWS</span><span class='op'>::</span><span class='const'>SNS</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='label'>aws_access_key_id:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>OTHER_ACCESS_KEY</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+                        <span class='label'>aws_secret_access_key:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>OTHER_SECRET_KEY</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+                        <span class='label'>region:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ap-southeast-1</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+                        <span class='label'>ssl:</span> <span class='kw'>false</span><span class='comma'>,</span>
+                        <span class='label'>method:</span> <span class='symbol'>:get</span>
+</code></pre>
+
+<h2>Queries Without EventMachine</h2>
+
+<p>If the EventMachine reactor is not running, <strong>EM::AWS</strong> defaults to a simple synchronous mode.  API calls are dynamic methods, and calling one returns a response object which makes its values available as a hash or attributes:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_sns'>sns</span> <span class='op'>=</span> <span class='const'>EM</span><span class='op'>::</span><span class='const'>AWS</span><span class='op'>::</span><span class='const'>SNS</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+
+<span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_sns'>sns</span><span class='period'>.</span><span class='id identifier rubyid_create_topic'>create_topic</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>MyTestTopic</span><span class='tstring_end'>'</span></span>   <span class='comment'># 'CreateTopic' API call
+</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_success?'>success?</span>     <span class='comment'>#=&gt; true
+</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_topic_arn'>topic_arn</span>    <span class='comment'>#=&gt; arn:aws:sns:us-east-1:123456789012:MyTestTopic
+</span><span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='symbol'>:topic_arn</span><span class='rbracket'>]</span>  <span class='comment'>#=&gt; (same; the 'TopicArn' response value)
+</span></code></pre>
+
+<p>Note that in both requests and responses, Amazon&#39;s CamelCase strings (<code>&quot;SomeParameter&quot;</code>) are converted into snake_case symbols (<code>:some_parameter</code>) per Ruby idiom.</p>
+
+<p><strong>EM::AWS</strong> makes no attempt to validate your queries nor their parameters. If you attempt to call a method that does not exist, or supply bad values, it is up to Amazon itself to return an error.  In synchronous mode, any errors (other than 500 &quot;internal server&quot; errors, which are retried) are raised as <strong>EM::AWS::Error</strong> exceptions or some subclass thereof.</p>
+
+<h2>Queries With EventMachine</h2>
+
+<p>In an evented <strong>EM.run</strong> loop, query calls are similar to the above.  The main difference is that a <em>request</em> object is returned rather than the <em>response</em> object. The request object includes the Deferrable module, and <code>callback</code> and <code>errback</code> blocks can be attached to it to process the response.  </p>
+
+<p>As a shortcut, the query itself can be passed a block, which becomes the first <code>callback</code>:</p>
+
+<pre class="code ruby"><code><span class='const'>EM</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_sns'>sns</span> <span class='op'>=</span> <span class='const'>EM</span><span class='op'>::</span><span class='const'>AWS</span><span class='op'>::</span><span class='const'>SNS</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+
+  <span class='id identifier rubyid_request'>request</span> <span class='op'>=</span> <span class='id identifier rubyid_sns'>sns</span><span class='period'>.</span><span class='id identifier rubyid_create_topic'>create_topic</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>MyTestTopic</span><span class='tstring_end'>'</span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_response'>response</span><span class='op'>|</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_topic_arn'>topic_arn</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Other blocks can be chained to the request:
+</span>
+  <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_callback'>callback</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_response'>response</span><span class='op'>|</span>
+    <span class='id identifier rubyid_sns'>sns</span><span class='period'>.</span><span class='id identifier rubyid_get_topic_attributes'>get_topic_attributes</span><span class='lparen'>(</span><span class='label'>topic_arn:</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_topic_arn'>topic_arn</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_resp2'>resp2</span><span class='op'>|</span>
+      <span class='comment'># ...other processing here...
+</span>      <span class='const'>EM</span><span class='period'>.</span><span class='id identifier rubyid_stop'>stop</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># Don't forget to handle failure cases:
+</span>
+  <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_errback'>errback</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_response'>response</span><span class='op'>|</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>FAILURE: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='const'>EM</span><span class='period'>.</span><span class='id identifier rubyid_stop'>stop</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>All request blocks are passed a <strong>Response</strong> object.  If the query succeeded (i.e. came back with HTTP status 200), the <code>callback</code> blocks are called.  The response object is a subclass of <strong>SuccessResponse</strong> and makes the values returned from Amazon available as attributes.  </p>
+
+<p>If the query failed (usually with a status in the 400s), the <code>errback</code> blocks are called.  The response is a subclass of <strong>FailureResponse</strong> and contains the error <code>:code</code> and <code>:message</code> returned by Amazon.  Attempting to reference other attributes raises an exception with the same information. </p>
+
+<h2>General Notes</h2>
+
+<p>The following behavior is true for all AWS services:</p>
+
+<ul>
+<li><strong>EM::AWS</strong> uses HTTP POST by default for all Query Protocol calls. It is possible to override this by passing <code>method: :get</code> on service object initialization, but this will limit the amount of data that can be passed.</li>
+<li>SSL is enabled by default. You can disable it globally with <code>EM::AWS.ssl = false</code> or locally by passing <code>ssl: false</code> on service object initialization.</li>
+<li>XML response values that include lists of <code>&lt;member&gt;</code> elements will be flattened into arrays.</li>
+<li>XML response values that include <code>&lt;key&gt;</code> and <code>&lt;value&gt;</code> pairs will be flattened into Ruby hashes.</li>
+<li>Network errors and Amazon HTTP 500 errors are automatically retried; the number of attempts can be set with the <code>EM::AWS.retries</code> attribute. (The default is 10.) </li>
+<li>The retry delay follows a Fibonacci sequence: the first two retries are 1 second apart, then 2 seconds, then 3, then 5, etc.  A full cycle of 10 retries thus takes 143 seconds. If the error is not resolved by that time, it will be returned as a <strong>FailureResponse</strong>.</li>
+<li>If any query receives a <code>Throttling</code> response from Amazon, it will also be retried, and subsequent calls to the same service will be subject to a 1 second delay.  The delay will expire if two minutes pass without a throttling error.</li>
+</ul>
+
+<h2>SQS</h2>
+
+<p>The Simple Queue Service behaves differently from most other Amazon services, in that most calls must be made to a <em>queue URL</em> rather than a root path.  This must be supplied on initialization of the <strong>EM::AWS::SQS</strong> object.  If you already know the URL of the queue you want to work with, you can simply pass it with the <code>:url</code> parameter:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_queue'>queue</span> <span class='op'>=</span> <span class='const'>EM</span><span class='op'>::</span><span class='const'>AWS</span><span class='op'>::</span><span class='const'>SQS</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='label'>url:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>https://sqs.us-east-1.amazonaws.com/1234567890/My-Interesting-Queue</span><span class='tstring_end'>'</span></span>
+</code></pre>
+
+<p>If you know a queue&#39;s name but not its URL, you can use the <code>.get</code> class method to call &#39;GetQueueUrl&#39; and create the proper SQS object:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_queue'>queue</span> <span class='op'>=</span> <span class='const'>EM</span><span class='op'>::</span><span class='const'>AWS</span><span class='op'>::</span><span class='const'>SQS</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>My-Interesting-Queue</span><span class='tstring_end'>'</span></span>
+</code></pre>
+
+<p>You can also create a queue that doesn&#39;t exist yet using the <code>.create</code> class method, passing any optional attributes as a hash:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_queue'>queue</span> <span class='op'>=</span> <span class='const'>EM</span><span class='op'>::</span><span class='const'>AWS</span><span class='op'>::</span><span class='const'>SQS</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>My-Interesting-Queue</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> 
+    <span class='label'>visibility_timeout:</span> <span class='int'>120</span><span class='comma'>,</span>
+    <span class='label'>maximum_message_size:</span> <span class='int'>8192</span>
+</code></pre>
+
+<p>(If a queue with that name already exists, the <code>.create</code> class method has the same net effect as <code>.get</code>, except that Amazon will return an error if you pass any attributes that are different from the ones already set.)</p>
+</div></div>
+    
+    <div id="footer">
+  Generated on Fri Feb 24 16:20:08 2012 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.5 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>

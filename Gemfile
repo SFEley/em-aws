@@ -8,6 +8,8 @@ group :development do
   # Use latest Webmock until the hash_including functionality is released
   gem "webmock", git: 'https://github.com/bblimke/webmock.git'
   gem "guard-rspec"
+  gem "guard-yard"
   gem "growl"
+  gem "redcarpet"
 end
   
