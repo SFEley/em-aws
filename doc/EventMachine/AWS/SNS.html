@@ -127,16 +127,93 @@
   <p class="inherited"><span class='object_link'><a href="Service.html#aws_access_key_id-instance_method" title="EventMachine::AWS::Service#aws_access_key_id (method)">#aws_access_key_id</a></span>, <span class='object_link'><a href="Service.html#aws_secret_access_key-instance_method" title="EventMachine::AWS::Service#aws_secret_access_key (method)">#aws_secret_access_key</a></span>, <span class='object_link'><a href="Service.html#path-instance_method" title="EventMachine::AWS::Service#path (method)">#path</a></span>, <span class='object_link'><a href="Service.html#region-instance_method" title="EventMachine::AWS::Service#region (method)">#region</a></span>, <span class='object_link'><a href="Service.html#ssl-instance_method" title="EventMachine::AWS::Service#ssl (method)">#ssl</a></span></p>
 
 
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_topic-instance_method" title="#create_topic (instance method)">- (Object) <strong>create_topic</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Amazon API query.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete_topic-instance_method" title="#delete_topic (instance method)">- (Object) <strong>delete_topic</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Amazon API query.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#list_topics-instance_method" title="#list_topics (instance method)">- (Object) <strong>list_topics</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Amazon API query.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
 
   
   
   
   
   
-  <h2>Method Summary</h2>
+  
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Query.html" title="EventMachine::AWS::Query (module)">Query</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Query.html#call-instance_method" title="EventMachine::AWS::Query#call (method)">#call</a></span>, <span class='object_link'><a href="Query.html#failure_response-instance_method" title="EventMachine::AWS::Query#failure_response (method)">#failure_response</a></span>, <span class='object_link'><a href="Query.html#initialize-instance_method" title="EventMachine::AWS::Query#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="Query.html#method_missing-instance_method" title="EventMachine::AWS::Query#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="Query.html#success_response-instance_method" title="EventMachine::AWS::Query#success_response (method)">#success_response</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Query.html#call-instance_method" title="EventMachine::AWS::Query#call (method)">#call</a></span>, <span class='object_link'><a href="Query.html#failure_response-instance_method" title="EventMachine::AWS::Query#failure_response (method)">#failure_response</a></span>, <span class='object_link'><a href="Query.html#included-class_method" title="EventMachine::AWS::Query.included (method)">included</a></span>, <span class='object_link'><a href="Query.html#initialize-instance_method" title="EventMachine::AWS::Query#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="Query.html#success_response-instance_method" title="EventMachine::AWS::Query#success_response (method)">#success_response</a></span></p>
 
   
   
@@ -168,22 +245,158 @@
     <p class="notice">This class inherits a constructor from <span class='object_link'><a href="Query.html#initialize-instance_method" title="EventMachine::AWS::Query#initialize (method)">EventMachine::AWS::Query</a></span></p>
   
 </div>
-<div id="method_missing_details" class="method_details_list">
-  <h2>Dynamic Method Handling</h2>
-  <p class="notice super">
-    This class handles dynamic methods through the <tt>method_missing</tt> method
-    
-      in the class <span class='object_link'><a href="Query.html#method_missing-instance_method" title="EventMachine::AWS::Query#method_missing (method)">EventMachine::AWS::Query</a></span>
-    
-  </p>
-  
-</div>
 
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="create_topic-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create_topic</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Amazon API query. See AWS documentation for details.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<h3>Request Parameters:</h3>
+<ul class="request">
+  
+    <li>
+      
+        <span class='name'>:name</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Topic name (letters, numbers and hyphens only)</p>
+</div>
+      
+    </li>
+  
+</ul>
+<h3>Response Values:</h3>
+<ul class="response">
+  
+    <li>
+      
+        <span class='name'>:topic_arn</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Amazon Resource Name (ARN) assigned to the created topic</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+14</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 14</span>
+
+<span class='id identifier rubyid_action'>action</span> <span class='symbol'>:create_topic</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="delete_topic-instance_method">
+  
+    - (<tt>Object</tt>) <strong>delete_topic</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Amazon API query. See AWS documentation for details.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 18</span>
+
+<span class='id identifier rubyid_action'>action</span> <span class='symbol'>:delete_topic</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="list_topics-instance_method">
+  
+    - (<tt>Object</tt>) <strong>list_topics</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Amazon API query. See AWS documentation for details.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+17</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 17</span>
+
+<span class='id identifier rubyid_action'>action</span> <span class='symbol'>:list_topics</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 </div>
     
     <div id="footer">
-  Generated on Fri Feb 24 16:20:09 2012 by 
+  Generated on Wed Feb 29 17:06:44 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>

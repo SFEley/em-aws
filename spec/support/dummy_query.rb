@@ -8,5 +8,8 @@ class DummyQuery < EventMachine::AWS::Service
   def service
     'dummy'
   end
+  
+  action :dummy_action
+  
 end
 

@@ -25,6 +25,11 @@ module EventMachine
         @signer = SignatureV2.new(aws_access_key_id, aws_secret_access_key, method, url) if aws_access_key_id && aws_secret_access_key
       end
       
+      # Prepares the parameters and makes the HTTP request to Amazon.
+      # @param [Symbol, String] action The API method to be called
+      # @param [optional, Hash] params Parameters to be passed to Amazon
+      # @yield [response] A user-supplied block that will become a callback for the request
+      # @yieldparam [QueryResult] Successful result data from Amazon
       def call(action, params = {}, &block)
         query = {
           'Action' => camelcase(action), 
@@ -70,10 +75,23 @@ module EventMachine
         QueryFailure.new raw_response
       end
       
-      def method_missing(name, *args, &block)
-        call name, *args, &block
+      module ClassMethods
+        # A DSL macro that allows Amazon API actions to be easily declared and documented.
+        # Wraps the #call method and allows transformation of input or output.
+        # @param [Symbol] name The action to be called
+        # @macro [attach] action Amazon API Actions
+        #   @return Amazon API method. See AWS documentation for details.
+        def action(name)
+          define_method(name) do |params={}, &block|
+            call name, params, &block
+          end
+        end
       end
-            
+    
+      def self.included(receiver)
+        receiver.extend ClassMethods
+      end
+      
     end
   end
 end

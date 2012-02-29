@@ -102,7 +102,7 @@ Almost every Amazon service (with the exception of S3) uses this protocol.</p>
 <p class="children">
    
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Query/QueryParams.html" title="EventMachine::AWS::Query::QueryParams (module)">QueryParams</a></span>, <span class='object_link'><a href="Query/QueryResponse.html" title="EventMachine::AWS::Query::QueryResponse (module)">QueryResponse</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Query/ClassMethods.html" title="EventMachine::AWS::Query::ClassMethods (module)">ClassMethods</a></span>, <span class='object_link'><a href="Query/QueryParams.html" title="EventMachine::AWS::Query::QueryParams (module)">QueryParams</a></span>, <span class='object_link'><a href="Query/QueryResponse.html" title="EventMachine::AWS::Query::QueryResponse (module)">QueryResponse</a></span>
     
    
     
@@ -171,7 +171,7 @@ Almost every Amazon service (with the exception of S3) uses this protocol.</p>
 
   
     <h2>
-      Instance Method Summary
+      Class Method Summary
       <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
     </h2>
 
@@ -180,7 +180,7 @@ Almost every Amazon service (with the exception of S3) uses this protocol.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#call-instance_method" title="#call (instance method)">- (Object) <strong>call</strong>(action, params = {}, &amp;block) </a>
+      <a href="#included-class_method" title="included (class method)">+ (Object) <strong>included</strong>(receiver) </a>
     
 
     
@@ -194,6 +194,37 @@ Almost every Amazon service (with the exception of S3) uses this protocol.</p>
 
   
     <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#call-instance_method" title="#call (instance method)">- (Object) <strong>call</strong>(action, params = {}) {|response| ... }</a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Prepares the parameters and makes the HTTP request to Amazon.</p>
+</div></span>
   
 </li>
 
@@ -236,29 +267,10 @@ Almost every Amazon service (with the exception of S3) uses this protocol.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'><p>A new instance of Query.</p>
+    <span class="summary_desc"><div class='inline'><p><p>Create a new instance for any change in credentials or endpoint. Options can be set only on
+initialization.</p>
+.</p>
 </div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#method_missing-instance_method" title="#method_missing (instance method)">- (Object) <strong>method_missing</strong>(name, *args, &amp;block) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -304,43 +316,7 @@ results parsed into regular attributes.</p>
   
   
   
-  <div id="method_missing_details" class="method_details_list">
-  <h2>Dynamic Method Handling</h2>
-  <p class="notice this">
-    This class handles dynamic methods through the <tt>method_missing</tt> method
-    
-  </p>
   
-    <div class="method_details first">
-  <p class="signature first" id="method_missing-instance_method">
-  
-    - (<tt>Object</tt>) <strong>method_missing</strong>(name, *args, &amp;block) 
-  
-
-  
-</p><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-72
-73
-74</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/query.rb', line 72</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_call'>call</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-  
-</div>
-
   <div id="instance_attr_details" class="attr_details">
     <h2>Instance Attribute Details</h2>
     
@@ -388,14 +364,14 @@ results parsed into regular attributes.</p>
   </div>
 
 
-  <div id="instance_method_details" class="method_details_list">
-    <h2>Instance Method Details</h2>
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
     
     
       <div class="method_details first">
-  <p class="signature first" id="call-instance_method">
+  <p class="signature first" id="included-class_method">
   
-    - (<tt>Object</tt>) <strong>call</strong>(action, params = {}, &amp;block) 
+    + (<tt>Object</tt>) <strong>included</strong>(receiver) 
   
 
   
@@ -405,12 +381,122 @@ results parsed into regular attributes.</p>
       <pre class="lines">
 
 
-27
-28
-29
-30
-31
-32
+91
+92
+93</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/query.rb', line 91</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_included'>included</span><span class='lparen'>(</span><span class='id identifier rubyid_receiver'>receiver</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_receiver'>receiver</span><span class='period'>.</span><span class='id identifier rubyid_extend'>extend</span> <span class='const'>ClassMethods</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="call-instance_method">
+  
+    - (<tt>Object</tt>) <strong>call</strong>(action, params = {}) {|response| ... }
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Prepares the parameters and makes the HTTP request to Amazon.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>action</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>, <tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The API method to be called</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>optional</tt>, <tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Parameters to be passed to Amazon</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<h3>Yields:</h3>
+<ul class="yield">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>response</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A user-supplied block that will become a callback for the request</p>
+</div>
+      
+    </li>
+  
+</ul>
+<h3>Yield Parameters:</h3>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='name'>Successful</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Query/QueryResult.html" title="EventMachine::AWS::Query::QueryResult (class)">QueryResult</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>result data from Amazon</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
 33
 34
 35
@@ -437,10 +523,16 @@ results parsed into regular attributes.</p>
 56
 57
 58
-59</pre>
+59
+60
+61
+62
+63
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/query.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/query.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_query'>query</span> <span class='op'>=</span> <span class='lbrace'>{</span>
@@ -503,12 +595,12 @@ results parsed into regular attributes.</p>
       <pre class="lines">
 
 
-68
-69
-70</pre>
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/query.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/query.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_failure_response'>failure_response</span><span class='lparen'>(</span><span class='id identifier rubyid_raw_response'>raw_response</span><span class='rparen'>)</span>
   <span class='const'>QueryFailure</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_raw_response'>raw_response</span>
@@ -527,7 +619,9 @@ results parsed into regular attributes.</p>
   
 </p><div class="docstring">
   <div class="discussion">
-    <p>A new instance of Query</p>
+    <p><p>Create a new instance for any change in credentials or endpoint. Options can be set only on
+initialization.</p>
+</p>
 
 
   </div>
@@ -541,14 +635,14 @@ results parsed into regular attributes.</p>
       <pre class="lines">
 
 
-21
 22
 23
 24
-25</pre>
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/query.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/query.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>super</span>
@@ -584,12 +678,12 @@ results parsed into regular attributes.</p>
       <pre class="lines">
 
 
-63
-64
-65</pre>
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/query.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/query.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_success_response'>success_response</span><span class='lparen'>(</span><span class='id identifier rubyid_raw_response'>raw_response</span><span class='rparen'>)</span>
   <span class='const'>QueryResult</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_raw_response'>raw_response</span>
@@ -604,7 +698,7 @@ results parsed into regular attributes.</p>
 </div>
     
     <div id="footer">
-  Generated on Fri Feb 24 16:20:09 2012 by 
+  Generated on Wed Feb 29 17:06:44 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>
