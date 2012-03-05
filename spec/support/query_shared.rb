@@ -1,5 +1,9 @@
 shared_examples "an AWS Query" do
   
+  before(:all) do
+    subject.class.instance_eval 'action :dummy_action'
+  end
+  
   it_behaves_like "a Service"
   
   context "making requests", :mock do
@@ -134,9 +138,9 @@ shared_examples "an AWS Query" do
       litmus.response.answer_one.should == 'foo'
     end
     
-    it "returns the response when called synchronously" do
+    it "returns the request when called synchronously" do
       litmus = subject.dummy_action zoo: 'zar'
-      litmus.should be_an(EM::AWS::Response)
+      litmus.should be_an(EM::AWS::Request)
       litmus['AnswerTwo'].should == 17
     end
     

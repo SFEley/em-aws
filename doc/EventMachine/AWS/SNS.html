@@ -138,7 +138,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create_topic-instance_method" title="#create_topic (instance method)">- (Object) <strong>create_topic</strong> </a>
+      <a href="#create_topic-instance_method" title="#create_topic (instance method)">- (EventMachine::AWS::Request) <strong>create_topic</strong> {|response| ... }</a>
     
 
     
@@ -160,7 +160,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#delete_topic-instance_method" title="#delete_topic (instance method)">- (Object) <strong>delete_topic</strong> </a>
+      <a href="#delete_topic-instance_method" title="#delete_topic (instance method)">- (EventMachine::AWS::Request) <strong>delete_topic</strong> {|response| ... }</a>
     
 
     
@@ -182,7 +182,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#list_topics-instance_method" title="#list_topics (instance method)">- (Object) <strong>list_topics</strong> </a>
+      <a href="#list_topics-instance_method" title="#list_topics (instance method)">- (EventMachine::AWS::Request) <strong>list_topics</strong> {|response| ... }</a>
     
 
     
@@ -254,19 +254,91 @@
       <div class="method_details first">
   <p class="signature first" id="create_topic-instance_method">
   
-    - (<tt>Object</tt>) <strong>create_topic</strong> 
+    - (<tt><span class='object_link'><a href="Request.html" title="EventMachine::AWS::Request (class)">EventMachine::AWS::Request</a></span></tt>) <strong>create_topic</strong> {|response| ... }
   
 
   
 </p><div class="docstring">
   <div class="discussion">
-    <p>Amazon API query. See AWS documentation for details.</p>
+    <p>Amazon API query. See Amazon&#39;s documentation for full details.</p>
 
 
   </div>
 </div>
 <div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Parameters passed to Amazon; see below</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<h3>Yields:</h3>
+<ul class="yield">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'><p>Runs the given block as a callback on successful response</p>
+</div>
+      
+    </li>
+  
+</ul>
+<h3>Yield Parameters:</h3>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='name'>response</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Query/QueryResult.html" title="EventMachine::AWS::Query::QueryResult (class)">QueryResult</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Response object containing data from Amazon</p>
+</div>
+      
+    </li>
+  
+</ul>
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Request.html" title="EventMachine::AWS::Request (class)">EventMachine::AWS::Request</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Request object that (eventually) encapsulates the response</p>
+</div>
+      
+    </li>
+  
+</ul>
 <h3>Request Parameters:</h3>
 <ul class="request">
   
@@ -275,7 +347,7 @@
         <span class='name'>:name</span>
       
       
-        <span class='type'></span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -286,7 +358,7 @@
     </li>
   
 </ul>
-<h3>Response Values:</h3>
+<h3>Response Attributes:</h3>
 <ul class="response">
   
     <li>
@@ -312,10 +384,10 @@
       <pre class="lines">
 
 
-14</pre>
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 18</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:create_topic</span></pre>
     </td>
@@ -326,19 +398,110 @@
       <div class="method_details ">
   <p class="signature " id="delete_topic-instance_method">
   
-    - (<tt>Object</tt>) <strong>delete_topic</strong> 
+    - (<tt><span class='object_link'><a href="Request.html" title="EventMachine::AWS::Request (class)">EventMachine::AWS::Request</a></span></tt>) <strong>delete_topic</strong> {|response| ... }
   
 
   
 </p><div class="docstring">
   <div class="discussion">
-    <p>Amazon API query. See AWS documentation for details.</p>
+    <p>Amazon API query. See Amazon&#39;s documentation for full details.</p>
 
 
   </div>
 </div>
 <div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Parameters passed to Amazon; see below</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<h3>Yields:</h3>
+<ul class="yield">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'><p>Runs the given block as a callback on successful response</p>
+</div>
+      
+    </li>
+  
+</ul>
+<h3>Yield Parameters:</h3>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='name'>response</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Query/QueryResult.html" title="EventMachine::AWS::Query::QueryResult (class)">QueryResult</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Response object containing data from Amazon</p>
+</div>
+      
+    </li>
+  
+</ul>
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Request.html" title="EventMachine::AWS::Request (class)">EventMachine::AWS::Request</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Request object that (eventually) encapsulates the response</p>
+</div>
+      
+    </li>
+  
+</ul>
+<h3>Request Parameters:</h3>
+<ul class="request">
+  
+    <li>
+      
+        <span class='name'>:topic_arn</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Topic ARN</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -346,10 +509,10 @@
       <pre class="lines">
 
 
-18</pre>
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 24</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:delete_topic</span></pre>
     </td>
@@ -360,19 +523,91 @@
       <div class="method_details ">
   <p class="signature " id="list_topics-instance_method">
   
-    - (<tt>Object</tt>) <strong>list_topics</strong> 
+    - (<tt><span class='object_link'><a href="Request.html" title="EventMachine::AWS::Request (class)">EventMachine::AWS::Request</a></span></tt>) <strong>list_topics</strong> {|response| ... }
   
 
   
 </p><div class="docstring">
   <div class="discussion">
-    <p>Amazon API query. See AWS documentation for details.</p>
+    <p>Amazon API query. See Amazon&#39;s documentation for full details.</p>
 
 
   </div>
 </div>
 <div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Parameters passed to Amazon; see below</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<h3>Yields:</h3>
+<ul class="yield">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'><p>Runs the given block as a callback on successful response</p>
+</div>
+      
+    </li>
+  
+</ul>
+<h3>Yield Parameters:</h3>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='name'>response</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Query/QueryResult.html" title="EventMachine::AWS::Query::QueryResult (class)">QueryResult</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Response object containing data from Amazon</p>
+</div>
+      
+    </li>
+  
+</ul>
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Request.html" title="EventMachine::AWS::Request (class)">EventMachine::AWS::Request</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Request object that (eventually) encapsulates the response</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -380,10 +615,10 @@
       <pre class="lines">
 
 
-17</pre>
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 21</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:list_topics</span></pre>
     </td>
@@ -396,7 +631,7 @@
 </div>
     
     <div id="footer">
-  Generated on Wed Feb 29 17:06:44 2012 by 
+  Generated on Sat Mar  3 14:35:09 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>

@@ -34,54 +34,96 @@ If you don't want to supply your credentials globally, or need to use multiple i
                             ssl: false,
                             method: :get
 
-## Queries Without EventMachine ##
+## Making Queries ##
 
-If the EventMachine reactor is not running, **EM::AWS** defaults to a simple synchronous mode.  API calls are dynamic methods, and calling one returns a response object which makes its values available as a hash or attributes:
+To make any AWS request, simply create a service object of the appropriate class and then call the API action as a method using Ruby *snake_case* conventions.  Pass parameters as a hash:
 
     sns = EM::AWS::SNS.new
+    request = sns.create_topic name: 'MyTestTopic'
     
-    response = sns.create_topic name: 'MyTestTopic'   # 'CreateTopic' API call
-    response.success?     #=> true
-    response.topic_arn    #=> arn:aws:sns:us-east-1:123456789012:MyTestTopic
-    response[:topic_arn]  #=> (same; the 'TopicArn' response value)
+The request object also receives and parses the response, and makes the returned values available as attributes or a hash:
 
-Note that in both requests and responses, Amazon's CamelCase strings (`"SomeParameter"`) are converted into snake_case symbols (`:some_parameter`) per Ruby idiom.
+    request.finished?    #=> true
+    request.status       #=> 200
+    request.topic_arn    #=> arn:aws:sns:us-east-1:123456789012:MyTestTopic
+    request[:topic_arn]  #=> (same)
+    request['TopicArn']  #=> (same)
 
-**EM::AWS** makes no attempt to validate your queries nor their parameters. If you attempt to call a method that does not exist, or supply bad values, it is up to Amazon itself to return an error.  In synchronous mode, any errors (other than 500 "internal server" errors, which are retried) are raised as **EM::AWS::Error** exceptions or some subclass thereof.
+The request can be passed a block, which -- if the request is successful -- receives the parsed response data and can act on it any way you like (in EventMachine terms, it becomes a _callback_):
 
-## Queries With EventMachine ##
-
-In an evented **EM.run** loop, query calls are similar to the above.  The main difference is that a _request_ object is returned rather than the _response_ object. The request object includes the Deferrable module, and `callback` and `errback` blocks can be attached to it to process the response.  
-
-As a shortcut, the query itself can be passed a block, which becomes the first `callback`:
-
-    EM.run do
-      sns = EM::AWS::SNS.new
-      
-      request = sns.create_topic name: 'MyTestTopic' do |response|
-        puts response.topic_arn
-      end
-      
-      # Other blocks can be chained to the request:
-      
-      request.callback do |response|
-        sns.get_topic_attributes(topic_arn: response.topic_arn) do |resp2|
-          # ...other processing here...
-          EM.stop
-        end
-      end
-      
-      # Don't forget to handle failure cases:
-      
-      request.errback do |response|
-        puts "FAILURE: #{response.error}"
-        EM.stop
+    # Subscribe to the topic once created
+    sns.create_topic name: 'MyTestTopic' do |response|
+      sns.subscribe protocol: 'email', endpoint: 'myself@example.org',
+                    topic_arn: response.topic_arn do |resp2|
+        puts "Subscribed to topic #{response.topic_arn}."
+        puts "Your subscription ID is #{resp2.subscription_arn}."
+        puts "Check your email!"
       end
     end
     
-All request blocks are passed a **Response** object.  If the query succeeded (i.e. came back with HTTP status 200), the `callback` blocks are called.  The response object is a subclass of **SuccessResponse** and makes the values returned from Amazon available as attributes.  
+This single block usage works in both EventMachine and synchronous modes. (See below.)  If you want to add more than one callback, or handle query failures in a similar way, you'll need to use EventMachine callbacks and errbacks.
 
-If the query failed (usually with a status in the 400s), the `errback` blocks are called.  The response is a subclass of **FailureResponse** and contains the error `:code` and `:message` returned by Amazon.  Attempting to reference other attributes raises an exception with the same information. 
+## Queries With EventMachine ##
+
+In an evented `EM.run` loop, calling any query method will return the request object immediately.  The `#finished?` attribute on the request will initially be _false_. The HTTP request will be made and the response received and parsed within the EventMachine loop, after which `#finished?` will be _true_.  The `#success?` attribute will then be _true_ if Amazon returned a successful response, or _false_ if an error was received from Amazon.
+
+The **Request** object mixes in the **EventMachine::Deferrable** module, meaning you can attach blocks using the `#callback` and `#errback` methods.  This is the primary means for evented programming with this gem.  
+
+(**Note:** If your entire program is not intended to run within the EventMachine loop, you will have to call `EM.stop` explicitly when you're finished handling all requests. Don't forget to do so for both success and failure cases.)
+
+    EM.run do
+      request = sns.create_topic name: 'MyTopic'
+    
+      request.callback do |resp| 
+        puts "You created topic #{resp.topic_arn}."
+        EM.stop
+      end
+    
+      request.errback do |resp| 
+        puts "Amazon returned failure: #{resp.error}."
+        EM.stop
+      end
+    end
+
+### Success Case ###
+
+If the query to Amazon was successful, the `#callback` blocks you attach to the request are run in the order of insertion.  If you passed a block to the query method, it becomes the _first_ callback after **EM::AWS**'s internal handling.  
+
+The blocks are passed an object of a subclass of **EM::AWS::SuccessResponse**, with the values returned by Amazon accessible as attributes. (See the class documentation for more details on specific calls.) 
+
+### Failure Case ###
+
+Transient network failures and Amazon "500" internal errors are automatically retried in the background.  You can tune the number of retries with the `EM::AWS.retries` module attribute.  Successive attempts are delayed a few seconds in a Fibonacci sequence; with the default of 10 retries, the query will ultimately fail after 143 seconds.
+
+Other Amazon errors (or final retry failures) invoke any `#errback` blocks attached to the request, in order of insertion.  The blocks are passed on object subclassed from **EM::AWS::FailureResponse**, with the `#status`, `#code` and `#message` attributes being the interesting attributes to learn about the failure.
+
+There is also an `#exception` method, which returns (but does not raise) an exception object containing the same error data.  The `#exception!` method will _raise_ the exception.  This can be useful if you want to push the failure to more global exception handling mechanisms.  
+
+**IMPORTANT: Attempting to access the response hash or any data attributes on a failure will raise an exception.**  This is to prevent you from confusing a failed response and a successful one.  Always check for the success of your request, or else keep your _callback_ and _errback_ logic completely separate.
+
+
+## Queries Without EventMachine ##
+
+If the EventMachine reactor is not running, **EM::AWS** defaults to a simple synchronous mode.  It will start and stop EventMachine internally, and return the request object to you _after_ the request has succeeded or failed.  The returned data from Amazon can thus be used in your next line of code.
+
+This mode is intended as a convenience for developers who like the clean syntax of **EM::AWS** but don't want to think about EventMachine or callbacks.  _Do not mix this usage with other EventMachine tools or libraries._  **EM::AWS** will stop the event loop without knowledge or regard for anything else, leading to unpredictable results.  If you have other uses for EventMachine, put your calls in the `EM.run` loop and write evented code.  
+
+### Success Case ###
+
+The request object contains the response returned from Amazon (accessible via the `#response` method) and delegates any data access to it.  Working with it is therefore very similar to working with the response in a callback block.   Referencing again the example from earlier up:
+
+    # (EventMachine is not running)
+    request = sns.create_topic name: 'MyTestTopic'
+    request.success?     #=> true
+    request.topic_arn    #=> arn:aws:sns:us-east-1:123456789012:MyTestTopic
+
+If a block was given, that block will be run before the method returns.  If other **EM::AWS** queries are made within that block, EventMachine will not stop until _all_ of them have completed.  (Note, however, that these "inner" queries _will not_ have this magic synchronous behavior, because EventMachine will be running when they are called.)
+
+### Failure Case ###
+
+As with the success case, the request object will directly return the data from the failure response, such as `#error` and `#message`.  The `#success?` value of the request will be _false_, and if a block was given, it will not have been run.  
+
+**Attempting to access data attributes will raise an exception.**  If you are not prepared for this, check the `#success?` attribute first.
                             
 ## General Notes ##
 

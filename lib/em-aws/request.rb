@@ -23,17 +23,26 @@ module EventMachine
         self.errback {|r| @response = r}
       end
       
-      def [](key)
-        params[key] || params[camelcase(key)]
-      end
-      
       def finished?
         !response.nil?
       end
       
       def success?
-        response && response.success?
+        response and response.success?
       end
+      
+      def status
+        response and response.status
+      end
+      
+      def method_missing(name, *args, &block)
+        if response
+          response.send name, *args, &block
+        else
+          super
+        end
+      end
+      
     end
     
   end

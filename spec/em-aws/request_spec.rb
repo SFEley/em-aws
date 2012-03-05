@@ -12,11 +12,7 @@ describe EventMachine::AWS::Request do
   end
   
   it "knows its parameters" do
-    subject['SomeParam'].should == 5
-  end
-  
-  it "is indifferent to its parameter form" do
-    subject[:some_param].should == 5
+    subject.params['SomeParam'].should == 5
   end
   
   it "knows how many delivery tries it's had" do
@@ -26,6 +22,19 @@ describe EventMachine::AWS::Request do
   it "doesn't have a response when it's new" do
     subject.response.should be_nil
   end
+  
+  it "doesn't have a status when it's new" do
+    subject.status.should be_nil
+  end
+  
+  it "throws a method missing error on data access attempts" do
+    ->{subject.dummy_value}.should raise_error(NoMethodError)
+  end
+  
+  it "throws a method missing error on hash access attempts" do
+    ->{subject[:dummy_value]}.should raise_error(NoMethodError)
+  end
+  
   
   it {should_not be_finished}
   
@@ -44,6 +53,18 @@ describe EventMachine::AWS::Request do
     
     it "knows its response" do
       subject.response.should == @response
+    end
+    
+    it "makes the response data available as a hash" do
+      subject[:dummy_value].should == 'Garbonzo!'
+    end
+    
+    it "makes the response data available as attributes" do
+      subject.dummy_value.should == 'Garbonzo!'
+    end
+    
+    it "knows its status after completion" do
+      subject.status.should == 200
     end
     
     it "invokes any callback routines" do
@@ -65,6 +86,14 @@ describe EventMachine::AWS::Request do
     
     it "knows its response" do
       subject.response.should == @response
+    end
+    
+    it "knows its error from the response" do
+      subject.error.should == 'DummyFailure'
+    end
+    
+    it "throws an exception on data access" do
+      ->{subject.dummy_value}.should raise_error(EM::AWS::Query::QueryError)
     end
     
     it "invokes any errback routines" do

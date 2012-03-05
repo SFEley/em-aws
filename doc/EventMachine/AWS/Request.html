@@ -281,27 +281,6 @@ use the <code>#call</code> method on the relevant Service object.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#%5B%5D-instance_method" title="#[] (instance method)">- (Object) <strong>[]</strong>(key) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#finished%3F-instance_method" title="#finished? (instance method)">- (Boolean) <strong>finished?</strong> </a>
     
 
@@ -340,6 +319,48 @@ use the <code>#call</code> method on the relevant Service object.</p>
   
     <span class="summary_desc"><div class='inline'><p>A new instance of Request.</p>
 </div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#method_missing-instance_method" title="#method_missing (instance method)">- (Object) <strong>method_missing</strong>(name, *args, &amp;block) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#status-instance_method" title="#status (instance method)">- (Object) <strong>status</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -419,6 +440,50 @@ use the <code>#call</code> method on the relevant Service object.</p>
   
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_callback'>callback</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_r'>r</span><span class='op'>|</span> <span class='ivar'>@response</span> <span class='op'>=</span> <span class='id identifier rubyid_r'>r</span><span class='rbrace'>}</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_errback'>errback</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_r'>r</span><span class='op'>|</span> <span class='ivar'>@response</span> <span class='op'>=</span> <span class='id identifier rubyid_r'>r</span><span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+<div id="method_missing_details" class="method_details_list">
+  <h2>Dynamic Method Handling</h2>
+  <p class="notice this">
+    This class handles dynamic methods through the <tt>method_missing</tt> method
+    
+  </p>
+  
+    <div class="method_details first">
+  <p class="signature first" id="method_missing-instance_method">
+  
+    - (<tt>Object</tt>) <strong>method_missing</strong>(name, *args, &amp;block) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+38
+39
+40
+41
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/request.rb', line 38</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span>
+    <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='kw'>else</span>
+    <span class='kw'>super</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -684,35 +749,7 @@ use the <code>#call</code> method on the relevant Service object.</p>
     
     
       <div class="method_details first">
-  <p class="signature first" id="[]-instance_method">
-  
-    - (<tt>Object</tt>) <strong>[]</strong>(key) 
-  
-
-  
-</p><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-26
-27
-28</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/request.rb', line 26</span>
-
-<span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='id identifier rubyid_camelcase'>camelcase</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <p class="signature " id="finished?-instance_method">
+  <p class="signature first" id="finished?-instance_method">
   
     - (<tt>Boolean</tt>) <strong>finished?</strong> 
   
@@ -746,15 +783,43 @@ use the <code>#call</code> method on the relevant Service object.</p>
       <pre class="lines">
 
 
-30
-31
-32</pre>
+26
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/request.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/request.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_finished?'>finished?</span>
   <span class='op'>!</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="status-instance_method">
+  
+    - (<tt>Object</tt>) <strong>status</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/request.rb', line 34</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_status'>status</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='kw'>and</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -796,15 +861,15 @@ use the <code>#call</code> method on the relevant Service object.</p>
       <pre class="lines">
 
 
-34
-35
-36</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/request.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/request.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_success?'>success?</span>
-  <span class='id identifier rubyid_response'>response</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_success?'>success?</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='kw'>and</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_success?'>success?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -816,7 +881,7 @@ use the <code>#call</code> method on the relevant Service object.</p>
 </div>
     
     <div id="footer">
-  Generated on Wed Feb 29 17:06:45 2012 by 
+  Generated on Sat Mar  3 14:35:09 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>

@@ -63,14 +63,13 @@ module EventMachine
         if EventMachine.reactor_running?
           send_request(request)
         else
-          response = nil
           EventMachine.run do
             send_request(request)
             request.callback {|r| response = r}
             request.callback {|r| EventMachine.stop}
             request.errback {|r| r.exception!}
           end
-          response
+          request
         end
       end
       
