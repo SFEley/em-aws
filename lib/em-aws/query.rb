@@ -79,10 +79,15 @@ module EventMachine
         # A DSL macro that allows Amazon API actions to be easily declared and documented.
         # Wraps the #call method and allows transformation of input or output.
         # @param [Symbol] name The action to be called
+        # @param [optional, Hash] options
+        # @option options [Proc] :filter_params A lambda that performs in-place transformations on the parameters
         # @macro [attach] action Amazon API Actions
         #   @return Amazon API method. See AWS documentation for details.
-        def action(name)
+        def action(name, options={})
+          filter_params = options[:filter_params]
+          
           define_method(name) do |params={}, &block|
+            filter_params[params] if filter_params
             call name, params, &block
           end
         end

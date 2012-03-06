@@ -138,7 +138,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create_topic-instance_method" title="#create_topic (instance method)">- (EventMachine::AWS::Request) <strong>create_topic</strong> {|response| ... }</a>
+      <a href="#add_permission-instance_method" title="#add_permission (instance method)">- (Object) <strong>add_permission</strong> </a>
     
 
     
@@ -151,7 +151,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Amazon API query.</p>
+    <span class="summary_desc"><div class='inline'><p>Modifies the Access Control List (ACL) of a single topic.</p>
 </div></span>
   
 </li>
@@ -160,7 +160,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#delete_topic-instance_method" title="#delete_topic (instance method)">- (EventMachine::AWS::Request) <strong>delete_topic</strong> {|response| ... }</a>
+      <a href="#create_topic-instance_method" title="#create_topic (instance method)">- (Object) <strong>create_topic</strong> </a>
     
 
     
@@ -173,8 +173,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Amazon API query.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -182,7 +181,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#list_topics-instance_method" title="#list_topics (instance method)">- (EventMachine::AWS::Request) <strong>list_topics</strong> {|response| ... }</a>
+      <a href="#delete_topic-instance_method" title="#delete_topic (instance method)">- (Object) <strong>delete_topic</strong> </a>
     
 
     
@@ -195,8 +194,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Amazon API query.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -252,93 +250,153 @@
     
     
       <div class="method_details first">
-  <p class="signature first" id="create_topic-instance_method">
+  <p class="signature first" id="add_permission-instance_method">
   
-    - (<tt><span class='object_link'><a href="Request.html" title="EventMachine::AWS::Request (class)">EventMachine::AWS::Request</a></span></tt>) <strong>create_topic</strong> {|response| ... }
+    - (<tt>Object</tt>) <strong>add_permission</strong> 
   
 
   
 </p><div class="docstring">
   <div class="discussion">
-    <p>Amazon API query. See Amazon&#39;s documentation for full details.</p>
+    <p>Modifies the Access Control List (ACL) of a single topic. Can allow one or more actions for one or more AWS accounts.</p>
+
+<p>Because the API for specifying multiple permissions is somewhat roundabout, <strong>EM::AWS</strong>
+supports three different use patterns for adding permissions:</p>
 
 
   </div>
 </div>
 <div class="tags">
-  <h3>Parameters:</h3>
-<ul class="param">
+  
+  <div class="examples">
+    <h3>Examples:</h3>
+    
+      <h4><div class='inline'><p>Specify a single <code>:aws_account_id</code> and a single <code>:action_name</code> param:</p>
+</div></h4>
+      <pre class="example code"><span class='id identifier rubyid_sns'>sns</span><span class='period'>.</span><span class='id identifier rubyid_add_permission'>add_permission</span> <span class='label'>aws_account_id:</span> <span class='int'>123456789012</span><span class='comma'>,</span> <span class='label'>action_name:</span> <span class='symbol'>:get_topic_attributes</span></pre>
+    
+      <h4><div class='inline'><p>Assign an array for <code>:aws_account_id</code> and a corresponding array for <code>:action_name</code>:</p>
+</div></h4>
+      <pre class="example code"><span class='id identifier rubyid_sns'>sns</span><span class='period'>.</span><span class='id identifier rubyid_add_permission'>add_permission</span> <span class='label'>aws_account_id:</span> <span class='lbracket'>[</span><span class='int'>123456789012</span><span class='comma'>,</span> <span class='int'>123456789012</span><span class='comma'>,</span> <span class='int'>109876543210</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>action_name:</span> <span class='lbracket'>[</span><span class='symbol'>:subscribe</span><span class='comma'>,</span> <span class='symbol'>:get_topic_attributes</span><span class='comma'>,</span> <span class='symbol'>:subscribe</span><span class='rbracket'>]</span></pre>
+    
+      <h4><div class='inline'><p>Specify a <code>:permissions</code> hash where each key is an AWS account ID and each value is a permission or array of permissions:</p>
+</div></h4>
+      <pre class="example code"><span class='id identifier rubyid_sns'>sns</span><span class='period'>.</span><span class='id identifier rubyid_add_permission'>add_permission</span> <span class='label'>permissions:</span> <span class='lbrace'>{</span><span class='int'>123456789012</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='symbol'>:subscribe</span><span class='comma'>,</span> <span class='symbol'>:get_topic_attributes</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='int'>109876543210</span> <span class='op'>=&gt;</span> <span class='symbol'>:subscribe</span><span class='rbrace'>}</span></pre>
+    
+  </div>
+
+<h3>Request Parameters:</h3>
+<ul class="request">
   
     <li>
       
-        <span class='name'>params</span>
+        <span class='name'>:topic_arn</span>
       
       
-        <span class='type'>(<tt>Hash</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
         &mdash;
-        <div class='inline'><p>Parameters passed to Amazon; see below</p>
+        <div class='inline'><p>The topic whose ACL you wish to modify</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:label</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A <em>unique</em> name for the new policy statement</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:permissions</span>
+      
+      
+        <span class='type'>(<tt>optional</tt>, <tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Shortcut to map account IDs (keys) to one or more actions (values)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:aws_account_id</span>
+      
+      
+        <span class='type'>(<tt>optional</tt>, <tt>String</tt>, <tt>Integer</tt>, <tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>An ID or array of IDs for which new permissions should be added. <em>Required if <code>:permissions</code> is not used.</em></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:action_name</span>
+      
+      
+        <span class='type'>(<tt>optional</tt>, <tt>String</tt>, <tt>Symbol</tt>, <tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>An action or list of actions to enable for the corresponding ID in <code>:aws_account_id</code>. <em>Required if <code>:permissions</code> is not used.</em></p>
 </div>
       
     </li>
   
 </ul>
 
-<h3>Yields:</h3>
-<ul class="yield">
-  
-    <li>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        
-        <div class='inline'><p>Runs the given block as a callback on successful response</p>
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 29</span>
+
+<span class='id identifier rubyid_action'>action</span> <span class='symbol'>:add_permission</span></pre>
+    </td>
+  </tr>
+</table>
 </div>
-      
-    </li>
+    
+      <div class="method_details ">
+  <p class="signature " id="create_topic-instance_method">
   
-</ul>
-<h3>Yield Parameters:</h3>
-<ul class="yieldparam">
+    - (<tt>Object</tt>) <strong>create_topic</strong> 
   
-    <li>
-      
-        <span class='name'>response</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="Query/QueryResult.html" title="EventMachine::AWS::Query::QueryResult (class)">QueryResult</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>Response object containing data from Amazon</p>
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
 </div>
-      
-    </li>
+<div class="tags">
   
-</ul>
-<h3>Returns:</h3>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="Request.html" title="EventMachine::AWS::Request (class)">EventMachine::AWS::Request</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>Request object that (eventually) encapsulates the response</p>
-</div>
-      
-    </li>
-  
-</ul>
 <h3>Request Parameters:</h3>
 <ul class="request">
   
@@ -384,10 +442,10 @@
       <pre class="lines">
 
 
-18</pre>
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 34</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:create_topic</span></pre>
     </td>
@@ -398,91 +456,18 @@
       <div class="method_details ">
   <p class="signature " id="delete_topic-instance_method">
   
-    - (<tt><span class='object_link'><a href="Request.html" title="EventMachine::AWS::Request (class)">EventMachine::AWS::Request</a></span></tt>) <strong>delete_topic</strong> {|response| ... }
+    - (<tt>Object</tt>) <strong>delete_topic</strong> 
   
 
   
 </p><div class="docstring">
   <div class="discussion">
-    <p>Amazon API query. See Amazon&#39;s documentation for full details.</p>
-
+    
 
   </div>
 </div>
 <div class="tags">
-  <h3>Parameters:</h3>
-<ul class="param">
   
-    <li>
-      
-        <span class='name'>params</span>
-      
-      
-        <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>Parameters passed to Amazon; see below</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<h3>Yields:</h3>
-<ul class="yield">
-  
-    <li>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        
-        <div class='inline'><p>Runs the given block as a callback on successful response</p>
-</div>
-      
-    </li>
-  
-</ul>
-<h3>Yield Parameters:</h3>
-<ul class="yieldparam">
-  
-    <li>
-      
-        <span class='name'>response</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="Query/QueryResult.html" title="EventMachine::AWS::Query::QueryResult (class)">QueryResult</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>Response object containing data from Amazon</p>
-</div>
-      
-    </li>
-  
-</ul>
-<h3>Returns:</h3>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="Request.html" title="EventMachine::AWS::Request (class)">EventMachine::AWS::Request</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>Request object that (eventually) encapsulates the response</p>
-</div>
-      
-    </li>
-  
-</ul>
 <h3>Request Parameters:</h3>
 <ul class="request">
   
@@ -509,118 +494,12 @@
       <pre class="lines">
 
 
-24</pre>
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 40</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:delete_topic</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <p class="signature " id="list_topics-instance_method">
-  
-    - (<tt><span class='object_link'><a href="Request.html" title="EventMachine::AWS::Request (class)">EventMachine::AWS::Request</a></span></tt>) <strong>list_topics</strong> {|response| ... }
-  
-
-  
-</p><div class="docstring">
-  <div class="discussion">
-    <p>Amazon API query. See Amazon&#39;s documentation for full details.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <h3>Parameters:</h3>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>params</span>
-      
-      
-        <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>Parameters passed to Amazon; see below</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<h3>Yields:</h3>
-<ul class="yield">
-  
-    <li>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        
-        <div class='inline'><p>Runs the given block as a callback on successful response</p>
-</div>
-      
-    </li>
-  
-</ul>
-<h3>Yield Parameters:</h3>
-<ul class="yieldparam">
-  
-    <li>
-      
-        <span class='name'>response</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="Query/QueryResult.html" title="EventMachine::AWS::Query::QueryResult (class)">QueryResult</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>Response object containing data from Amazon</p>
-</div>
-      
-    </li>
-  
-</ul>
-<h3>Returns:</h3>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="Request.html" title="EventMachine::AWS::Request (class)">EventMachine::AWS::Request</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>Request object that (eventually) encapsulates the response</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-21</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 21</span>
-
-<span class='id identifier rubyid_action'>action</span> <span class='symbol'>:list_topics</span></pre>
     </td>
   </tr>
 </table>
@@ -631,7 +510,7 @@
 </div>
     
     <div id="footer">
-  Generated on Sat Mar  3 14:35:09 2012 by 
+  Generated on Mon Mar  5 19:27:16 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>
