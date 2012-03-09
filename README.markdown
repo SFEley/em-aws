@@ -1,10 +1,15 @@
 # EventMachine::AWS #
 
-**EM::AWS** is a thin Ruby wrapper for making calls to Amazon Web Services.  It transparently signs requests, automatically retries on server errors, and unwraps XML responses into simple attributes. Unlike most other AWS libraries, it _does not_ provide an object model for any of Amazon's services. It simply makes API calls and exposes the responses. Other gems or applications can build on this generic foundation to construct whatever higher-level model is appropriate for their needs.
+**EM::AWS** is a thin Ruby wrapper for making calls to [Amazon Web Services][AWS].  It transparently signs requests, automatically retries on server errors, and unwraps XML responses into simple attributes. Unlike most other AWS libraries, it _does not_ provide an object model for any of Amazon's services. It simply makes API calls and exposes the responses. Other gems or applications can build on this generic foundation to construct whatever higher-level model is appropriate for their needs.
 
-It also differs from other EventMachine libraries by offering a fully synchronous mode that _does not require_ EventMachine to be running. (The method call simply starts and stops EM behind the scenes.) This mode is less efficient but makes it easier to use **EM::AWS** in non-evented frameworks such as Rails.
+It also differs from other [EventMachine][EM] libraries by offering a fully synchronous mode that _does not require_ EventMachine to be running. (The query call simply starts and stops EM behind the scenes.) This mode is less efficient but makes it easier to use **EM::AWS** in non-evented frameworks such as Rails.
 
-At this stage in its development, **EM::AWS** supports the Amazon Query Protocol. This is the GET- or POST-based API framework used for virtually every Amazon service _except S3._  Support for S3's idiosyncratic REST API will likely come in a future release.
+At this stage in its development, **EM::AWS** supports the Amazon Query Protocol for the following services:
+
+* [**SNS** - Simple Notification Service][SNS]
+* [**SQS** - Simple Query Service][SQS]
+
+Other services will be added shortly, _except S3._  Support for S3's idiosyncratic REST API will likely come in a future release.
 
 ## Getting Started ##
 
@@ -65,11 +70,11 @@ This single block usage works in both EventMachine and synchronous modes. (See b
 
 ## Queries With EventMachine ##
 
-In an evented `EM.run` loop, calling any query method will return the request object immediately.  The `#finished?` attribute on the request will initially be _false_. The HTTP request will be made and the response received and parsed within the EventMachine loop, after which `#finished?` will be _true_.  The `#success?` attribute will then be _true_ if Amazon returned a successful response, or _false_ if an error was received from Amazon.
+In an evented `EM.run` loop, calling any query method will return the request object immediately.  The `#finished?` attribute on the request will initially be _false_. The HTTP request will be made and the response received and parsed within the [EventMachine][EM] loop, after which `#finished?` will be _true_.  The `#success?` attribute will then be _true_ if Amazon returned a successful response, or _false_ if an error was received from Amazon.
 
-The **Request** object mixes in the **EventMachine::Deferrable** module, meaning you can attach blocks using the `#callback` and `#errback` methods.  This is the primary means for evented programming with this gem.  
+The **Request** object mixes in the [**EventMachine::Deferrable**][DEFER] module, meaning you can attach blocks using the `#callback` and `#errback` methods.  This is the primary means for evented programming with this gem.  
 
-(**Note:** If your entire program is not intended to run within the EventMachine loop, you will have to call `EM.stop` explicitly when you're finished handling all requests. Don't forget to do so for both success and failure cases.)
+(**Note:** Unless your entire program runs a continuous EventMachine loop, remember to call `EM.stop` when you're finished handling all requests. You will need to do so for both success and failure cases.)
 
     EM.run do
       request = sns.create_topic name: 'MyTopic'
@@ -99,7 +104,7 @@ Other Amazon errors (or final retry failures) invoke any `#errback` blocks attac
 
 There is also an `#exception` method, which returns (but does not raise) an exception object containing the same error data.  The `#exception!` method will _raise_ the exception.  This can be useful if you want to push the failure to more global exception handling mechanisms.  
 
-**IMPORTANT: Attempting to access the response hash or any data attributes on a failure will raise an exception.**  This is to prevent you from confusing a failed response and a successful one.  Always check for the success of your request, or else keep your _callback_ and _errback_ logic completely separate.
+**IMPORTANT: Attempting to access the response hash or any data attributes on a failure will raise an exception.**  This is to prevent you from confusing a failed response and a successful one.  It's best to keep your _callback_ and _errback_ logic completely separate; if you can't, check the `#success?` attribute before inspecting data.
 
 
 ## Queries Without EventMachine ##
@@ -121,21 +126,17 @@ If a block was given, that block will be run before the method returns.  If othe
 
 ### Failure Case ###
 
-As with the success case, the request object will directly return the data from the failure response, such as `#error` and `#message`.  The `#success?` value of the request will be _false_, and if a block was given, it will not have been run.  
-
-**Attempting to access data attributes will raise an exception.**  If you are not prepared for this, check the `#success?` attribute first.
+Failing in synchronous mode will raise an exception containing the error code and message from Amazon.
                             
 ## General Notes ##
 
-The following behavior is true for all AWS services:
+The following behavior is true for all [AWS] services:
 
-* **EM::AWS** uses HTTP POST by default for all Query Protocol calls. It is possible to override this by passing `method: :get` on service object initialization, but this will limit the amount of data that can be passed.
+* **EM::AWS** uses HTTP POST by default for all Query Protocol calls. You can override it to use GET queries by passing `method: :get` on service initialization. (This will of course limit the amount of data that can be passed.)
 * SSL is enabled by default. You can disable it globally with `EM::AWS.ssl = false` or locally by passing `ssl: false` on service object initialization.
 * XML response values that include lists of `<member>` elements will be flattened into arrays.
 * XML response values that include `<key>` and `<value>` pairs will be flattened into Ruby hashes.
-* Network errors and Amazon HTTP 500 errors are automatically retried; the number of attempts can be set with the `EM::AWS.retries` attribute. (The default is 10.) 
-* The retry delay follows a Fibonacci sequence: the first two retries are 1 second apart, then 2 seconds, then 3, then 5, etc.  A full cycle of 10 retries thus takes 143 seconds. If the error is not resolved by that time, it will be returned as a **FailureResponse**.
-* If any query receives a `Throttling` response from Amazon, it will also be retried, and subsequent calls to the same service will be subject to a 1 second delay.  The delay will expire if two minutes pass without a throttling error.
+* If any query receives a `Throttling` response from Amazon, it will be retried, and subsequent calls to the same service will be subject to a 1 second delay.  The delay will expire if two minutes pass without a throttling error.
 
 ## SQS ##
 
@@ -155,8 +156,14 @@ You can also create a queue that doesn't exist yet using the `.create` class met
 
 (If a queue with that name already exists, the `.create` class method has the same net effect as `.get`, except that Amazon will return an error if you pass any attributes that are different from the ones already set.)
 
+[AWS]: http://aws.amazon.com
+[DEFER]: http://eventmachine.rubyforge.org/docs/DEFERRABLES.html
+[EM]: http://rubyeventmachine.com/
+[SNS]: http://aws.amazon.com/sns
+[SQS]: http://aws.amazon.com/sqs
 
-      
+## Contributing ##
+
 
     
     

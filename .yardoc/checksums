@@ -1,6 +1,6 @@
 lib/em-aws.rb 076a87ded22025b8111ecf9f319f36c66695032a
 lib/em-aws/sqs.rb 16adb7f3b9e2560641d5d02b2c30ace73769be8c
-lib/em-aws/sns.rb a6a07b04e819620f742a28a53a56cc7feec64a08
+lib/em-aws/sns.rb ce076f15e5b330ef1d7fcddc7cfc8053af3994b4
 lib/em-aws/query.rb be1e707b7634445c1875a49be56af8af1f5d78bd
 lib/em-aws/logger.rb daef37df0f378a80220daf614e0aa7afa52810aa
 lib/em-aws/service.rb b3669e8694caf0b3c0d782eb04f619c5ff5af830
