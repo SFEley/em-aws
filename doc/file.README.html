@@ -56,11 +56,18 @@
     
     <div id="content"><div id='filecontents'><h1>EventMachine::AWS</h1>
 
-<p><strong>EM::AWS</strong> is a thin Ruby wrapper for making calls to Amazon Web Services.  It transparently signs requests, automatically retries on server errors, and unwraps XML responses into simple attributes. Unlike most other AWS libraries, it <em>does not</em> provide an object model for any of Amazon&#39;s services. It simply makes API calls and exposes the responses. Other gems or applications can build on this generic foundation to construct whatever higher-level model is appropriate for their needs.</p>
+<p><strong>EM::AWS</strong> is a thin Ruby wrapper for making calls to <a href="http://aws.amazon.com">Amazon Web Services</a>.  It transparently signs requests, automatically retries on server errors, and unwraps XML responses into simple attributes. Unlike most other AWS libraries, it <em>does not</em> provide an object model for any of Amazon&#39;s services. It simply makes API calls and exposes the responses. Other gems or applications can build on this generic foundation to construct whatever higher-level model is appropriate for their needs.</p>
 
-<p>It also differs from other EventMachine libraries by offering a fully synchronous mode that <em>does not require</em> EventMachine to be running. (The method call simply starts and stops EM behind the scenes.) This mode is less efficient but makes it easier to use <strong>EM::AWS</strong> in non-evented frameworks such as Rails.</p>
+<p>It also differs from other <a href="http://rubyeventmachine.com/">EventMachine</a> libraries by offering a fully synchronous mode that <em>does not require</em> EventMachine to be running. (The query call simply starts and stops EM behind the scenes.) This mode is less efficient but makes it easier to use <strong>EM::AWS</strong> in non-evented frameworks such as Rails.</p>
 
-<p>At this stage in its development, <strong>EM::AWS</strong> supports the Amazon Query Protocol. This is the GET- or POST-based API framework used for virtually every Amazon service <em>except S3.</em>  Support for S3&#39;s idiosyncratic REST API will likely come in a future release.</p>
+<p>At this stage in its development, <strong>EM::AWS</strong> supports the Amazon Query Protocol for the following services:</p>
+
+<ul>
+<li><a href="http://aws.amazon.com/sns"><strong>SNS</strong> - Simple Notification Service</a></li>
+<li><a href="http://aws.amazon.com/sqs"><strong>SQS</strong> - Simple Query Service</a></li>
+</ul>
+
+<p>Other services will be added shortly, <em>except S3.</em>  Support for S3&#39;s idiosyncratic REST API will likely come in a future release.</p>
 
 <h2>Getting Started</h2>
 
@@ -126,11 +133,11 @@
 
 <h2>Queries With EventMachine</h2>
 
-<p>In an evented <code>EM.run</code> loop, calling any query method will return the request object immediately.  The <code>#finished?</code> attribute on the request will initially be <em>false</em>. The HTTP request will be made and the response received and parsed within the EventMachine loop, after which <code>#finished?</code> will be <em>true</em>.  The <code>#success?</code> attribute will then be <em>true</em> if Amazon returned a successful response, or <em>false</em> if an error was received from Amazon.</p>
+<p>In an evented <code>EM.run</code> loop, calling any query method will return the request object immediately.  The <code>#finished?</code> attribute on the request will initially be <em>false</em>. The HTTP request will be made and the response received and parsed within the <a href="http://rubyeventmachine.com/">EventMachine</a> loop, after which <code>#finished?</code> will be <em>true</em>.  The <code>#success?</code> attribute will then be <em>true</em> if Amazon returned a successful response, or <em>false</em> if an error was received from Amazon.</p>
 
-<p>The <strong>Request</strong> object mixes in the <strong>EventMachine::Deferrable</strong> module, meaning you can attach blocks using the <code>#callback</code> and <code>#errback</code> methods.  This is the primary means for evented programming with this gem.  </p>
+<p>The <strong>Request</strong> object mixes in the <a href="http://eventmachine.rubyforge.org/docs/DEFERRABLES.html"><strong>EventMachine::Deferrable</strong></a> module, meaning you can attach blocks using the <code>#callback</code> and <code>#errback</code> methods.  This is the primary means for evented programming with this gem.  </p>
 
-<p>(<strong>Note:</strong> If your entire program is not intended to run within the EventMachine loop, you will have to call <code>EM.stop</code> explicitly when you&#39;re finished handling all requests. Don&#39;t forget to do so for both success and failure cases.)</p>
+<p>(<strong>Note:</strong> Unless your entire program runs a continuous EventMachine loop, remember to call <code>EM.stop</code> when you&#39;re finished handling all requests. You will need to do so for both success and failure cases.)</p>
 
 <pre class="code ruby"><code><span class='const'>EM</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_request'>request</span> <span class='op'>=</span> <span class='id identifier rubyid_sns'>sns</span><span class='period'>.</span><span class='id identifier rubyid_create_topic'>create_topic</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>MyTopic</span><span class='tstring_end'>'</span></span>
@@ -161,7 +168,7 @@
 
 <p>There is also an <code>#exception</code> method, which returns (but does not raise) an exception object containing the same error data.  The <code>#exception!</code> method will <em>raise</em> the exception.  This can be useful if you want to push the failure to more global exception handling mechanisms.  </p>
 
-<p><strong>IMPORTANT: Attempting to access the response hash or any data attributes on a failure will raise an exception.</strong>  This is to prevent you from confusing a failed response and a successful one.  Always check for the success of your request, or else keep your <em>callback</em> and <em>errback</em> logic completely separate.</p>
+<p><strong>IMPORTANT: Attempting to access the response hash or any data attributes on a failure will raise an exception.</strong>  This is to prevent you from confusing a failed response and a successful one.  It&#39;s best to keep your <em>callback</em> and <em>errback</em> logic completely separate; if you can&#39;t, check the <code>#success?</code> attribute before inspecting data.</p>
 
 <h2>Queries Without EventMachine</h2>
 
@@ -183,22 +190,18 @@
 
 <h3>Failure Case</h3>
 
-<p>As with the success case, the request object will directly return the data from the failure response, such as <code>#error</code> and <code>#message</code>.  The <code>#success?</code> value of the request will be <em>false</em>, and if a block was given, it will not have been run.  </p>
-
-<p><strong>Attempting to access data attributes will raise an exception.</strong>  If you are not prepared for this, check the <code>#success?</code> attribute first.</p>
+<p>Failing in synchronous mode will raise an exception containing the error code and message from Amazon.</p>
 
 <h2>General Notes</h2>
 
-<p>The following behavior is true for all AWS services:</p>
+<p>The following behavior is true for all <a href="http://aws.amazon.com">AWS</a> services:</p>
 
 <ul>
-<li><strong>EM::AWS</strong> uses HTTP POST by default for all Query Protocol calls. It is possible to override this by passing <code>method: :get</code> on service object initialization, but this will limit the amount of data that can be passed.</li>
+<li><strong>EM::AWS</strong> uses HTTP POST by default for all Query Protocol calls. You can override it to use GET queries by passing <code>method: :get</code> on service initialization. (This will of course limit the amount of data that can be passed.)</li>
 <li>SSL is enabled by default. You can disable it globally with <code>EM::AWS.ssl = false</code> or locally by passing <code>ssl: false</code> on service object initialization.</li>
 <li>XML response values that include lists of <code>&lt;member&gt;</code> elements will be flattened into arrays.</li>
 <li>XML response values that include <code>&lt;key&gt;</code> and <code>&lt;value&gt;</code> pairs will be flattened into Ruby hashes.</li>
-<li>Network errors and Amazon HTTP 500 errors are automatically retried; the number of attempts can be set with the <code>EM::AWS.retries</code> attribute. (The default is 10.) </li>
-<li>The retry delay follows a Fibonacci sequence: the first two retries are 1 second apart, then 2 seconds, then 3, then 5, etc.  A full cycle of 10 retries thus takes 143 seconds. If the error is not resolved by that time, it will be returned as a <strong>FailureResponse</strong>.</li>
-<li>If any query receives a <code>Throttling</code> response from Amazon, it will also be retried, and subsequent calls to the same service will be subject to a 1 second delay.  The delay will expire if two minutes pass without a throttling error.</li>
+<li>If any query receives a <code>Throttling</code> response from Amazon, it will be retried, and subsequent calls to the same service will be subject to a 1 second delay.  The delay will expire if two minutes pass without a throttling error.</li>
 </ul>
 
 <h2>SQS</h2>
@@ -221,10 +224,12 @@
 </code></pre>
 
 <p>(If a queue with that name already exists, the <code>.create</code> class method has the same net effect as <code>.get</code>, except that Amazon will return an error if you pass any attributes that are different from the ones already set.)</p>
+
+<h2>Contributing</h2>
 </div></div>
     
     <div id="footer">
-  Generated on Mon Mar  5 19:27:16 2012 by 
+  Generated on Sun Mar 18 20:18:29 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>

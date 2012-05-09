@@ -95,7 +95,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#action-instance_method" title="#action (instance method)">- (Object) <strong>action</strong>(name) </a>
+      <a href="#action-instance_method" title="#action (instance method)">- (Object) <strong>action</strong>(name, options = {}) </a>
     
 
     
@@ -108,8 +108,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Amazon API Actions
-A DSL macro that allows Amazon API actions to be easily declared and documented.</p>
+    <span class="summary_desc"><div class='inline'><p>A DSL macro that allows Amazon API actions to be easily declared and documented.</p>
 </div></span>
   
 </li>
@@ -127,14 +126,13 @@ A DSL macro that allows Amazon API actions to be easily declared and documented.
       <div class="method_details first">
   <p class="signature first" id="action-instance_method">
   
-    - (<tt>Object</tt>) <strong>action</strong>(name) 
+    - (<tt>Object</tt>) <strong>action</strong>(name, options = {}) 
   
 
   
 </p><div class="docstring">
   <div class="discussion">
-    <p>Amazon API Actions
-A DSL macro that allows Amazon API actions to be easily declared and documented.
+    <p>A DSL macro that allows Amazon API actions to be easily declared and documented.
 Wraps the #call method and allows transformation of input or output.</p>
 
 
@@ -159,25 +157,42 @@ Wraps the #call method and allows transformation of input or output.</p>
       
     </li>
   
-</ul>
-
-<h3>Returns:</h3>
-<ul class="return">
-  
     <li>
       
-      
-        <span class='type'></span>
-      
+        <span class='name'>options</span>
       
       
-        
-        <div class='inline'><p>Amazon API method. See AWS documentation for details.</p>
-</div>
+        <span class='type'>(<tt>optional</tt>, <tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
       
     </li>
   
 </ul>
+
+  
+    
+    
+    
+    
+    <h3>Options Hash (<tt>options</tt>):</h3>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:filter_params</span>
+          <span class="type">(<tt>Proc</tt>)</span>
+          <span class="default">
+            
+          </span>
+          &mdash; <div class='inline'><p>A lambda that performs in-place transformations on the parameters</p>
+</div>
+        </li>
+      
+    </ul>
+  
+
 
 </div><table class="source_code">
   <tr>
@@ -185,17 +200,23 @@ Wraps the #call method and allows transformation of input or output.</p>
       <pre class="lines">
 
 
-84
-85
 86
 87
-88</pre>
+88
+89
+90
+91
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/query.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/query.rb', line 86</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_action'>action</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_action'>action</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_filter_params'>filter_params</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:filter_params</span><span class='rbracket'>]</span>
+  
   <span class='id identifier rubyid_define_method'>define_method</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_params'>params</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='op'>|</span>
+    <span class='id identifier rubyid_filter_params'>filter_params</span><span class='lbracket'>[</span><span class='id identifier rubyid_params'>params</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_filter_params'>filter_params</span>
     <span class='id identifier rubyid_call'>call</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -209,7 +230,7 @@ Wraps the #call method and allows transformation of input or output.</p>
 </div>
     
     <div id="footer">
-  Generated on Mon Mar  5 19:27:16 2012 by 
+  Generated on Sun Mar 18 20:18:29 2012 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.7.5 (ruby-1.9.3).
 </div>

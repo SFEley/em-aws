@@ -33,6 +33,9 @@ RSpec.configure do |config|
       EventMachine::AWS.aws_access_key_id = 'FAKE_KEY'
       EventMachine::AWS.aws_secret_access_key = 'FAKE_SECRET'
     end
+    config.before(:each, mock: true) do
+      raise "Enable loading from the YAML!"
+    end
   end
   
   config.include EventMachineHelper
