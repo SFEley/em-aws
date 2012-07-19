@@ -63,14 +63,14 @@ module EventMachine
       # @response [String] :subscription_arn Amazon Resource Name (ARN) assigned to the subscription
       action :confirm_subscription
 
-      # Creates the given topic. Amazon states that this action is _idempotent:_ creating the same
+      # Creates the given topic. Amazon states that this action is idempotent: creating the same
       # topic multiple times will not produce an error.
       #
       # @request [String] :name Topic name (letters, numbers and hyphens only)
       # @response [String] :topic_arn Amazon Resource Name (ARN) assigned to the created topic
       action :create_topic
 
-      # Deletes the given topic. Amazon states that this action is _idempotent:_ deleting the same
+      # Deletes the given topic. Amazon states that this action is idempotent: deleting the same
       # topic multiple times will not produce an error.
       #
       # @request [String] :topic_arn Amazon Resource Name (ARN) assigned to the topic
