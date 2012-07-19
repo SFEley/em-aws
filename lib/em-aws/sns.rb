@@ -9,6 +9,9 @@ module EventMachine
 
       API_VERSION = '2010-03-31'
 
+      # @!group AWS Actions
+
+      # @!method add_permission(request_params)
       # Modifies the Access Control List (ACL) of a single topic. Can allow one or more actions for one or more AWS accounts.
       #
       # Because the API for specifying multiple permissions is somewhat roundabout, **EM::AWS**
@@ -53,6 +56,7 @@ module EventMachine
         params["ActionName.member"] = params.delete :action_name
       }
 
+      # @!method confirm_subscription(request_params)
       # Verifies a subscription via token authentication. The `:subscribe` call must previously
       # have been made and a token sent to the given endpoint.
       #
@@ -63,6 +67,7 @@ module EventMachine
       # @response [String] :subscription_arn Amazon Resource Name (ARN) assigned to the subscription
       action :confirm_subscription
 
+      # @!method create_topic(request_params)
       # Creates the given topic. Amazon states that this action is idempotent: creating the same
       # topic multiple times will not produce an error.
       #
@@ -70,12 +75,14 @@ module EventMachine
       # @response [String] :topic_arn Amazon Resource Name (ARN) assigned to the created topic
       action :create_topic
 
+      # @!method delete_topic(request_params)
       # Deletes the given topic. Amazon states that this action is idempotent: deleting the same
       # topic multiple times will not produce an error.
       #
       # @request [String] :topic_arn Amazon Resource Name (ARN) assigned to the topic
       action :delete_topic
 
+      # @!method get_subscription_attributes(request_params)
       # Returns the properties of the given subscription. Note that the attributes returned are
       # given directly at the top level of the response object; there is no `:attributes` attribute.
       #
@@ -88,6 +95,7 @@ module EventMachine
       # @response [String] :topic_arn Amazon Resource Name (ARN) assigned to the topic
       action :get_subscription_attributes
 
+      # @!method get_topic_attributes(request_params)
       # Returns the properties of the given topic. Note that the attributes returned are
       # given directly at the top level of the response object; there is no `:attributes` attribute.
       #
@@ -103,6 +111,7 @@ module EventMachine
       # @response [String] :topic_arn Amazon Resource Name (ARN) assigned to the topic
       action :get_topic_attributes
 
+      # @!method list_subscriptions(request_params)
       # Returns the requester's active subscriptions. The `:subscriptions` attribute contains an array of
       # hashes; see below.
       #
@@ -112,6 +121,7 @@ module EventMachine
       #   `:topic_arn`, `:protocol`, `:subscription_arn`, `:owner`, and `:endpoint`.
       action :list_subscriptions
 
+      # @!method list_subscriptions_by_topic(request_params)
       # Returns the active subscriptions for a given topic. The `:subscriptions` attribute contains an array of
       # hashes; see below.
       #
@@ -122,6 +132,7 @@ module EventMachine
       #   `:topic_arn`, `:protocol`, `:subscription_arn`, `:owner`, and `:endpoint`.
       action :list_subscriptions_by_topic
 
+      # @!method list_topics(request_params)
       # Returns the requester's topics. The `:topics` attribute contains an array of strings, each of which is
       # the topic's ARN.
       #
@@ -130,6 +141,7 @@ module EventMachine
       # @response [Array] :topics Topic list. Each element is an Amazon Resource Name (ARN) of a topic.
       action :list_topics
 
+      # @!method publish(request_params)
       # Send a message to a topic, to be delivered to all of a topic's subscribers. There are two valid formats
       # for the `:message` parameter:
       #
@@ -167,6 +179,7 @@ module EventMachine
       # @response [String] :message_id Unique identifier for the published message
       action :publish
 
+      # @!method remove_permission(request_params)
       # Removes a given set of permissions from a topic's access control policy. The `:label` must be the
       # one chosen when the permission was added with the _AddPermission_ action.
       #
@@ -174,6 +187,7 @@ module EventMachine
       # @request [String] :topic_arn Amazon Resource Name (ARN) assigned to the topic
       action :remove_permission
 
+      # @!method set_subscription_attributes(request_params)
       # Sets a single attribute of the subscription. In this version of the API, only the 'DeliveryPolicy'
       # attribute can be set (and only if the topic allows subscription overrides). The policy value must
       # be valid JSON and can be any subset of the following structure:
@@ -198,17 +212,18 @@ module EventMachine
       #       attribute_value: '{"throttlePolicy": {"maxReceivesPerSecond": 3}}',
       #       subscription_arn: 'arn:aws:sns:us-east-1:12345679012:My-Test-Topic:80289ba6-0fd4-4079-afb4-cd8c8260f0ca'
       #
-      # @request ["DeliveryPolicy"] :attribute_name Attribute to set. _The only valid value is "DeliveryPolicy"._
+      # @request [String] :attribute_name Attribute to set. *The only valid value is "DeliveryPolicy".*
       # @request [String] :attribute_value New value for attribute
       # @request [String] :subscription_arn Amazon Resource Name (ARN) assigned to the subscription
       action :set_subscription_attributes
 
+      # @!method set_topic_attributes(request_params)
       # Sets a single attribute of the topic. In this version of the API, the attributes that can be set
       # are:
       #
-      # * _'DisplayName'_ - Used in SMS and email messages
-      # * _'Policy'_ - Access control policy in JSON format
-      # * _'DeliveryPolicy'_ - Default delivery settings in JSON format
+      # * 'DisplayName' - Used in SMS and email messages
+      # * 'Policy' - Access control policy in JSON format
+      # * 'DeliveryPolicy' - Default delivery settings in JSON format
       #
       # For the 'DeliveryPolicy' attribute, the value must be valid JSON and can be any subset of the
       # following structure:
@@ -244,6 +259,7 @@ module EventMachine
       # @request [String] :topic_arn Amazon Resource Name (ARN) assigned to the topic
       action :set_topic_attributes
 
+      # @!method subscribe(request_params)
       # Registers a new endpoint with the topic. In most cases the endpoint owner must call the
       # _ConfirmSubscription_ action using the token received at the endpoint to start receiving
       # notifications. Confirmation tokens are valid for three days.
@@ -264,11 +280,15 @@ module EventMachine
       #   _if_ it was created without confirmation required
       action :subscribe
 
+      # @!method unsubscribe(request_params)
       # Deletes the given subscription. The call need not be authenticated with credentials if the
       # subscription was confirmed with `:authenticate_on_unsubscribe` set to _false_.
       #
       # @request [String] :subscription_arn Amazon Resource Name (ARN) assigned to the subscription
       action :unsubscribe
+
+      # @!endgroup
     end
+
   end
 end
