@@ -6,7 +6,7 @@
 <title>
   Class: EventMachine::AWS::SNS
   
-    &mdash; Documentation by YARD 0.7.5
+    &mdash; Documentation by YARD 0.8.2.1
   
 </title>
 
@@ -15,9 +15,11 @@
   <link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  relpath = '../..';
-  if (relpath != '') relpath += '/';
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../../';
+  framesUrl = "../../frames.html#!" + escape(window.location.href);
 </script>
+
 
   <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
 
@@ -26,36 +28,41 @@
 
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) document.body.className = 'frames';
-    </script>
-    
     <div id="header">
       <div id="menu">
   
-    <a href="../../_index.html">Index (S)</a> &raquo; 
+    <a href="../../_index.html">Index (S)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../../EventMachine.html" title="EventMachine (module)">EventMachine</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../AWS.html" title="EventMachine::AWS (module)">AWS</a></span></span>
      &raquo; 
     <span class="title">SNS</span>
   
-  
+
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a id="class_list_link" href="#">Class List</a>
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+      Class List
+    </a>
   
-    <a id="method_list_link" href="#">Method List</a>
+    <a class="full_list_link" id="method_list_link"
+        href="../../method_list.html">
+      Method List
+    </a>
   
-    <a id="file_list_link" href="#">File List</a>
+    <a class="full_list_link" id="file_list_link"
+        href="../../file_list.html">
+      File List
+    </a>
   
 </div>
       <div class="clear"></div>
     </div>
-    
+
     <iframe id="search_frame"></iframe>
-    
+
     <div id="content"><h1>Class: EventMachine::AWS::SNS
   
   
@@ -133,7 +140,7 @@
 
   
     <h2>
-      Instance Method Summary
+      AWS Actions
       <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
     </h2>
 
@@ -142,11 +149,12 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#add_permission-instance_method" title="#add_permission (instance method)">- (Object) <strong>add_permission</strong> </a>
+      <a href="#add_permission-instance_method" title="#add_permission (instance method)">- (Object) <strong>add_permission</strong>(request_params) </a>
     
 
     
   </span>
+  
   
   
   
@@ -164,11 +172,12 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#confirm_subscription-instance_method" title="#confirm_subscription (instance method)">- (Object) <strong>confirm_subscription</strong> </a>
+      <a href="#confirm_subscription-instance_method" title="#confirm_subscription (instance method)">- (Object) <strong>confirm_subscription</strong>(request_params) </a>
     
 
     
   </span>
+  
   
   
   
@@ -186,11 +195,12 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create_topic-instance_method" title="#create_topic (instance method)">- (Object) <strong>create_topic</strong> </a>
+      <a href="#create_topic-instance_method" title="#create_topic (instance method)">- (Object) <strong>create_topic</strong>(request_params) </a>
     
 
     
   </span>
+  
   
   
   
@@ -208,11 +218,12 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#delete_topic-instance_method" title="#delete_topic (instance method)">- (Object) <strong>delete_topic</strong> </a>
+      <a href="#delete_topic-instance_method" title="#delete_topic (instance method)">- (Object) <strong>delete_topic</strong>(request_params) </a>
     
 
     
   </span>
+  
   
   
   
@@ -230,11 +241,12 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#get_subscription_attributes-instance_method" title="#get_subscription_attributes (instance method)">- (Object) <strong>get_subscription_attributes</strong> </a>
+      <a href="#get_subscription_attributes-instance_method" title="#get_subscription_attributes (instance method)">- (Object) <strong>get_subscription_attributes</strong>(request_params) </a>
     
 
     
   </span>
+  
   
   
   
@@ -252,11 +264,12 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#get_topic_attributes-instance_method" title="#get_topic_attributes (instance method)">- (Object) <strong>get_topic_attributes</strong> </a>
+      <a href="#get_topic_attributes-instance_method" title="#get_topic_attributes (instance method)">- (Object) <strong>get_topic_attributes</strong>(request_params) </a>
     
 
     
   </span>
+  
   
   
   
@@ -274,11 +287,12 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#list_subscriptions-instance_method" title="#list_subscriptions (instance method)">- (Object) <strong>list_subscriptions</strong> </a>
+      <a href="#list_subscriptions-instance_method" title="#list_subscriptions (instance method)">- (Object) <strong>list_subscriptions</strong>(request_params) </a>
     
 
     
   </span>
+  
   
   
   
@@ -296,11 +310,12 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#list_subscriptions_by_topic-instance_method" title="#list_subscriptions_by_topic (instance method)">- (Object) <strong>list_subscriptions_by_topic</strong> </a>
+      <a href="#list_subscriptions_by_topic-instance_method" title="#list_subscriptions_by_topic (instance method)">- (Object) <strong>list_subscriptions_by_topic</strong>(request_params) </a>
     
 
     
   </span>
+  
   
   
   
@@ -318,11 +333,12 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#list_topics-instance_method" title="#list_topics (instance method)">- (Object) <strong>list_topics</strong> </a>
+      <a href="#list_topics-instance_method" title="#list_topics (instance method)">- (Object) <strong>list_topics</strong>(request_params) </a>
     
 
     
   </span>
+  
   
   
   
@@ -340,11 +356,12 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#publish-instance_method" title="#publish (instance method)">- (Object) <strong>publish</strong> </a>
+      <a href="#publish-instance_method" title="#publish (instance method)">- (Object) <strong>publish</strong>(request_params) </a>
     
 
     
   </span>
+  
   
   
   
@@ -362,11 +379,12 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#remove_permission-instance_method" title="#remove_permission (instance method)">- (Object) <strong>remove_permission</strong> </a>
+      <a href="#remove_permission-instance_method" title="#remove_permission (instance method)">- (Object) <strong>remove_permission</strong>(request_params) </a>
     
 
     
   </span>
+  
   
   
   
@@ -384,11 +402,12 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#set_subscription_attributes-instance_method" title="#set_subscription_attributes (instance method)">- (Object) <strong>set_subscription_attributes</strong> </a>
+      <a href="#set_subscription_attributes-instance_method" title="#set_subscription_attributes (instance method)">- (Object) <strong>set_subscription_attributes</strong>(request_params) </a>
     
 
     
   </span>
+  
   
   
   
@@ -406,11 +425,12 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#set_topic_attributes-instance_method" title="#set_topic_attributes (instance method)">- (Object) <strong>set_topic_attributes</strong> </a>
+      <a href="#set_topic_attributes-instance_method" title="#set_topic_attributes (instance method)">- (Object) <strong>set_topic_attributes</strong>(request_params) </a>
     
 
     
   </span>
+  
   
   
   
@@ -428,11 +448,12 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#subscribe-instance_method" title="#subscribe (instance method)">- (Object) <strong>subscribe</strong> </a>
+      <a href="#subscribe-instance_method" title="#subscribe (instance method)">- (Object) <strong>subscribe</strong>(request_params) </a>
     
 
     
   </span>
+  
   
   
   
@@ -450,11 +471,12 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#unsubscribe-instance_method" title="#unsubscribe (instance method)">- (Object) <strong>unsubscribe</strong> </a>
+      <a href="#unsubscribe-instance_method" title="#unsubscribe (instance method)">- (Object) <strong>unsubscribe</strong>(request_params) </a>
     
 
     
   </span>
+  
   
   
   
@@ -485,6 +507,8 @@
   
   
   
+  
+  
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Query.html" title="EventMachine::AWS::Query (module)">Query</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="Query.html#call-instance_method" title="EventMachine::AWS::Query#call (method)">#call</a></span>, <span class='object_link'><a href="Query.html#failure_response-instance_method" title="EventMachine::AWS::Query#failure_response (method)">#failure_response</a></span>, <span class='object_link'><a href="Query.html#included-class_method" title="EventMachine::AWS::Query.included (method)">included</a></span>, <span class='object_link'><a href="Query.html#initialize-instance_method" title="EventMachine::AWS::Query#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="Query.html#success_response-instance_method" title="EventMachine::AWS::Query#success_response (method)">#success_response</a></span></p>
 
@@ -495,9 +519,11 @@
   
   
   
+  
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Query/QueryParams.html" title="EventMachine::AWS::Query::QueryParams (module)">Query::QueryParams</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="Query/QueryParams.html#queryize_params-instance_method" title="EventMachine::AWS::Query::QueryParams#queryize_params (method)">#queryize_params</a></span></p>
 
+  
   
   
   
@@ -517,16 +543,18 @@
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
-    
+
     
       <div class="method_details first">
-  <p class="signature first" id="add_permission-instance_method">
+  <h3 class="signature first" id="add_permission-instance_method">
   
-    - (<tt>Object</tt>) <strong>add_permission</strong> 
+    - (<tt>Object</tt>) <strong>add_permission</strong>(request_params) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Modifies the Access Control List (ACL) of a single topic. Can allow one or more actions for one or more AWS accounts.</p>
 
@@ -539,22 +567,28 @@ supports three different use patterns for adding permissions:</p>
 <div class="tags">
   
   <div class="examples">
-    <h3>Examples:</h3>
+    <p class="tag_title">Examples:</p>
     
-      <h4><div class='inline'><p>Specify a single <code>:aws_account_id</code> and a single <code>:action_name</code> param:</p>
-</div></h4>
+      
+        <p class="example_title"><div class='inline'><p>Specify a single <code>:aws_account_id</code> and a single <code>:action_name</code> param:</p>
+</div></p>
+      
       <pre class="example code"><span class='id identifier rubyid_sns'>sns</span><span class='period'>.</span><span class='id identifier rubyid_add_permission'>add_permission</span> <span class='label'>topic_arn:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>arn:aws:sns:us-east-1:12345679012:My-Test-Topic</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
     <span class='label'>aws_account_id:</span> <span class='int'>123456789012</span><span class='comma'>,</span>
     <span class='label'>action_name:</span> <span class='symbol'>:get_topic_attributes</span></pre>
     
-      <h4><div class='inline'><p>Assign an array for <code>:aws_account_id</code> and a corresponding array for <code>:action_name</code>:</p>
-</div></h4>
+      
+        <p class="example_title"><div class='inline'><p>Assign an array for <code>:aws_account_id</code> and a corresponding array for <code>:action_name</code>:</p>
+</div></p>
+      
       <pre class="example code"><span class='id identifier rubyid_sns'>sns</span><span class='period'>.</span><span class='id identifier rubyid_add_permission'>add_permission</span> <span class='label'>topic_arn:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>arn:aws:sns:us-east-1:12345679012:My-Test-Topic</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
     <span class='label'>aws_account_id:</span> <span class='lbracket'>[</span><span class='int'>123456789012</span><span class='comma'>,</span> <span class='int'>123456789012</span><span class='comma'>,</span> <span class='int'>109876543210</span><span class='rbracket'>]</span><span class='comma'>,</span>
     <span class='label'>action_name:</span> <span class='lbracket'>[</span><span class='symbol'>:subscribe</span><span class='comma'>,</span> <span class='symbol'>:get_topic_attributes</span><span class='comma'>,</span> <span class='symbol'>:subscribe</span><span class='rbracket'>]</span></pre>
     
-      <h4><div class='inline'><p>Specify a <code>:permissions</code> hash where each key is an AWS account ID and each value is a permission or array of permissions:</p>
-</div></h4>
+      
+        <p class="example_title"><div class='inline'><p>Specify a <code>:permissions</code> hash where each key is an AWS account ID and each value is a permission or array of permissions:</p>
+</div></p>
+      
       <pre class="example code"><span class='id identifier rubyid_sns'>sns</span><span class='period'>.</span><span class='id identifier rubyid_add_permission'>add_permission</span> <span class='label'>topic_arn:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>arn:aws:sns:us-east-1:12345679012:My-Test-Topic</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
     <span class='label'>permissions:</span> <span class='lbrace'>{</span>
         <span class='int'>123456789012</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='symbol'>:subscribe</span><span class='comma'>,</span> <span class='symbol'>:get_topic_attributes</span><span class='rbracket'>]</span><span class='comma'>,</span>
@@ -563,7 +597,7 @@ supports three different use patterns for adding permissions:</p>
     
   </div>
 
-<h3>Request Parameters:</h3>
+<p class="tag_title">Request Parameters:</p>
 <ul class="request">
   
     <li>
@@ -649,9 +683,6 @@ supports three different use patterns for adding permissions:</p>
       <pre class="lines">
 
 
-39
-40
-41
 42
 43
 44
@@ -664,10 +695,13 @@ supports three different use patterns for adding permissions:</p>
 51
 52
 53
-54</pre>
+54
+55
+56
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 42</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:add_permission</span><span class='comma'>,</span> <span class='label'>filter_params:</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span> <span class='tlambeg'>{</span>
   <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:aws_account_id</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:aws_account_id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -691,13 +725,15 @@ supports three different use patterns for adding permissions:</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="confirm_subscription-instance_method">
+  <h3 class="signature " id="confirm_subscription-instance_method">
   
-    - (<tt>Object</tt>) <strong>confirm_subscription</strong> 
+    - (<tt>Object</tt>) <strong>confirm_subscription</strong>(request_params) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Verifies a subscription via token authentication. The <code>:subscribe</code> call must previously
 have been made and a token sent to the given endpoint.</p>
@@ -707,7 +743,7 @@ have been made and a token sent to the given endpoint.</p>
 </div>
 <div class="tags">
   
-<h3>Request Parameters:</h3>
+<p class="tag_title">Request Parameters:</p>
 <ul class="request">
   
     <li>
@@ -756,7 +792,7 @@ have been made and a token sent to the given endpoint.</p>
     </li>
   
 </ul>
-<h3>Response Attributes:</h3>
+<p class="tag_title">Response Attributes:</p>
 <ul class="response">
   
     <li>
@@ -782,10 +818,10 @@ have been made and a token sent to the given endpoint.</p>
       <pre class="lines">
 
 
-64</pre>
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 68</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:confirm_subscription</span></pre>
     </td>
@@ -794,15 +830,17 @@ have been made and a token sent to the given endpoint.</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="create_topic-instance_method">
+  <h3 class="signature " id="create_topic-instance_method">
   
-    - (<tt>Object</tt>) <strong>create_topic</strong> 
+    - (<tt>Object</tt>) <strong>create_topic</strong>(request_params) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>Creates the given topic. Amazon states that this action is <em>idempotent:</em> creating the same
+    <p>Creates the given topic. Amazon states that this action is idempotent: creating the same
 topic multiple times will not produce an error.</p>
 
 
@@ -810,7 +848,7 @@ topic multiple times will not produce an error.</p>
 </div>
 <div class="tags">
   
-<h3>Request Parameters:</h3>
+<p class="tag_title">Request Parameters:</p>
 <ul class="request">
   
     <li>
@@ -829,7 +867,7 @@ topic multiple times will not produce an error.</p>
     </li>
   
 </ul>
-<h3>Response Attributes:</h3>
+<p class="tag_title">Response Attributes:</p>
 <ul class="response">
   
     <li>
@@ -855,10 +893,10 @@ topic multiple times will not produce an error.</p>
       <pre class="lines">
 
 
-71</pre>
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 76</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:create_topic</span></pre>
     </td>
@@ -867,15 +905,17 @@ topic multiple times will not produce an error.</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="delete_topic-instance_method">
+  <h3 class="signature " id="delete_topic-instance_method">
   
-    - (<tt>Object</tt>) <strong>delete_topic</strong> 
+    - (<tt>Object</tt>) <strong>delete_topic</strong>(request_params) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>Deletes the given topic. Amazon states that this action is <em>idempotent:</em> deleting the same
+    <p>Deletes the given topic. Amazon states that this action is idempotent: deleting the same
 topic multiple times will not produce an error.</p>
 
 
@@ -883,7 +923,7 @@ topic multiple times will not produce an error.</p>
 </div>
 <div class="tags">
   
-<h3>Request Parameters:</h3>
+<p class="tag_title">Request Parameters:</p>
 <ul class="request">
   
     <li>
@@ -909,10 +949,10 @@ topic multiple times will not produce an error.</p>
       <pre class="lines">
 
 
-77</pre>
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 83</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:delete_topic</span></pre>
     </td>
@@ -921,13 +961,15 @@ topic multiple times will not produce an error.</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="get_subscription_attributes-instance_method">
+  <h3 class="signature " id="get_subscription_attributes-instance_method">
   
-    - (<tt>Object</tt>) <strong>get_subscription_attributes</strong> 
+    - (<tt>Object</tt>) <strong>get_subscription_attributes</strong>(request_params) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Returns the properties of the given subscription. Note that the attributes returned are
 given directly at the top level of the response object; there is no <code>:attributes</code> attribute.</p>
@@ -937,7 +979,7 @@ given directly at the top level of the response object; there is no <code>:attri
 </div>
 <div class="tags">
   
-<h3>Request Parameters:</h3>
+<p class="tag_title">Request Parameters:</p>
 <ul class="request">
   
     <li>
@@ -956,7 +998,7 @@ given directly at the top level of the response object; there is no <code>:attri
     </li>
   
 </ul>
-<h3>Response Attributes:</h3>
+<p class="tag_title">Response Attributes:</p>
 <ul class="response">
   
     <li>
@@ -1057,10 +1099,10 @@ given directly at the top level of the response object; there is no <code>:attri
       <pre class="lines">
 
 
-89</pre>
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 96</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:get_subscription_attributes</span></pre>
     </td>
@@ -1069,13 +1111,15 @@ given directly at the top level of the response object; there is no <code>:attri
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="get_topic_attributes-instance_method">
+  <h3 class="signature " id="get_topic_attributes-instance_method">
   
-    - (<tt>Object</tt>) <strong>get_topic_attributes</strong> 
+    - (<tt>Object</tt>) <strong>get_topic_attributes</strong>(request_params) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Returns the properties of the given topic. Note that the attributes returned are
 given directly at the top level of the response object; there is no <code>:attributes</code> attribute.</p>
@@ -1085,7 +1129,7 @@ given directly at the top level of the response object; there is no <code>:attri
 </div>
 <div class="tags">
   
-<h3>Request Parameters:</h3>
+<p class="tag_title">Request Parameters:</p>
 <ul class="request">
   
     <li>
@@ -1104,7 +1148,7 @@ given directly at the top level of the response object; there is no <code>:attri
     </li>
   
 </ul>
-<h3>Response Attributes:</h3>
+<p class="tag_title">Response Attributes:</p>
 <ul class="response">
   
     <li>
@@ -1250,10 +1294,10 @@ given directly at the top level of the response object; there is no <code>:attri
       <pre class="lines">
 
 
-104</pre>
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 112</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:get_topic_attributes</span></pre>
     </td>
@@ -1262,13 +1306,15 @@ given directly at the top level of the response object; there is no <code>:attri
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="list_subscriptions-instance_method">
+  <h3 class="signature " id="list_subscriptions-instance_method">
   
-    - (<tt>Object</tt>) <strong>list_subscriptions</strong> 
+    - (<tt>Object</tt>) <strong>list_subscriptions</strong>(request_params) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Returns the requester&#39;s active subscriptions. The <code>:subscriptions</code> attribute contains an array of
 hashes; see below.</p>
@@ -1278,7 +1324,7 @@ hashes; see below.</p>
 </div>
 <div class="tags">
   
-<h3>Request Parameters:</h3>
+<p class="tag_title">Request Parameters:</p>
 <ul class="request">
   
     <li>
@@ -1297,7 +1343,7 @@ hashes; see below.</p>
     </li>
   
 </ul>
-<h3>Response Attributes:</h3>
+<p class="tag_title">Response Attributes:</p>
 <ul class="response">
   
     <li>
@@ -1339,10 +1385,10 @@ hashes; see below.</p>
       <pre class="lines">
 
 
-113</pre>
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 122</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:list_subscriptions</span></pre>
     </td>
@@ -1351,13 +1397,15 @@ hashes; see below.</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="list_subscriptions_by_topic-instance_method">
+  <h3 class="signature " id="list_subscriptions_by_topic-instance_method">
   
-    - (<tt>Object</tt>) <strong>list_subscriptions_by_topic</strong> 
+    - (<tt>Object</tt>) <strong>list_subscriptions_by_topic</strong>(request_params) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Returns the active subscriptions for a given topic. The <code>:subscriptions</code> attribute contains an array of
 hashes; see below.</p>
@@ -1367,7 +1415,7 @@ hashes; see below.</p>
 </div>
 <div class="tags">
   
-<h3>Request Parameters:</h3>
+<p class="tag_title">Request Parameters:</p>
 <ul class="request">
   
     <li>
@@ -1401,7 +1449,7 @@ hashes; see below.</p>
     </li>
   
 </ul>
-<h3>Response Attributes:</h3>
+<p class="tag_title">Response Attributes:</p>
 <ul class="response">
   
     <li>
@@ -1443,10 +1491,10 @@ hashes; see below.</p>
       <pre class="lines">
 
 
-123</pre>
+133</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 123</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 133</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:list_subscriptions_by_topic</span></pre>
     </td>
@@ -1455,13 +1503,15 @@ hashes; see below.</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="list_topics-instance_method">
+  <h3 class="signature " id="list_topics-instance_method">
   
-    - (<tt>Object</tt>) <strong>list_topics</strong> 
+    - (<tt>Object</tt>) <strong>list_topics</strong>(request_params) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Returns the requester&#39;s topics. The <code>:topics</code> attribute contains an array of strings, each of which is
 the topic&#39;s ARN.</p>
@@ -1471,7 +1521,7 @@ the topic&#39;s ARN.</p>
 </div>
 <div class="tags">
   
-<h3>Request Parameters:</h3>
+<p class="tag_title">Request Parameters:</p>
 <ul class="request">
   
     <li>
@@ -1490,7 +1540,7 @@ the topic&#39;s ARN.</p>
     </li>
   
 </ul>
-<h3>Response Attributes:</h3>
+<p class="tag_title">Response Attributes:</p>
 <ul class="response">
   
     <li>
@@ -1531,10 +1581,10 @@ the topic&#39;s ARN.</p>
       <pre class="lines">
 
 
-131</pre>
+142</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 131</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 142</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:list_topics</span></pre>
     </td>
@@ -1543,13 +1593,15 @@ the topic&#39;s ARN.</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="publish-instance_method">
+  <h3 class="signature " id="publish-instance_method">
   
-    - (<tt>Object</tt>) <strong>publish</strong> 
+    - (<tt>Object</tt>) <strong>publish</strong>(request_params) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Send a message to a topic, to be delivered to all of a topic&#39;s subscribers. There are two valid formats
 for the <code>:message</code> parameter:</p>
@@ -1575,16 +1627,20 @@ subscribers as a JSON object.</p>
 <div class="tags">
   
   <div class="examples">
-    <h3>Examples:</h3>
+    <p class="tag_title">Examples:</p>
     
-      <h4><div class='inline'><p>Single format message</p>
-</div></h4>
+      
+        <p class="example_title"><div class='inline'><p>Single format message</p>
+</div></p>
+      
       <pre class="example code"><span class='id identifier rubyid_sns'>sns</span><span class='period'>.</span><span class='id identifier rubyid_publish'>publish</span> <span class='label'>topic_arn:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>arn:aws:sns:us-east-1:12345679012:My-Test-Topic</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
   <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Test thing</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='label'>message:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>We're testing our Awesome Test Topic™. Have a nice day.☺</span><span class='tstring_end'>&quot;</span></span></pre>
     
-      <h4><div class='inline'><p>Multi-format message</p>
-</div></h4>
+      
+        <p class="example_title"><div class='inline'><p>Multi-format message</p>
+</div></p>
+      
       <pre class="example code"><span class='id identifier rubyid_sns'>sns</span><span class='period'>.</span><span class='id identifier rubyid_publish'>publish</span> <span class='label'>topic_arn:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>arn:aws:sns:us-east-1:12345679012:My-Test-Topic</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
   <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Test thing</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='label'>message:</span> <span class='lbrace'>{</span>
@@ -1595,7 +1651,7 @@ subscribers as a JSON object.</p>
     
   </div>
 
-<h3>Request Parameters:</h3>
+<p class="tag_title">Request Parameters:</p>
 <ul class="request">
   
     <li>
@@ -1659,7 +1715,7 @@ subscribers as a JSON object.</p>
     </li>
   
 </ul>
-<h3>Response Attributes:</h3>
+<p class="tag_title">Response Attributes:</p>
 <ul class="response">
   
     <li>
@@ -1685,10 +1741,10 @@ subscribers as a JSON object.</p>
       <pre class="lines">
 
 
-168</pre>
+180</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 168</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 180</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:publish</span></pre>
     </td>
@@ -1697,13 +1753,15 @@ subscribers as a JSON object.</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="remove_permission-instance_method">
+  <h3 class="signature " id="remove_permission-instance_method">
   
-    - (<tt>Object</tt>) <strong>remove_permission</strong> 
+    - (<tt>Object</tt>) <strong>remove_permission</strong>(request_params) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Removes a given set of permissions from a topic&#39;s access control policy. The <code>:label</code> must be the
 one chosen when the permission was added with the <em>AddPermission</em> action.</p>
@@ -1713,7 +1771,7 @@ one chosen when the permission was added with the <em>AddPermission</em> action.
 </div>
 <div class="tags">
   
-<h3>Request Parameters:</h3>
+<p class="tag_title">Request Parameters:</p>
 <ul class="request">
   
     <li>
@@ -1754,10 +1812,10 @@ one chosen when the permission was added with the <em>AddPermission</em> action.
       <pre class="lines">
 
 
-175</pre>
+188</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 175</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 188</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:remove_permission</span></pre>
     </td>
@@ -1766,13 +1824,15 @@ one chosen when the permission was added with the <em>AddPermission</em> action.
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="set_subscription_attributes-instance_method">
+  <h3 class="signature " id="set_subscription_attributes-instance_method">
   
-    - (<tt>Object</tt>) <strong>set_subscription_attributes</strong> 
+    - (<tt>Object</tt>) <strong>set_subscription_attributes</strong>(request_params) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Sets a single attribute of the subscription. In this version of the API, only the &#39;DeliveryPolicy&#39;
 attribute can be set (and only if the topic allows subscription overrides). The policy value must
@@ -1800,16 +1860,16 @@ be valid JSON and can be any subset of the following structure:</p>
 <div class="tags">
   
   <div class="examples">
-    <h3>Examples:</h3>
+    <p class="tag_title">Examples:</p>
     
-      <h4><div class='inline'></div></h4>
+      
       <pre class="example code"><span class='id identifier rubyid_sns'>sns</span><span class='period'>.</span><span class='id identifier rubyid_set_subscription_attributes'>set_subscription_attributes</span> <span class='label'>attribute_name:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>DeliveryPolicy</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
   <span class='label'>attribute_value:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>{&quot;throttlePolicy&quot;: {&quot;maxReceivesPerSecond&quot;: 3}}</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
   <span class='label'>subscription_arn:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>arn:aws:sns:us-east-1:12345679012:My-Test-Topic:80289ba6-0fd4-4079-afb4-cd8c8260f0ca</span><span class='tstring_end'>'</span></span></pre>
     
   </div>
 
-<h3>Request Parameters:</h3>
+<p class="tag_title">Request Parameters:</p>
 <ul class="request">
   
     <li>
@@ -1817,7 +1877,7 @@ be valid JSON and can be any subset of the following structure:</p>
         <span class='name'>:attribute_name</span>
       
       
-        <span class='type'>(<tt>"DeliveryPolicy"</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -1865,10 +1925,10 @@ be valid JSON and can be any subset of the following structure:</p>
       <pre class="lines">
 
 
-204</pre>
+218</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 204</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 218</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:set_subscription_attributes</span></pre>
     </td>
@@ -1877,21 +1937,23 @@ be valid JSON and can be any subset of the following structure:</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="set_topic_attributes-instance_method">
+  <h3 class="signature " id="set_topic_attributes-instance_method">
   
-    - (<tt>Object</tt>) <strong>set_topic_attributes</strong> 
+    - (<tt>Object</tt>) <strong>set_topic_attributes</strong>(request_params) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Sets a single attribute of the topic. In this version of the API, the attributes that can be set
 are:</p>
 
 <ul>
-<li><em>&#39;DisplayName&#39;</em> - Used in SMS and email messages</li>
-<li><em>&#39;Policy&#39;</em> - Access control policy in JSON format</li>
-<li><em>&#39;DeliveryPolicy&#39;</em> - Default delivery settings in JSON format</li>
+<li>&#39;DisplayName&#39; - Used in SMS and email messages</li>
+<li>&#39;Policy&#39; - Access control policy in JSON format</li>
+<li>&#39;DeliveryPolicy&#39; - Default delivery settings in JSON format</li>
 </ul>
 
 <p>For the &#39;DeliveryPolicy&#39; attribute, the value must be valid JSON and can be any subset of the
@@ -1925,16 +1987,16 @@ following structure:</p>
 <div class="tags">
   
   <div class="examples">
-    <h3>Examples:</h3>
+    <p class="tag_title">Examples:</p>
     
-      <h4><div class='inline'></div></h4>
+      
       <pre class="example code"><span class='id identifier rubyid_sns'>sns</span><span class='period'>.</span><span class='id identifier rubyid_set_topic_attributes'>set_topic_attributes</span> <span class='label'>attribute_name:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>DeliveryPolicy</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
   <span class='label'>attribute_value:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>{&quot;defaultHealthyRetryPolicy&quot;: {&quot;numMaxDelayRetries&quot;: 20}}</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
   <span class='label'>topic_arn:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>arn:aws:sns:us-east-1:12345679012:My-Test-Topic</span><span class='tstring_end'>'</span></span></pre>
     
   </div>
 
-<h3>Request Parameters:</h3>
+<p class="tag_title">Request Parameters:</p>
 <ul class="request">
   
     <li>
@@ -1990,10 +2052,10 @@ following structure:</p>
       <pre class="lines">
 
 
-245</pre>
+260</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 245</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 260</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:set_topic_attributes</span></pre>
     </td>
@@ -2002,13 +2064,15 @@ following structure:</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="subscribe-instance_method">
+  <h3 class="signature " id="subscribe-instance_method">
   
-    - (<tt>Object</tt>) <strong>subscribe</strong> 
+    - (<tt>Object</tt>) <strong>subscribe</strong>(request_params) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Registers a new endpoint with the topic. In most cases the endpoint owner must call the
 <em>ConfirmSubscription</em> action using the token received at the endpoint to start receiving
@@ -2030,7 +2094,7 @@ notifications. Confirmation tokens are valid for three days.</p>
 </div>
 <div class="tags">
   
-<h3>Request Parameters:</h3>
+<p class="tag_title">Request Parameters:</p>
 <ul class="request">
   
     <li>
@@ -2079,7 +2143,7 @@ notifications. Confirmation tokens are valid for three days.</p>
     </li>
   
 </ul>
-<h3>Response Attributes:</h3>
+<p class="tag_title">Response Attributes:</p>
 <ul class="response">
   
     <li>
@@ -2106,10 +2170,10 @@ notifications. Confirmation tokens are valid for three days.</p>
       <pre class="lines">
 
 
-265</pre>
+281</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 265</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 281</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:subscribe</span></pre>
     </td>
@@ -2118,13 +2182,15 @@ notifications. Confirmation tokens are valid for three days.</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="unsubscribe-instance_method">
+  <h3 class="signature " id="unsubscribe-instance_method">
   
-    - (<tt>Object</tt>) <strong>unsubscribe</strong> 
+    - (<tt>Object</tt>) <strong>unsubscribe</strong>(request_params) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Deletes the given subscription. The call need not be authenticated with credentials if the
 subscription was confirmed with <code>:authenticate_on_unsubscribe</code> set to <em>false</em>.</p>
@@ -2134,7 +2200,7 @@ subscription was confirmed with <code>:authenticate_on_unsubscribe</code> set to
 </div>
 <div class="tags">
   
-<h3>Request Parameters:</h3>
+<p class="tag_title">Request Parameters:</p>
 <ul class="request">
   
     <li>
@@ -2160,10 +2226,10 @@ subscription was confirmed with <code>:authenticate_on_unsubscribe</code> set to
       <pre class="lines">
 
 
-271</pre>
+288</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 271</span>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sns.rb', line 288</span>
 
 <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:unsubscribe</span></pre>
     </td>
@@ -2174,11 +2240,11 @@ subscription was confirmed with <code>:authenticate_on_unsubscribe</code> set to
   </div>
 
 </div>
-    
+
     <div id="footer">
-  Generated on Sun Mar 18 20:18:29 2012 by 
+  Generated on Sat Jul 21 14:46:18 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.3).
+  0.8.2.1 (ruby-1.9.3).
 </div>
 
   </body>

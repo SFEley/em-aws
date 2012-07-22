@@ -6,7 +6,7 @@
 <title>
   Class: EventMachine::AWS::Query::SignatureV2
   
-    &mdash; Documentation by YARD 0.7.5
+    &mdash; Documentation by YARD 0.8.2.1
   
 </title>
 
@@ -15,9 +15,11 @@
   <link rel="stylesheet" href="../../../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  relpath = '../../..';
-  if (relpath != '') relpath += '/';
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../../../';
+  framesUrl = "../../../frames.html#!" + escape(window.location.href);
 </script>
+
 
   <script type="text/javascript" charset="utf-8" src="../../../js/jquery.js"></script>
 
@@ -26,36 +28,41 @@
 
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) document.body.className = 'frames';
-    </script>
-    
     <div id="header">
       <div id="menu">
   
-    <a href="../../../_index.html">Index (S)</a> &raquo; 
+    <a href="../../../_index.html">Index (S)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../../../EventMachine.html" title="EventMachine (module)">EventMachine</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../AWS.html" title="EventMachine::AWS (module)">AWS</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Query.html" title="EventMachine::AWS::Query (module)">Query</a></span></span>
      &raquo; 
     <span class="title">SignatureV2</span>
   
-  
+
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a id="class_list_link" href="#">Class List</a>
+    <a class="full_list_link" id="class_list_link"
+        href="../../../class_list.html">
+      Class List
+    </a>
   
-    <a id="method_list_link" href="#">Method List</a>
+    <a class="full_list_link" id="method_list_link"
+        href="../../../method_list.html">
+      Method List
+    </a>
   
-    <a id="file_list_link" href="#">File List</a>
+    <a class="full_list_link" id="file_list_link"
+        href="../../../file_list.html">
+      File List
+    </a>
   
 </div>
       <div class="clear"></div>
     </div>
-    
+
     <iframe id="search_frame"></iframe>
-    
+
     <div id="content"><h1>Class: EventMachine::AWS::Query::SignatureV2
   
   
@@ -119,7 +126,10 @@
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -144,7 +154,10 @@
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -169,7 +182,10 @@
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -194,7 +210,10 @@
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -219,7 +238,10 @@
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -261,6 +283,7 @@
   
   
   
+  
 
   
     <span class="summary_desc"><div class='inline'><p>Implements the AWS signing method, version 2 (HMAC digest then Base64 encoded) with the secret key
@@ -278,6 +301,7 @@ See: <a href="http://docs.amazonwebservices.com/AWSSimpleQueueService/latest/SQS
 
     
   </span>
+  
   
     <span class="note title constructor">constructor</span>
   
@@ -308,6 +332,7 @@ See: <a href="http://docs.amazonwebservices.com/AWSSimpleQueueService/latest/SQS
   
   
   
+  
 
   
     <span class="summary_desc"><div class='inline'><p>Lines up and encodes our parameters nicely and neatly in sorted order.</p>
@@ -330,6 +355,7 @@ See: <a href="http://docs.amazonwebservices.com/AWSSimpleQueueService/latest/SQS
   
   
   
+  
 
   
     <span class="summary_desc"><div class='inline'><p>Adds the Query Protocol authentication headers.</p>
@@ -345,13 +371,15 @@ See: <a href="http://docs.amazonwebservices.com/AWSSimpleQueueService/latest/SQS
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
-  <p class="signature first" id="initialize-instance_method">
+  <h3 class="signature first" id="initialize-instance_method">
   
     - (<tt><span class='object_link'><a href="" title="EventMachine::AWS::Query::SignatureV2 (class)">SignatureV2</a></span></tt>) <strong>initialize</strong>(access_key, secret_key, method, url) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>A new instance of SignatureV2</p>
 
@@ -399,15 +427,16 @@ See: <a href="http://docs.amazonwebservices.com/AWSSimpleQueueService/latest/SQS
     
       
       <span id=""></span>
-      <span id="access_key-instance_method"></span>
       <div class="method_details first">
-  <p class="signature first" id="access_key-instance_method">
+  <h3 class="signature first" id="access_key-instance_method">
   
     - (<tt>Object</tt>) <strong>access_key</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Returns the value of attribute access_key</p>
 
@@ -440,15 +469,16 @@ See: <a href="http://docs.amazonwebservices.com/AWSSimpleQueueService/latest/SQS
     
       
       <span id=""></span>
-      <span id="host-instance_method"></span>
       <div class="method_details ">
-  <p class="signature " id="host-instance_method">
+  <h3 class="signature " id="host-instance_method">
   
     - (<tt>Object</tt>) <strong>host</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Returns the value of attribute host</p>
 
@@ -481,15 +511,16 @@ See: <a href="http://docs.amazonwebservices.com/AWSSimpleQueueService/latest/SQS
     
       
       <span id=""></span>
-      <span id="method-instance_method"></span>
       <div class="method_details ">
-  <p class="signature " id="method-instance_method">
+  <h3 class="signature " id="method-instance_method">
   
     - (<tt>Object</tt>) <strong>method</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Returns the value of attribute method</p>
 
@@ -522,15 +553,16 @@ See: <a href="http://docs.amazonwebservices.com/AWSSimpleQueueService/latest/SQS
     
       
       <span id=""></span>
-      <span id="path-instance_method"></span>
       <div class="method_details ">
-  <p class="signature " id="path-instance_method">
+  <h3 class="signature " id="path-instance_method">
   
     - (<tt>Object</tt>) <strong>path</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Returns the value of attribute path</p>
 
@@ -563,15 +595,16 @@ See: <a href="http://docs.amazonwebservices.com/AWSSimpleQueueService/latest/SQS
     
       
       <span id=""></span>
-      <span id="secret_key-instance_method"></span>
       <div class="method_details ">
-  <p class="signature " id="secret_key-instance_method">
+  <h3 class="signature " id="secret_key-instance_method">
   
     - (<tt>Object</tt>) <strong>secret_key</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Returns the value of attribute secret_key</p>
 
@@ -607,16 +640,18 @@ See: <a href="http://docs.amazonwebservices.com/AWSSimpleQueueService/latest/SQS
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
-    
+
     
       <div class="method_details first">
-  <p class="signature first" id="hmac_sign-instance_method">
+  <h3 class="signature first" id="hmac_sign-instance_method">
   
     - (<tt>Object</tt>) <strong>hmac_sign</strong>(str) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Implements the AWS signing method, version 2 (HMAC digest then Base64 encoded) with the secret key
 See: <a href="http://docs.amazonwebservices.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/Query_QueryAuth.html">http://docs.amazonwebservices.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/Query_QueryAuth.html</a></p>
@@ -651,13 +686,15 @@ See: <a href="http://docs.amazonwebservices.com/AWSSimpleQueueService/latest/SQS
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="signable_params-instance_method">
+  <h3 class="signature " id="signable_params-instance_method">
   
     - (<tt>Object</tt>) <strong>signable_params</strong>(params) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Lines up and encodes our parameters nicely and neatly in sorted order</p>
 
@@ -701,13 +738,15 @@ See: <a href="http://docs.amazonwebservices.com/AWSSimpleQueueService/latest/SQS
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="signature-instance_method">
+  <h3 class="signature " id="signature-instance_method">
   
     - (<tt>Object</tt>) <strong>signature</strong>(params) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Adds the Query Protocol authentication headers</p>
 
@@ -755,11 +794,11 @@ See: <a href="http://docs.amazonwebservices.com/AWSSimpleQueueService/latest/SQS
   </div>
 
 </div>
-    
+
     <div id="footer">
-  Generated on Sun Mar 18 20:18:30 2012 by 
+  Generated on Sat Jul 21 14:46:19 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.3).
+  0.8.2.1 (ruby-1.9.3).
 </div>
 
   </body>

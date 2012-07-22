@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.7.5
+    &mdash; Documentation by YARD 0.8.2.1
   
 </title>
 
@@ -15,9 +15,11 @@
   <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
   relpath = '';
-  if (relpath != '') relpath += '/';
+  framesUrl = "frames.html#!" + escape(window.location.href);
 </script>
+
 
   <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
 
@@ -26,34 +28,39 @@
 
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) document.body.className = 'frames';
-    </script>
-    
     <div id="header">
       <div id="menu">
   
-    <a href="_index.html" title="Index">Index</a> &raquo; 
+    <a href="_index.html">Index</a> &raquo; 
     <span class="title">File: README</span>
   
-  
+
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a id="class_list_link" href="#">Class List</a>
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
   
-    <a id="method_list_link" href="#">Method List</a>
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
   
-    <a id="file_list_link" href="#">File List</a>
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
   
 </div>
       <div class="clear"></div>
     </div>
-    
+
     <iframe id="search_frame"></iframe>
-    
+
     <div id="content"><div id='filecontents'><h1>EventMachine::AWS</h1>
 
 <p><strong>EM::AWS</strong> is a thin Ruby wrapper for making calls to <a href="http://aws.amazon.com">Amazon Web Services</a>.  It transparently signs requests, automatically retries on server errors, and unwraps XML responses into simple attributes. Unlike most other AWS libraries, it <em>does not</em> provide an object model for any of Amazon&#39;s services. It simply makes API calls and exposes the responses. Other gems or applications can build on this generic foundation to construct whatever higher-level model is appropriate for their needs.</p>
@@ -227,11 +234,11 @@
 
 <h2>Contributing</h2>
 </div></div>
-    
+
     <div id="footer">
-  Generated on Sun Mar 18 20:18:29 2012 by 
+  Generated on Sat Jul 21 14:46:17 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.3).
+  0.8.2.1 (ruby-1.9.3).
 </div>
 
   </body>

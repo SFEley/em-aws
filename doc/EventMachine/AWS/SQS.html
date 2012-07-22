@@ -6,7 +6,7 @@
 <title>
   Class: EventMachine::AWS::SQS
   
-    &mdash; Documentation by YARD 0.7.5
+    &mdash; Documentation by YARD 0.8.2.1
   
 </title>
 
@@ -15,9 +15,11 @@
   <link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  relpath = '../..';
-  if (relpath != '') relpath += '/';
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../../';
+  framesUrl = "../../frames.html#!" + escape(window.location.href);
 </script>
+
 
   <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
 
@@ -26,36 +28,41 @@
 
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) document.body.className = 'frames';
-    </script>
-    
     <div id="header">
       <div id="menu">
   
-    <a href="../../_index.html">Index (S)</a> &raquo; 
+    <a href="../../_index.html">Index (S)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../../EventMachine.html" title="EventMachine (module)">EventMachine</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../AWS.html" title="EventMachine::AWS (module)">AWS</a></span></span>
      &raquo; 
     <span class="title">SQS</span>
   
-  
+
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a id="class_list_link" href="#">Class List</a>
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+      Class List
+    </a>
   
-    <a id="method_list_link" href="#">Method List</a>
+    <a class="full_list_link" id="method_list_link"
+        href="../../method_list.html">
+      Method List
+    </a>
   
-    <a id="file_list_link" href="#">File List</a>
+    <a class="full_list_link" id="file_list_link"
+        href="../../file_list.html">
+      File List
+    </a>
   
 </div>
       <div class="clear"></div>
     </div>
-    
+
     <iframe id="search_frame"></iframe>
-    
+
     <div id="content"><h1>Class: EventMachine::AWS::SQS
   
   
@@ -100,7 +107,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>NOTE: If you want to work with an individual queue, be sure to specify either the 
+    <p>NOTE: If you want to work with an individual queue, be sure to specify either the
 :url parameter for the queue URL or the :queue_name.</p>
 
 
@@ -160,6 +167,7 @@
   
   
   
+  
 
   
     <span class="summary_desc"><div class='inline'><p>Creates a queue by name and returns an SQS object pointing to it.</p>
@@ -176,6 +184,7 @@
 
     
   </span>
+  
   
   
   
@@ -202,11 +211,154 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#add_permission-instance_method" title="#add_permission (instance method)">- (Object) <strong>add_permission</strong>(request_params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Adds one or more permissions on this queue for one or more accounts.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#change_message_visibility-instance_method" title="#change_message_visibility (instance method)">- (Object) <strong>change_message_visibility</strong>(request_params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Changes the visibility timeout (i.e. the time before a
+message that has been received becomes available in the
+queue again) for a specific message.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#change_message_visibility_batch-instance_method" title="#change_message_visibility_batch (instance method)">- (Object) <strong>change_message_visibility_batch</strong>(request_params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Changes the visibility timeout for up to ten messages at once.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_queue-instance_method" title="#create_queue (instance method)">- (Object) <strong>create_queue</strong>(request_params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Creates a new queue with the given name, or simply returns
+the queue&#39;s URL if the named queue already exists.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete_message-instance_method" title="#delete_message (instance method)">- (Object) <strong>delete_message</strong>(request_params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Removes a message from the queue after it has been received and
+processed.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete_message_batch-instance_method" title="#delete_message_batch (instance method)">- (Object) <strong>delete_message_batch</strong>(request_params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Removes up to ten messages from the queue at once.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#queue_name-instance_method" title="#queue_name (instance method)">- (Object) <strong>queue_name</strong> </a>
     
 
     
   </span>
+  
   
   
   
@@ -231,6 +383,7 @@
   
   
   
+  
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Query.html" title="EventMachine::AWS::Query (module)">Query</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="Query.html#call-instance_method" title="EventMachine::AWS::Query#call (method)">#call</a></span>, <span class='object_link'><a href="Query.html#failure_response-instance_method" title="EventMachine::AWS::Query#failure_response (method)">#failure_response</a></span>, <span class='object_link'><a href="Query.html#included-class_method" title="EventMachine::AWS::Query.included (method)">included</a></span>, <span class='object_link'><a href="Query.html#initialize-instance_method" title="EventMachine::AWS::Query#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="Query.html#success_response-instance_method" title="EventMachine::AWS::Query#success_response (method)">#success_response</a></span></p>
 
@@ -241,9 +394,12 @@
   
   
   
+  
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Query/QueryParams.html" title="EventMachine::AWS::Query::QueryParams (module)">Query::QueryParams</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="Query/QueryParams.html#queryize_params-instance_method" title="EventMachine::AWS::Query::QueryParams#queryize_params (method)">#queryize_params</a></span></p>
 
+  
+  
   
   
   
@@ -268,16 +424,18 @@
 
   <div id="class_method_details" class="method_details_list">
     <h2>Class Method Details</h2>
-    
+
     
       <div class="method_details first">
-  <p class="signature first" id="create-class_method">
+  <h3 class="signature first" id="create-class_method">
   
     + (<tt>Object</tt>) <strong>create</strong>(name, attributes = {}) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Creates a queue by name and returns an SQS object pointing to it.  This operation
 is idempotent (i.e. will return the same object) if the queue name already exists,
@@ -323,13 +481,15 @@ so long as no attributes are different.</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="get-class_method">
+  <h3 class="signature " id="get-class_method">
   
     + (<tt>Object</tt>) <strong>get</strong>(name) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Retrieves an SQS object by queue name. Returns nil if the queue can&#39;t be found.</p>
 
@@ -376,16 +536,581 @@ so long as no attributes are different.</p>
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
-    
+
     
       <div class="method_details first">
-  <p class="signature first" id="queue_name-instance_method">
+  <h3 class="signature first" id="add_permission-instance_method">
+  
+    - (<tt>Object</tt>) <strong>add_permission</strong>(request_params) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Adds one or more permissions on this queue for one or more accounts.
+The permissions that can be added are as follows:</p>
+
+<ul>
+<li><code>:all</code> (the &quot;*&quot; wildcard to assign all permissions)</li>
+<li><code>:send_message</code></li>
+<li><code>:receive_message</code></li>
+<li><code>:delete_message</code></li>
+<li><code>:change_message_visibility</code></li>
+<li><code>:get_queue_attributes</code></li>
+<li><code>:get_queue_url</code></li>
+</ul>
+
+<p>Because the API for specifying multiple permissions is somewhat roundabout, <strong>EM::AWS</strong>
+supports three different use patterns for adding permissions:</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'><p>Specify a single <code>:aws_account_id</code> and a single <code>:action_name</code> param:</p>
+</div></p>
+      
+      <pre class="example code"><span class='id identifier rubyid_sns'>sns</span><span class='period'>.</span><span class='id identifier rubyid_add_permission'>add_permission</span> <span class='label'>topic_arn:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>arn:aws:sns:us-east-1:12345679012:My-Test-Topic</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+    <span class='label'>aws_account_id:</span> <span class='int'>123456789012</span><span class='comma'>,</span>
+    <span class='label'>action_name:</span> <span class='symbol'>:get_topic_attributes</span></pre>
+    
+      
+        <p class="example_title"><div class='inline'><p>Assign an array for <code>:aws_account_id</code> and a corresponding array for <code>:action_name</code>:</p>
+</div></p>
+      
+      <pre class="example code"><span class='id identifier rubyid_sns'>sns</span><span class='period'>.</span><span class='id identifier rubyid_add_permission'>add_permission</span> <span class='label'>topic_arn:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>arn:aws:sns:us-east-1:12345679012:My-Test-Topic</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+    <span class='label'>aws_account_id:</span> <span class='lbracket'>[</span><span class='int'>123456789012</span><span class='comma'>,</span> <span class='int'>123456789012</span><span class='comma'>,</span> <span class='int'>109876543210</span><span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='label'>action_name:</span> <span class='lbracket'>[</span><span class='symbol'>:subscribe</span><span class='comma'>,</span> <span class='symbol'>:get_topic_attributes</span><span class='comma'>,</span> <span class='symbol'>:subscribe</span><span class='rbracket'>]</span></pre>
+    
+      
+        <p class="example_title"><div class='inline'><p>Specify a <code>:permissions</code> hash where each key is an AWS account ID and each value is a permission or array of permissions:</p>
+</div></p>
+      
+      <pre class="example code"><span class='id identifier rubyid_sns'>sns</span><span class='period'>.</span><span class='id identifier rubyid_add_permission'>add_permission</span> <span class='label'>topic_arn:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>arn:aws:sns:us-east-1:12345679012:My-Test-Topic</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+    <span class='label'>permissions:</span> <span class='lbrace'>{</span>
+        <span class='int'>123456789012</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='symbol'>:subscribe</span><span class='comma'>,</span> <span class='symbol'>:get_topic_attributes</span><span class='rbracket'>]</span><span class='comma'>,</span>
+        <span class='int'>109876543210</span> <span class='op'>=&gt;</span> <span class='symbol'>:subscribe</span>
+    <span class='rbrace'>}</span></pre>
+    
+  </div>
+
+<p class="tag_title">Request Parameters:</p>
+<ul class="request">
+  
+    <li>
+      
+        <span class='name'>:label</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A unique name for the new policy statement</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:permissions</span>
+      
+      
+        <span class='type'>(<tt>optional</tt>, <tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Shortcut to map account IDs (keys) to one or more actions (values)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:aws_account_id</span>
+      
+      
+        <span class='type'>(<tt>optional</tt>, <tt>String</tt>, <tt>Integer</tt>, <tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>An ID or array of IDs for which new permissions should be added. <em>Required if <code>:permissions</code> is not used.</em></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:action_name</span>
+      
+      
+        <span class='type'>(<tt>optional</tt>, <tt>String</tt>, <tt>Symbol</tt>, <tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>An action or list of actions to enable for the corresponding ID in <code>:aws_account_id</code>. <em>Required if <code>:permissions</code> is not used.</em></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sqs.rb', line 77</span>
+
+<span class='id identifier rubyid_action'>action</span> <span class='symbol'>:add_permission</span><span class='comma'>,</span> <span class='label'>filter_params:</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='tlambeg'>{</span>
+  <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:aws_account_id</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:aws_account_id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:action_name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:action_name</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_action'>action</span><span class='op'>|</span> <span class='id identifier rubyid_camelcase'>camelcase</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='rparen'>)</span><span class='rbrace'>}</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_permissions'>permissions</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:permissions</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_permissions'>permissions</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_account'>account</span><span class='comma'>,</span> <span class='id identifier rubyid_actions'>actions</span><span class='op'>|</span>
+      <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_actions'>actions</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_action'>action</span><span class='op'>|</span>
+        <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:aws_account_id</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_account'>account</span>
+        <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:action_name</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_camelcase'>camelcase</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>AWSAccountId</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='symbol'>:aws_account_id</span>
+  <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ActionName</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='symbol'>:action_name</span>
+<span class='rbrace'>}</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="change_message_visibility-instance_method">
+  
+    - (<tt>Object</tt>) <strong>change_message_visibility</strong>(request_params) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Changes the visibility timeout (i.e. the time before a
+message that has been received becomes available in the
+queue again) for a specific message.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Request Parameters:</p>
+<ul class="request">
+  
+    <li>
+      
+        <span class='name'>:receipt_handle</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The receipt handle for the message as returned by the #receive_message action</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:visibility_timeout</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The new timeout value, from 0 to 43200 seconds (12 hours)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+101</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sqs.rb', line 101</span>
+
+<span class='id identifier rubyid_action'>action</span> <span class='symbol'>:change_message_visibility</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="change_message_visibility_batch-instance_method">
+  
+    - (<tt>Object</tt>) <strong>change_message_visibility_batch</strong>(request_params) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Changes the visibility timeout for up to ten messages at once.
+Takes one <code>:messages</code> parameter which must be an array of
+hashes; each hash must have the <code>:id</code>, <code>:receipt_handle</code> and
+<code>:visibility_timeout</code> keys as documented below.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+    
+    
+
+<p class="tag_title">Request Parameters:</p>
+<ul class="request">
+  
+    <li>
+      
+        <span class='name'>:messages</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Array of hashes specifying new timeout values (max 10)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+113
+114
+115
+116
+117
+118
+119
+120
+121</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sqs.rb', line 113</span>
+
+<span class='id identifier rubyid_action'>action</span> <span class='symbol'>:change_message_visibility_batch</span><span class='comma'>,</span> <span class='label'>filter_params:</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='tlambeg'>{</span>
+  <span class='id identifier rubyid_messages'>messages</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='symbol'>:messages</span>
+  <span class='int'>1</span><span class='period'>.</span><span class='id identifier rubyid_upto'>upto</span><span class='lparen'>(</span><span class='id identifier rubyid_messages'>messages</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
+    <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='id identifier rubyid_messages'>messages</span><span class='period'>.</span><span class='id identifier rubyid_shift'>shift</span>
+    <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ChangeMessageVisibilityBatchRequestEntry.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_index'>index</span><span class='rbrace'>}</span><span class='tstring_content'>.Id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_message'>message</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ChangeMessageVisibilityBatchRequestEntry.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_index'>index</span><span class='rbrace'>}</span><span class='tstring_content'>.ReceiptHandle</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_message'>message</span><span class='lbracket'>[</span><span class='symbol'>:receipt_handle</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ChangeMessageVisibilityBatchRequestEntry.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_index'>index</span><span class='rbrace'>}</span><span class='tstring_content'>.VisibilityTimeout</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_message'>message</span><span class='lbracket'>[</span><span class='symbol'>:visibility_timeout</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+<span class='rbrace'>}</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create_queue-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create_queue</strong>(request_params) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'><p>It&#39;s generally simpler to use the SQS.create</p>
+</div>
+  </div>
+
+<p>Creates a new queue with the given name, or simply returns
+the queue&#39;s URL if the named queue already exists. Set
+attributes with the <code>:attributes</code> parameter.</p>
+
+<p>class method, which calls this action and returns a
+new SQS object pointing to the queue URL.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+    
+    
+
+<p class="tag_title">Request Parameters:</p>
+<ul class="request">
+  
+    <li>
+      
+        <span class='name'>:queue_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The queue to be created (maximum 80 character; only alphanumerics, &#39;_&#39;, and &#39;-&#39;)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:attributes</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Additional options to set for the queue; see below</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Response Attributes:</p>
+<ul class="response">
+  
+    <li>
+      
+        <span class='name'>:queue_url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The URL for the created queue</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+140</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sqs.rb', line 140</span>
+
+<span class='id identifier rubyid_action'>action</span> <span class='symbol'>:create_queue</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete_message-instance_method">
+  
+    - (<tt>Object</tt>) <strong>delete_message</strong>(request_params) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Removes a message from the queue after it has been received and
+processed. The receipt handle from the #receive<em>message call must
+be used, _not</em> the message ID from creation.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Request Parameters:</p>
+<ul class="request">
+  
+    <li>
+      
+        <span class='name'>:receipt_handle</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The receipt handle for the message as returned by the #receive_message action</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+148</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sqs.rb', line 148</span>
+
+<span class='id identifier rubyid_action'>action</span> <span class='symbol'>:delete_message</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete_message_batch-instance_method">
+  
+    - (<tt>Object</tt>) <strong>delete_message_batch</strong>(request_params) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Removes up to ten messages from the queue at once.
+Takes one <code>:messages</code> parameter which must be an array of
+hashes; each hash must have the <code>:id</code> and <code>:receipt_handle</code>
+keys as documented below.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+    
+    
+
+<p class="tag_title">Request Parameters:</p>
+<ul class="request">
+  
+    <li>
+      
+        <span class='name'>:messages</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Array of hashes specifying new timeout values (max 10)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+159
+160
+161
+162
+163
+164
+165
+166</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/em-aws/sqs.rb', line 159</span>
+
+<span class='id identifier rubyid_action'>action</span> <span class='symbol'>:delete_message_batch</span><span class='comma'>,</span> <span class='label'>filter_params:</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span><span class='tlambeg'>{</span>
+  <span class='id identifier rubyid_messages'>messages</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='symbol'>:messages</span>
+  <span class='int'>1</span><span class='period'>.</span><span class='id identifier rubyid_upto'>upto</span><span class='lparen'>(</span><span class='id identifier rubyid_messages'>messages</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
+    <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='id identifier rubyid_messages'>messages</span><span class='period'>.</span><span class='id identifier rubyid_shift'>shift</span>
+    <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DeleteMessageBatchRequestEntry.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_index'>index</span><span class='rbrace'>}</span><span class='tstring_content'>.Id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_message'>message</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DeleteMessageBatchRequestEntry.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_index'>index</span><span class='rbrace'>}</span><span class='tstring_content'>.ReceiptHandle</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_message'>message</span><span class='lbracket'>[</span><span class='symbol'>:receipt_handle</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+<span class='rbrace'>}</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="queue_name-instance_method">
   
     - (<tt>Object</tt>) <strong>queue_name</strong> 
   
 
   
-</p><table class="source_code">
+
+  
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -399,7 +1124,7 @@ so long as no attributes are different.</p>
       <pre class="code"><span class="info file"># File 'lib/em-aws/sqs.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_queue_name'>queue_name</span>
-  <span class='id identifier rubyid_url'>url</span><span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>https?:\/\/.*?\/(.+)</span><span class='regexp_end'>/</span></span><span class='comma'>,</span><span class='int'>1</span><span class='rbracket'>]</span>      
+  <span class='id identifier rubyid_url'>url</span><span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>https?:\/\/.*?\/(.+)</span><span class='regexp_end'>/</span></span><span class='comma'>,</span><span class='int'>1</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -409,11 +1134,11 @@ so long as no attributes are different.</p>
   </div>
 
 </div>
-    
+
     <div id="footer">
-  Generated on Sun Mar 18 20:18:29 2012 by 
+  Generated on Sat Jul 21 14:46:18 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.3).
+  0.8.2.1 (ruby-1.9.3).
 </div>
 
   </body>

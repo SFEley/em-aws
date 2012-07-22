@@ -6,7 +6,7 @@
 <title>
   Class: EventMachine::AWS::Response
   
-    &mdash; Documentation by YARD 0.7.5
+    &mdash; Documentation by YARD 0.8.2.1
   
 </title>
 
@@ -15,9 +15,11 @@
   <link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  relpath = '../..';
-  if (relpath != '') relpath += '/';
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../../';
+  framesUrl = "../../frames.html#!" + escape(window.location.href);
 </script>
+
 
   <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
 
@@ -26,36 +28,41 @@
 
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) document.body.className = 'frames';
-    </script>
-    
     <div id="header">
       <div id="menu">
   
-    <a href="../../_index.html">Index (R)</a> &raquo; 
+    <a href="../../_index.html">Index (R)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../../EventMachine.html" title="EventMachine (module)">EventMachine</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../AWS.html" title="EventMachine::AWS (module)">AWS</a></span></span>
      &raquo; 
     <span class="title">Response</span>
   
-  
+
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a id="class_list_link" href="#">Class List</a>
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+      Class List
+    </a>
   
-    <a id="method_list_link" href="#">Method List</a>
+    <a class="full_list_link" id="method_list_link"
+        href="../../method_list.html">
+      Method List
+    </a>
   
-    <a id="file_list_link" href="#">File List</a>
+    <a class="full_list_link" id="file_list_link"
+        href="../../file_list.html">
+      File List
+    </a>
   
 </div>
       <div class="clear"></div>
     </div>
-    
+
     <iframe id="search_frame"></iframe>
-    
+
     <div id="content"><h1>Class: EventMachine::AWS::Response
   
   
@@ -125,7 +132,10 @@ the subclasses SuccessResponse and ErrorResponse.</p>
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -150,7 +160,10 @@ the subclasses SuccessResponse and ErrorResponse.</p>
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -187,6 +200,7 @@ the subclasses SuccessResponse and ErrorResponse.</p>
     
   </span>
   
+  
     <span class="note title constructor">constructor</span>
   
   
@@ -216,6 +230,7 @@ the subclasses SuccessResponse and ErrorResponse.</p>
   
   
   
+  
 
   
     <span class="summary_desc"><div class='inline'></div></span>
@@ -237,6 +252,7 @@ the subclasses SuccessResponse and ErrorResponse.</p>
   
   
   
+  
 
   
     <span class="summary_desc"><div class='inline'><p>Must be overridden by subclasses.</p>
@@ -252,13 +268,15 @@ the subclasses SuccessResponse and ErrorResponse.</p>
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
-  <p class="signature first" id="initialize-instance_method">
+  <h3 class="signature first" id="initialize-instance_method">
   
     - (<tt><span class='object_link'><a href="" title="EventMachine::AWS::Response (class)">Response</a></span></tt>) <strong>initialize</strong>(http_response) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>A new instance of Response</p>
 
@@ -298,15 +316,16 @@ the subclasses SuccessResponse and ErrorResponse.</p>
     
       
       <span id=""></span>
-      <span id="body-instance_method"></span>
       <div class="method_details first">
-  <p class="signature first" id="body-instance_method">
+  <h3 class="signature first" id="body-instance_method">
   
     - (<tt>Object</tt>) <strong>body</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Returns the value of attribute body</p>
 
@@ -339,15 +358,16 @@ the subclasses SuccessResponse and ErrorResponse.</p>
     
       
       <span id=""></span>
-      <span id="header-instance_method"></span>
       <div class="method_details ">
-  <p class="signature " id="header-instance_method">
+  <h3 class="signature " id="header-instance_method">
   
     - (<tt>Object</tt>) <strong>header</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Returns the value of attribute header</p>
 
@@ -383,16 +403,18 @@ the subclasses SuccessResponse and ErrorResponse.</p>
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
-    
+
     
       <div class="method_details first">
-  <p class="signature first" id="status-instance_method">
+  <h3 class="signature first" id="status-instance_method">
   
     - (<tt>Object</tt>) <strong>status</strong> 
   
 
   
-</p><table class="source_code">
+
+  
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -414,13 +436,15 @@ the subclasses SuccessResponse and ErrorResponse.</p>
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="success?-instance_method">
+  <h3 class="signature " id="success?-instance_method">
   
     - (<tt>Boolean</tt>) <strong>success?</strong> 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Must be overridden by subclasses. (An actual base Response instance is NOT a success.)</p>
 
@@ -429,7 +453,7 @@ the subclasses SuccessResponse and ErrorResponse.</p>
 </div>
 <div class="tags">
   
-<h3>Returns:</h3>
+<p class="tag_title">Returns:</p>
 <ul class="return">
   
     <li>
@@ -467,11 +491,11 @@ the subclasses SuccessResponse and ErrorResponse.</p>
   </div>
 
 </div>
-    
+
     <div id="footer">
-  Generated on Sun Mar 18 20:18:30 2012 by 
+  Generated on Sat Jul 21 14:46:19 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.3).
+  0.8.2.1 (ruby-1.9.3).
 </div>
 
   </body>

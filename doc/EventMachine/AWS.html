@@ -6,7 +6,7 @@
 <title>
   Module: EventMachine::AWS
   
-    &mdash; Documentation by YARD 0.7.5
+    &mdash; Documentation by YARD 0.8.2.1
   
 </title>
 
@@ -15,9 +15,11 @@
   <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  relpath = '..';
-  if (relpath != '') relpath += '/';
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!" + escape(window.location.href);
 </script>
+
 
   <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
 
@@ -26,36 +28,41 @@
 
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) document.body.className = 'frames';
-    </script>
-    
     <div id="header">
       <div id="menu">
   
-    <a href="../_index.html">Index (A)</a> &raquo; 
+    <a href="../_index.html">Index (A)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../EventMachine.html" title="EventMachine (module)">EventMachine</a></span></span>
      &raquo; 
     <span class="title">AWS</span>
   
-  
+
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a id="class_list_link" href="#">Class List</a>
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
   
-    <a id="method_list_link" href="#">Method List</a>
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
   
-    <a id="file_list_link" href="#">File List</a>
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
   
 </div>
       <div class="clear"></div>
     </div>
-    
+
     <iframe id="search_frame"></iframe>
-    
+
     <div id="content"><h1>Module: EventMachine::AWS
   
   
@@ -96,11 +103,11 @@ default credentials and behavior for every interface.</p>
 
 </div><h2>Defined Under Namespace</h2>
 <p class="children">
-   
+  
     
       <strong class="modules">Modules:</strong> <span class='object_link'><a href="AWS/Inflections.html" title="EventMachine::AWS::Inflections (module)">Inflections</a></span>, <span class='object_link'><a href="AWS/Logger.html" title="EventMachine::AWS::Logger (module)">Logger</a></span>, <span class='object_link'><a href="AWS/Query.html" title="EventMachine::AWS::Query (module)">Query</a></span>
     
-   
+  
     
       <strong class="classes">Classes:</strong> <span class='object_link'><a href="AWS/Error.html" title="EventMachine::AWS::Error (class)">Error</a></span>, <span class='object_link'><a href="AWS/FailureResponse.html" title="EventMachine::AWS::FailureResponse (class)">FailureResponse</a></span>, <span class='object_link'><a href="AWS/Request.html" title="EventMachine::AWS::Request (class)">Request</a></span>, <span class='object_link'><a href="AWS/Response.html" title="EventMachine::AWS::Response (class)">Response</a></span>, <span class='object_link'><a href="AWS/SNS.html" title="EventMachine::AWS::SNS (class)">SNS</a></span>, <span class='object_link'><a href="AWS/SQS.html" title="EventMachine::AWS::SQS (class)">SQS</a></span>, <span class='object_link'><a href="AWS/Service.html" title="EventMachine::AWS::Service (class)">Service</a></span>, <span class='object_link'><a href="AWS/SuccessResponse.html" title="EventMachine::AWS::SuccessResponse (class)">SuccessResponse</a></span>
     
@@ -135,6 +142,7 @@ default credentials and behavior for every interface.</p>
   </span>
   
   
+  
     
     
   
@@ -158,6 +166,7 @@ default credentials and behavior for every interface.</p>
 
     
   </span>
+  
   
   
     
@@ -185,6 +194,7 @@ default credentials and behavior for every interface.</p>
   </span>
   
   
+  
     
     
   
@@ -208,6 +218,7 @@ default credentials and behavior for every interface.</p>
 
     
   </span>
+  
   
   
     
@@ -235,6 +246,7 @@ default credentials and behavior for every interface.</p>
   </span>
   
   
+  
     
     
   
@@ -257,7 +269,7 @@ default credentials and behavior for every interface.</p>
   
   
   <h3 class="inherited">Attributes included from <span class='object_link'><a href="AWS/Logger.html" title="EventMachine::AWS::Logger (module)">Logger</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="AWS/Logger.html#logger-instance_method" title="EventMachine::AWS::Logger#logger (method)">#logger</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="AWS/Logger.html#logfile-instance_method" title="EventMachine::AWS::Logger#logfile (method)">#logfile</a></span>, <span class='object_link'><a href="AWS/Logger.html#logger-instance_method" title="EventMachine::AWS::Logger#logger (method)">#logger</a></span>, <span class='object_link'><a href="AWS/Logger.html#loglevel-instance_method" title="EventMachine::AWS::Logger#loglevel (method)">#loglevel</a></span></p>
 
 
 
@@ -266,25 +278,22 @@ default credentials and behavior for every interface.</p>
   
   
   
-  <h2>Method Summary</h2>
   
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="AWS/Logger.html" title="EventMachine::AWS::Logger (module)">Logger</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="AWS/Logger.html#logfile-instance_method" title="EventMachine::AWS::Logger#logfile (method)">logfile</a></span>, <span class='object_link'><a href="AWS/Logger.html#logfile%3D-instance_method" title="EventMachine::AWS::Logger#logfile= (method)">logfile=</a></span>, <span class='object_link'><a href="AWS/Logger.html#loglevel-instance_method" title="EventMachine::AWS::Logger#loglevel (method)">loglevel</a></span>, <span class='object_link'><a href="AWS/Logger.html#loglevel%3D-instance_method" title="EventMachine::AWS::Logger#loglevel= (method)">loglevel=</a></span></p>
-
   <div id="class_attr_details" class="attr_details">
     <h2>Class Attribute Details</h2>
     
       
       <span id="aws_access_key_id=-class_method"></span>
-      <span id="aws_access_key_id-class_method"></span>
       <div class="method_details first">
-  <p class="signature first" id="aws_access_key_id-class_method">
+  <h3 class="signature first" id="aws_access_key_id-class_method">
   
     + (<tt>Object</tt>) <strong>aws_access_key_id</strong> 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>(Must be set in class initializers if you don&#39;t set it here)</p>
 
@@ -317,15 +326,16 @@ default credentials and behavior for every interface.</p>
     
       
       <span id="aws_secret_access_key=-class_method"></span>
-      <span id="aws_secret_access_key-class_method"></span>
       <div class="method_details ">
-  <p class="signature " id="aws_secret_access_key-class_method">
+  <h3 class="signature " id="aws_secret_access_key-class_method">
   
     + (<tt>Object</tt>) <strong>aws_secret_access_key</strong> 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>(Must be set in class initializers if you don&#39;t set it here)</p>
 
@@ -358,15 +368,16 @@ default credentials and behavior for every interface.</p>
     
       
       <span id="region=-class_method"></span>
-      <span id="region-class_method"></span>
       <div class="method_details ">
-  <p class="signature " id="region-class_method">
+  <h3 class="signature " id="region-class_method">
   
     + (<tt>Object</tt>) <strong>region</strong> 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Defaults to <strong>&#39;us-east-1&#39;</strong></p>
 
@@ -399,15 +410,16 @@ default credentials and behavior for every interface.</p>
     
       
       <span id="retries=-class_method"></span>
-      <span id="retries-class_method"></span>
       <div class="method_details ">
-  <p class="signature " id="retries-class_method">
+  <h3 class="signature " id="retries-class_method">
   
     + (<tt>Object</tt>) <strong>retries</strong> 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Defaults to <strong>10</strong>; applies to network errors and Amazon 50x errors</p>
 
@@ -440,15 +452,16 @@ default credentials and behavior for every interface.</p>
     
       
       <span id="ssl=-class_method"></span>
-      <span id="ssl-class_method"></span>
       <div class="method_details ">
-  <p class="signature " id="ssl-class_method">
+  <h3 class="signature " id="ssl-class_method">
   
     + (<tt>Object</tt>) <strong>ssl</strong> 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     <p>Defaults to <strong>true</strong></p>
 
@@ -483,11 +496,11 @@ default credentials and behavior for every interface.</p>
 
 
 </div>
-    
+
     <div id="footer">
-  Generated on Sun Mar 18 20:18:29 2012 by 
+  Generated on Sat Jul 21 14:46:18 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.3).
+  0.8.2.1 (ruby-1.9.3).
 </div>
 
   </body>
