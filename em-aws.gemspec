@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ["sfeley@gmail.com"]
   s.homepage    = ""
   s.summary     = %q{EventMachine library for Amazon Web Services}
-  s.description = %q{EM-AWS is a generalized wrapper for the various Amazon Web Services SDKs using EventMachine and a callback-based model for handling responses.}
+  s.description = %q{EM::AWS is a generalized wrapper for the various Amazon Web Services SDKs using EventMachine and a callback-based model for handling responses.}
 
   s.rubyforge_project = "em-aws"
 
@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "eventmachine"
   s.add_runtime_dependency "em-http-request"
   s.add_runtime_dependency "nokogiri"
-  
-  s.add_development_dependency "rspec"
-  s.add_development_dependency "webmock"
+
+  s.add_development_dependency "rspec", '~> 2.11'
+  s.add_development_dependency "webmock", '~> 1.8.7'
 end

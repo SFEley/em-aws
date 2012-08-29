@@ -81,14 +81,27 @@ module EventMachine
         # @param [Symbol] name The action to be called
         # @param [optional, Hash] options
         # @option options [Proc] :filter_params A lambda that performs in-place transformations on the parameters
-        #
+        # @option options [Symbol] :single_param If an action takes a single value, provide the AWS parameter name for it and a hash will be unnecessary
         def action(name, options={})
           filter_params = options[:filter_params]
+          filter_response = options[:filter_response]
+          single_param = options[:single_param]
 
           define_method(name) do |params={}, &block|
+            if single_param and !params.is_a?(Hash)
+              params = {single_param => params}
+            end
             filter_params[params] if filter_params
-            call name, params, &block
+
+            if filter_response
+              request = call name, params, &filter_response
+              request.callback &block
+              request
+            else
+              call name, params, &block
+            end
           end
+
         end
       end
 
