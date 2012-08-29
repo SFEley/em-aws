@@ -23,6 +23,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "em-http-request"
   s.add_runtime_dependency "nokogiri"
 
-  s.add_development_dependency "rspec", '~> 2.11'
+  s.add_development_dependency "em-aws-spec", ">=0.0.1"
   s.add_development_dependency "webmock", '~> 1.8.7'
 end
