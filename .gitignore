@@ -5,3 +5,4 @@ Gemfile.lock
 pkg/*
 *.tmproj
 .rvmrc
+.DS_Store
