@@ -18,27 +18,31 @@ The **em-aws** gem is dependent on the **eventmachine**, **em-http-request**, an
 If all AWS services in your application use the same credentials and
 region, you may supply them globally:
 
-    require 'em-aws'
-    
-    EM::AWS.aws_access_key_id = 'YOUR_ACCESS_KEY'
-    EM::AWS.aws_secret_access_key = 'YOUR_SECRET_KEY'
-    
-    # These global defaults can also be tweaked:
-    # EM::AWS.region = 'us-east-1'
-    # EM::AWS.ssl = true
-    # EM::AWS.retries = 10
-    
+```ruby
+require 'em-aws'
+
+EM::AWS.aws_access_key_id = 'YOUR_ACCESS_KEY'
+EM::AWS.aws_secret_access_key = 'YOUR_SECRET_KEY'
+
+# These global defaults can also be tweaked:
+# EM::AWS.region = 'us-east-1'
+# EM::AWS.ssl = true
+# EM::AWS.retries = 10
+```
+
 If you don't want to supply your credentials globally, or need to use multiple identities in the same application, you can pass any of the above as options when constructing individual service objects:
 
-    # Basic example using the Simple Notification Service:
-    sns = EM::AWS::SNS.new
-    
-    # The tricked-out version:
-    sns2 = EM::AWS::SNS.new aws_access_key_id: 'OTHER_ACCESS_KEY',
-                            aws_secret_access_key: 'OTHER_SECRET_KEY',
-                            region: 'ap-southeast-1',
-                            ssl: false,
-                            method: :get
+```ruby
+# Basic example using the Simple Notification Service:
+sns = EM::AWS::SNS.new
+
+# The tricked-out version:
+sns2 = EM::AWS::SNS.new aws_access_key_id: 'OTHER_ACCESS_KEY',
+                        aws_secret_access_key: 'OTHER_SECRET_KEY',
+                        region: 'ap-southeast-1',
+                        ssl: false,
+                        method: :get
+```
 
 ## Making Queries ##
 
@@ -46,24 +50,30 @@ If you don't want to supply your credentials globally, or need to use multiple i
 
 To make any AWS request, simply create a service object of the appropriate class and then call the API action as a method using Ruby *snake_case* conventions.  Parameters are most often passed as a hash:
 
-    sns = EM::AWS::SNS.new
-    request = sns.create_topic name: 'MyTestTopic'
-    
+```ruby
+sns = EM::AWS::SNS.new
+request = sns.create_topic name: 'MyTestTopic'
+```
+
 The request object receives and parses the response, and makes the returned values available as attributes or a hash:
 
-    request.finished?    #=> true
-    request.status       #=> 200
-    request.topic_arn    #=> arn:aws:sns:us-east-1:123456789012:MyTestTopic
-    request[:topic_arn]  #=> (same)
-    request['TopicArn']  #=> (same)
+```ruby
+request.finished?    #=> true
+request.status       #=> 200
+request.topic_arn    #=> arn:aws:sns:us-east-1:123456789012:MyTestTopic
+request[:topic_arn]  #=> (same)
+request['TopicArn']  #=> (same)
+```
 
 The request can be passed a block, which -- if the request is successful -- receives the parsed response data and can act on it any way you like (in EventMachine terms, it becomes a _callback_):
 
-    # Subscribe to the topic once created
-    sns.create_topic name: 'MyTestTopic' do |response|
-      sns.subscribe protocol: 'email', endpoint: 'myself@example.org', topic_arn: response.topic_arn
-    end
-    
+```ruby
+# Subscribe to the topic once created
+sns.create_topic name: 'MyTestTopic' do |response|
+  sns.subscribe protocol: 'email', endpoint: 'myself@example.org', topic_arn: response.topic_arn
+end
+```
+
 This single block usage works in both EventMachine and synchronous modes. (See below.)  If you want to add more than one callback, or handle query failures in an interesting way, you'll need to use EventMachine callbacks and errbacks.
 
 ## Queries With EventMachine ##
@@ -74,19 +84,21 @@ The **Request** object mixes in the [**EventMachine::Deferrable**][DEFER] module
 
 (**Note:** Unless your entire program runs a continuous EventMachine loop, remember to call `EM.stop` when you're finished handling all requests. You will need to do so for both success and failure cases.)
 
-    EM.run do
-      request = sns.create_topic name: 'MyTopic'
-    
-      request.callback do |resp| 
-        puts "You created topic #{resp.topic_arn}."
-        EM.stop
-      end
-    
-      request.errback do |resp| 
-        puts "Amazon returned failure: #{resp.error}."
-        EM.stop
-      end
-    end
+```ruby
+EM.run do
+  request = sns.create_topic name: 'MyTopic'
+
+  request.callback do |resp| 
+    puts "You created topic #{resp.topic_arn}."
+    EM.stop
+  end
+
+  request.errback do |resp| 
+    puts "Amazon returned failure: #{resp.error}."
+    EM.stop
+  end
+end
+```
 
 ### Success Case ###
 
@@ -110,10 +122,12 @@ This mode is intended as a convenience for developers who want to use gems based
 
 The request object contains the response returned from Amazon (accessible via the `#response` method) and delegates any data access to it.  Working with it is therefore very similar to working with the response in a callback block.   Referencing again the example from earlier up:
 
-    # (EventMachine is not running)
-    request = sns.create_topic name: 'MyTestTopic'
-    request.success?     #=> true
-    request.topic_arn    #=> arn:aws:sns:us-east-1:123456789012:MyTestTopic
+```ruby
+# (EventMachine is not running)
+request = sns.create_topic name: 'MyTestTopic'
+request.success?     #=> true
+request.topic_arn    #=> arn:aws:sns:us-east-1:123456789012:MyTestTopic
+```
 
 If a block was given, that block will be run before the method returns.  If other **EM::AWS** queries are made within that block, EventMachine will not stop until _all_ of them have completed.  (Note, however, that these "inner" queries _will not_ have this magic synchronous behavior, because EventMachine will be running when they are called. In other words, don't nest queries more than one level deep.)
 
@@ -142,17 +156,23 @@ The following behavior is true for all [AWS] services:
 
 The Simple Queue Service behaves differently from most other Amazon services, in that most calls must be made to a _queue URL_ rather than a root path.  This must be supplied on initialization of the **EM::AWS::SQS** object.  If you already know the URL of the queue you want to work with, you can simply pass it with the `:url` parameter:
 
-    queue = EM::AWS::SQS.new url: 'https://sqs.us-east-1.amazonaws.com/1234567890/My-Interesting-Queue'
-    
+```ruby
+queue = EM::AWS::SQS.new url: 'https://sqs.us-east-1.amazonaws.com/1234567890/My-Interesting-Queue'
+```
+
 If you know a queue's name but not its URL, you can use the `.get` class method to call 'GetQueueUrl' and create the proper SQS object:
 
-    queue = EM::AWS::SQS.get 'My-Interesting-Queue'
-    
+```ruby
+queue = EM::AWS::SQS.get 'My-Interesting-Queue'
+```
+
 You can also create a queue that doesn't exist yet using the `.create` class method, passing any optional attributes as a hash:
 
-    queue = EM::AWS::SQS.create 'My-Interesting-Queue', 
-        visibility_timeout: 120,
-        maximum_message_size: 8192
+```ruby
+queue = EM::AWS::SQS.create 'My-Interesting-Queue', 
+    visibility_timeout: 120,
+    maximum_message_size: 8192
+```
 
 (If a queue with that name already exists, the `.create` class method has the same net effect as `.get`, except that Amazon will return an error if you pass any attributes that are different from the ones already set.)
 
@@ -166,5 +186,4 @@ You can also create a queue that doesn't exist yet using the `.create` class met
 ## Contributing ##
 
 
-    
     
