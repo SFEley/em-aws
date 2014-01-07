@@ -13,4 +13,6 @@ group :development do
   gem "guard-yard"
   gem "growl"
   gem "redcarpet"
+  gem "rb-fsevent", require: false
+  gem "terminal-notifier-guard"
 end
